@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    Page: rooms
-  </div>
+  <main>
+    <NuxtPage />
+  </main>
 </template>
 
 <style scoped></style>

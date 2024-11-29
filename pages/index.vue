@@ -160,7 +160,6 @@ const roomSlides = Array(5)
     imgSrcSm: '/images/home-room-sm-1.png',
     alt: 'room-a'
   }))
-
 const restaurantSlides = Array(5)
   .fill(0)
   .map((_, i) => ({
@@ -223,7 +222,7 @@ definePageMeta({
       </Carousel>
 
       <div
-        class="absolute inset-x-0 bottom-14 z-10 flex w-full flex-col items-center justify-between px-4 md:flex-row md:px-20"
+        class="absolute inset-x-0 bottom-10 z-10 flex h-[400px] w-full items-center justify-between px-4 md:flex-row md:px-20"
       >
         <div class="mt-10 flex flex-col items-center md:mt-0 md:block md:text-left">
           <div class="mb-5 mt-10 font-bold text-primary-300 md:mb-10">

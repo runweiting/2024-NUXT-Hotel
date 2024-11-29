@@ -10,13 +10,14 @@ export default defineNuxtConfig({
     '~/': './',
     '@': './'
   },
-  css: ['~/assets/css/tailwind.css'],
+  css: ['~/assets/css/tailwind.css', 'vue-final-modal/style.css'],
   modules: [
     '@nuxtjs/tailwindcss',
     'nuxt-anchorscroll',
     'nuxt-icon-tw',
     'vue3-carousel-nuxt',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@samk-dev/nuxt-vcalendar'
   ],
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',

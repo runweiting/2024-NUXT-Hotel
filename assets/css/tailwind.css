@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-primary-50;
+}
+
 @font-face {
   font-family: 'elffont-rock';
   src: url('~/assets/fonts/elffont-rock.otf') format('opentype');
@@ -96,5 +100,9 @@
     @apply absolute bottom-0 left-[0px] z-10 h-[187px] w-[1060px];
     content: '';
     background-image: url('/images/deco-line-group-horizontal.svg');
+  }
+  .room-title-deco::before {
+    @apply absolute left-0 top-1 inline-block h-6 w-1 rounded-lg bg-primary-300;
+    content: '';
   }
 }
