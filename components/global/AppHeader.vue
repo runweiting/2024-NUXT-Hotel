@@ -84,13 +84,13 @@ const toggleMenu = () => {
             <!-- Desktop User Menu -->
             <li class="group relative hidden md:block">
               <button
-                class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-100"
+                class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-300"
               >
                 <Icon name="mdi:account-circle-outline" class="text-xl" />
                 Jessica
               </button>
               <div
-                class="absolute right-0 mt-2 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
+                class="group/menu-item absolute right-0 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
               >
                 <NuxtLink
                   to="/account"
