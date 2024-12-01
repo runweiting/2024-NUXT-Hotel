@@ -105,4 +105,8 @@ body {
     @apply absolute left-0 top-1 inline-block h-6 w-1 rounded-lg bg-primary-300;
     content: '';
   }
+  .room-title-deco-sm::before {
+    @apply absolute left-0 top-1 inline-block h-4 w-1 rounded-lg bg-primary-300;
+    content: '';
+  }
 }

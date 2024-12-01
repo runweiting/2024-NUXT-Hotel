@@ -259,8 +259,9 @@ definePageMeta({
                   </template>
                 </Carousel>
               </div>
-              <div class="col-span-12 bg-white px-8 py-4 lg:col-span-5">
+              <div class="relative col-span-12 bg-white px-8 py-4 lg:col-span-5">
                 <div class="text-black md:py-10">
+                  <NuxtLink :to="`/rooms/${room.id}`" class="absolute inset-0 z-10" />
                   <h3 class="mb-4 text-4xl font-bold">
                     {{ room.name }}
                   </h3>
@@ -280,16 +281,9 @@ definePageMeta({
                     </li>
                   </ul>
                   <div class="mb-6 h-[2px] w-full bg-gradient-to-r from-[#BE9C7C] to-white" />
-                  <div
-                    class="flex items-center justify-between text-base text-primary-300 md:text-xl"
-                  >
+                  <div class="flex items-center justify-between text-primary-300">
                     <p class="mb-0 text-2xl font-bold">NT$ {{ room.price.toLocaleString() }}</p>
-                    <NuxtLink
-                      :to="`/rooms/${room.id}`"
-                      class="text-primary-300 hover:text-primary-50"
-                    >
-                      <Icon name="mdi:arrow-right" class="text-xl" />
-                    </NuxtLink>
+                    <Icon name="mdi:arrow-right" class="h-6 w-6" />
                   </div>
                 </div>
               </div>

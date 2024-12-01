@@ -6,22 +6,41 @@ export default defineNuxtConfig({
     typeCheck: process.env.NODE_ENV === 'development',
     shim: false
   },
+  imports: {
+    dirs: ['stores']
+  },
   alias: {
     '~/': './',
     '@': './'
   },
-  css: ['~/assets/css/tailwind.css', 'vue-final-modal/style.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    'vue-final-modal/style.css',
+    'sweetalert2/dist/sweetalert2.min.css'
+  ],
   modules: [
     '@nuxtjs/tailwindcss',
     'nuxt-anchorscroll',
     'nuxt-icon-tw',
     'vue3-carousel-nuxt',
     '@nuxt/image',
-    '@samk-dev/nuxt-vcalendar'
+    '@samk-dev/nuxt-vcalendar',
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+    ['@vee-validate/nuxt', { autoImports: true }]
   ],
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',
-    pageTransition: { name: 'page', mode: 'out-in' }
+    pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      script: [
+        {
+          src: 'https://cdn.jsdelivr.net/npm/sweetalert2@11',
+          type: 'text/javascript',
+          defer: true
+        }
+      ]
+    }
   },
   image: {
     provider: 'ipx',
@@ -36,6 +55,11 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
       xxl: 1536
+    }
+  },
+  runtimeConfig: {
+    public: {
+      hexSchoolApiUrl: 'https://nuxr3.zeabur.app'
     }
   }
 })

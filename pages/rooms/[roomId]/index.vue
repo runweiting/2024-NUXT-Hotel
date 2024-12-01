@@ -68,6 +68,8 @@ const imageUrlList = [
   '/images/room-a-5.png'
 ]
 
+const route = useRoute()
+
 const MAX_BOOKING_PEOPLE = 10
 const bookingPeople = ref(1)
 
@@ -277,10 +279,13 @@ definePageMeta({
         </div>
 
         <div>
-          <p class="mb-10 text-3xl font-bold text-primary-300">NT$ 10,000</p>
-          <button class="btn h-[60px] w-full rounded-xl bg-primary-300 text-xl text-white">
+          <p class="mb-10 text-2xl font-bold text-primary-300">NT$ 10,000</p>
+          <NuxtLink
+            :to="`/rooms/${route.params.roomId}/booking`"
+            class="btn h-[60px] w-full rounded-xl bg-primary-300 font-bold text-white"
+          >
             立即預訂
-          </button>
+          </NuxtLink>
         </div>
       </div>
     </div>
