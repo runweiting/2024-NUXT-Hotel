@@ -10,16 +10,16 @@ const isTransparentRoute = computed(() => transparentRoutes.includes(route.name 
 const isScrolled = ref(false)
 const isMenuOpen = ref(false)
 
-// 捲動處理
+// 如果 window 往下滾動超過 50px isScrolled 為 true
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
 }
 
-// 生命週期處理
+// 監聽 window 'scroll' 事件
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
 })
-
+// 移除監聽
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
@@ -34,7 +34,7 @@ const toggleMenu = () => {
   <header
     :class="[
       'fixed top-0 z-30 w-full transition-colors duration-300',
-      isScrolled ? 'bg-black' : isTransparentRoute ? 'bg-transparent' : 'bg-neutral-900'
+      isScrolled ? 'bg-black' : isTransparentRoute ? 'bg-transparent' : 'bg-black'
     ]"
   >
     <nav class="px-3 py-4 md:px-20 md:py-6">

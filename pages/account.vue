@@ -1,9 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  middleware: (to) => {
+    if (to.path === '/account') {
+      return navigateTo('/account/signup')
+    }
+  }
+})
+</script>
 
 <template>
-  <div>
-    Page: account
-  </div>
+  <main>
+    <NuxtPage />
+  </main>
 </template>
 
 <style scoped></style>

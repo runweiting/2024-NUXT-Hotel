@@ -26,7 +26,7 @@ const modelValue = defineModel<string>({
     :id="id"
     v-model="modelValue"
     :type="type"
-    class="block w-full rounded-md border-gray-300 shadow-sm placeholder:text-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+    class="block w-full rounded-md border-gray-300 shadow-sm placeholder:text-gray-400 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
   />
 </template>
 

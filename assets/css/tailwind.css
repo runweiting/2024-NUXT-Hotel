@@ -109,4 +109,9 @@ body {
     @apply absolute left-0 top-1 inline-block h-4 w-1 rounded-lg bg-primary-300;
     content: '';
   }
+  .signup-info::before {
+    @apply absolute left-0 top-10 -z-10 h-[187px] w-[1060px];
+    content: '';
+    background-image: url('/images/deco-line-group-horizontal.svg');
+  }
 }
