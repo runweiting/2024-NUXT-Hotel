@@ -1,5 +1,3 @@
-import { string } from 'zod'
-
 export interface UserAddress {
   zipcode: string
   detail: string
@@ -19,12 +17,12 @@ export interface BaseUserInfo {
   updatedAt: string
 }
 
-export interface UserSignin {
+export interface UserLogin {
   email: string
   password: string
 }
 
-export interface UserSignup extends UserSignin {
+export interface UserSignup extends UserLogin {
   name: string
   phone: string
   birthday: string

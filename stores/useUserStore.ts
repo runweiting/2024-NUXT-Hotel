@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import type { ApiDataResponse, ApiStatusResponse, ErrorResponse } from '~/types/api/ApiResponse'
-import type { BaseUserInfo, UserSignup } from '~/types/User'
+import type { BaseUserInfo, UserSignup, UserLogin } from '~/types/User'
 
 export const useUserStore = defineStore('user', () => {
   const { successToast, warningToast, errorToast } = useSweetAlert()
@@ -46,10 +46,25 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const login = async (payload: UserLogin): Promise<void> => {
+    userState.isLoading = true
+    try {
+      const res = await axios.post<ApiDataResponse<BaseUserInfo>>('/api/v1/user/login', payload)
+      userState.data = res.data.result
+      // token 還沒處理
+      successToast('登入成功')
+    } catch (err: any) {
+      handleError(err)
+    } finally {
+      userState.isLoading = false
+    }
+  }
+
   return {
     savedEmail,
     savedPassword,
     signup,
+    login,
     isLoading: userState.isLoading
   }
 })

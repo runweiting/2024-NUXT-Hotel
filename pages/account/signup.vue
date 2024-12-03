@@ -77,7 +77,7 @@ definePageMeta({
             </div>
           </li>
         </ol>
-        <!-- Signup Step One Section -->
+        <!-- Signup Section -->
         <div class="w-3/4">
           <FormsSignupEmailPasswordForm v-if="currentStep === 1" @next="changeStep" />
           <FormsSignupPersonalInfoForm v-else-if="currentStep === 2" @submit="nextStep" />

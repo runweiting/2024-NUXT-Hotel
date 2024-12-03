@@ -70,7 +70,7 @@ const onSubmit = async () => {
     </form>
     <div class="text-white">
       <span class="me-2 font-medium">已經有會員了嗎？</span>
-      <NuxtLink to="/" class="font-bold text-primary-300 underline underline-offset-1"
+      <NuxtLink to="/account/login" class="font-bold text-primary-300 underline underline-offset-1"
         >立即登入</NuxtLink
       >
     </div>

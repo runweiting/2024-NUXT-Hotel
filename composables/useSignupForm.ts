@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import type { UserSignup } from '~/types/User'
-import { useUserStore } from '~/stores/useUserStore'
 import zipcodeData from '~/assets/tw-zipcode.json'
 
 // 預先處理成 Set 提高查詢效能
@@ -105,7 +104,6 @@ export const useSignupForm = () => {
           detail: `${values.cityArea || ''}${values.detail || ''}`.trim()
         }
       }
-      console.log('form', form)
       await userStore.signup(form)
       resetForm()
     } catch (err) {

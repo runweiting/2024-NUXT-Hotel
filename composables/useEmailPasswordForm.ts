@@ -47,8 +47,6 @@ export const useEmailPasswordForm = () => {
       userStore.savedEmail = values.signupEmail.trim()
       userStore.savedPassword = values.signupPassword.trim()
     }
-    console.log('savedEmail', userStore.savedEmail)
-    console.log('savedPassword', userStore.savedPassword)
     return isStepOneValid.valid
   })
 
