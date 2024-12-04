@@ -253,12 +253,7 @@ definePageMeta({
                   <div>NT$ 19,000</div>
                 </div>
               </div>
-              <button
-                class="btn mt-6 w-full rounded-lg bg-primary-300 py-4 font-bold text-white"
-                @click="confirmBooking"
-              >
-                確認訂房
-              </button>
+              <button class="btn mt-6 w-full py-4" @click="confirmBooking">確認訂房</button>
             </div>
           </div>
         </div>

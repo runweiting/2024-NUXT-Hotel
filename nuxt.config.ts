@@ -42,6 +42,18 @@ export default defineNuxtConfig({
       ]
     }
   },
+  routeRules: {
+    // 添加全局資產快取
+    '/_nuxt/**': {
+      headers: {
+        'cache-control': 'public,max-age=31536000,immutable'
+      }
+    },
+    '/': { prerender: true }, // 在建構打包時預渲染
+    '/rooms/**': { isr: 3600 }, // 過期時間為 1 小時
+    '/account/**': { ssr: false },
+    '/user/**': { ssr: false }
+  },
   router: {
     options: {
       // 匹配到路由時添加 'active' class
@@ -49,6 +61,9 @@ export default defineNuxtConfig({
       linkActiveClass: 'active',
       linkExactActiveClass: 'active-exact'
     }
+  },
+  nitro: {
+    preset: 'node-server'
   },
   runtimeConfig: {
     public: {

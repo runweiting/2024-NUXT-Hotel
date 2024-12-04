@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useModal } from 'vue-final-modal'
-import ModalConfirm from '~/components/ModalConfirm.vue'
+import ModalConfirmBooking from '~/components/ModalConfirmBooking.vue'
 
 interface RoomDetails {
   name: string
@@ -91,7 +91,7 @@ const bookingDate = reactive({
 })
 
 const { open, close } = useModal({
-  component: ModalConfirm,
+  component: ModalConfirmBooking,
   attrs: {
     // 傳入 bookingDate
     dateTime: bookingDate,

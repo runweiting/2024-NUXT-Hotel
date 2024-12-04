@@ -62,8 +62,8 @@ watch(
 
 <template>
   <VueFinalModal
-    class="flex items-center justify-center"
-    content-class="max-w-3xl w-full p-10 bg-white space-y-4 rounded-3xl shadow-lg backdrop-blur-sm"
+    class="flex items-center justify-center bg-black/30 backdrop-blur-sm"
+    content-class="max-w-3xl w-full p-10 bg-white space-y-4 rounded-3xl shadow-lg"
     content-transition="vfm-fade"
     overlay-transition="vfm-fade"
     @click="$emit('close')"

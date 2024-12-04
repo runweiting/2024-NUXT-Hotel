@@ -23,16 +23,19 @@ body {
 /* 擴充自定元件 */
 @layer components {
   .btn {
-    @apply rounded-3xl bg-primary-500 px-4 py-2 text-center text-white transition-all duration-200 hover:bg-primary-600 focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-primary-200 disabled:bg-primary-200;
+    @apply rounded-md bg-primary-300 px-4 py-2 text-center font-bold text-white transition-all duration-200 hover:bg-primary-600 focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-primary-200 disabled:bg-primary-200;
   }
   .btn-active {
-    @apply rounded-3xl bg-primary-500 px-4 py-2 text-center text-white transition-all duration-200 hover:bg-primary-600 focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-primary-200 disabled:bg-primary-200 [&.active]:bg-primary-900 [&.active]:ring-2 [&.active]:ring-primary-300 [&.active]:ring-offset-2 [&.active]:ring-offset-primary-300;
+    @apply rounded-md bg-primary-300 px-4 py-2 text-center font-bold text-white transition-all duration-200 hover:bg-primary-600 focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-primary-200 disabled:bg-primary-200 [&.active]:bg-primary-900 [&.active]:ring-2 [&.active]:ring-primary-300 [&.active]:ring-offset-2 [&.active]:ring-offset-primary-300;
   }
   .btn-outline {
-    @apply rounded-md border border-primary-500 px-4 py-2 text-center text-primary-500 transition-all duration-200 hover:bg-primary-700 hover:text-white focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-primary-200 disabled:bg-primary-200;
+    @apply rounded-md border border-primary-500 px-4 py-2 text-center font-bold text-primary-500 transition-all duration-200 hover:bg-primary-700 hover:text-white focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-primary-200 disabled:bg-primary-200;
+  }
+  .btn-outline-cancel {
+    @apply rounded-md border border-primary-500 bg-primary-500 px-4 py-2 text-center font-bold text-white transition-all duration-200 hover:bg-white hover:text-primary-500 focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-primary-200 disabled:bg-primary-200;
   }
   .btn-outline-active {
-    @apply rounded-md border border-primary-500 px-4 py-2 text-center text-white transition-all duration-200 hover:bg-primary-700 disabled:bg-primary-200 [&.active]:bg-primary-700;
+    @apply rounded-md border border-primary-500 px-4 py-2 text-center font-bold text-white transition-all duration-200 hover:bg-primary-700 disabled:bg-primary-200 [&.active]:bg-primary-700;
   }
 }
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ModalsContainer } from 'vue-final-modal'
 const route = useRoute()
 </script>
 
@@ -13,7 +14,7 @@ const route = useRoute()
         <NuxtImg
           src="/images/profile-hero.png"
           alt="profile-hero"
-          class="h-[384px] w-full object-cover"
+          class="h-[300px] w-full object-cover"
         />
       </picture>
       <div class="absolute inset-y-0 top-[120px] flex items-center space-x-6 px-20">
@@ -26,7 +27,7 @@ const route = useRoute()
       </div>
     </div>
     <div>
-      <ul class="flex space-x-4 p-20 text-white">
+      <ul class="flex space-x-4 px-20 py-14 text-white">
         <li>
           <NuxtLink :to="`/user/${route.params.userId}/profile`" class="btn-outline-active"
             >個人資料</NuxtLink
@@ -39,6 +40,7 @@ const route = useRoute()
         </li>
       </ul>
       <slot />
+      <ModalsContainer />
     </div>
     <picture>
       <!-- 螢幕寬度 >= 768 px，瀏覽器優先載入 :srcset 所指定圖片 -->

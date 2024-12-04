@@ -19,7 +19,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="mb-20 flex space-x-10 px-20">
+  <div class="mb-20 flex space-x-4 px-20">
     <!-- Password Section -->
     <div class="w-2/5">
       <section class="flex flex-col gap-6 rounded-3xl bg-white p-10">
