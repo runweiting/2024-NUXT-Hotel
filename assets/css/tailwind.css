@@ -8,11 +8,6 @@ body {
   @apply bg-primary-50;
 }
 
-@font-face {
-  font-family: 'elffont-rock';
-  src: url('~/assets/fonts/elffont-rock.otf') format('opentype');
-}
-
 /* 擴充全域字體 */
 @layer base {
   html {
