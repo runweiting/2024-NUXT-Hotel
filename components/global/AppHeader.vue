@@ -109,7 +109,7 @@ const toggleMenu = () => {
             <!-- Mobile Login Link -->
             <li class="md:hidden">
               <NuxtLink
-                to="/login"
+                to="/account/login"
                 class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
               >
                 會員登入

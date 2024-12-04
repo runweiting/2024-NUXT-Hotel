@@ -4,7 +4,7 @@ import { ModalsContainer } from 'vue-final-modal'
 
 <template>
   <AppHeader />
-  <main>
+  <main class="bg-black">
     <slot />
     <ModalsContainer />
   </main>

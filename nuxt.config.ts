@@ -42,6 +42,19 @@ export default defineNuxtConfig({
       ]
     }
   },
+  router: {
+    options: {
+      // 匹配到路由時添加 'active' class
+      // 完全匹配時添加 'active-exact' class
+      linkActiveClass: 'active',
+      linkExactActiveClass: 'active-exact'
+    }
+  },
+  runtimeConfig: {
+    public: {
+      hexSchoolApiUrl: 'https://nuxr3.zeabur.app'
+    }
+  },
   image: {
     provider: 'ipx',
     domains: ['localhost'],
@@ -55,11 +68,6 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
       xxl: 1536
-    }
-  },
-  runtimeConfig: {
-    public: {
-      hexSchoolApiUrl: 'https://nuxr3.zeabur.app'
     }
   }
 })

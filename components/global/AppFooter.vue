@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <footer class="md:pb-30 bg-black px-3 py-4 md:px-20 md:py-6">
+  <footer class="bg-black px-3 py-20">
     <div class="container px-4">
       <!-- Upper Section -->
       <div
