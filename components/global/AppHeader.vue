@@ -93,7 +93,7 @@ const toggleMenu = () => {
                 class="group/menu-item absolute right-0 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
               >
                 <NuxtLink
-                  to="/account"
+                  to="/user/Jessica"
                   class="block px-6 py-4 text-gray-700 hover:bg-primary-50 hover:text-primary-900"
                 >
                   我的帳戶

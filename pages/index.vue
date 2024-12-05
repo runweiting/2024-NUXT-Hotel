@@ -222,7 +222,7 @@ definePageMeta({
       </Carousel>
 
       <div
-        class="absolute inset-x-0 bottom-10 z-10 flex h-[400px] w-full items-center justify-between px-4 md:flex-row md:px-20"
+        class="absolute inset-0 z-10 mx-auto my-auto flex h-[400px] w-full items-center justify-center space-x-10 px-4 md:flex-row md:px-20"
       >
         <div class="mt-10 flex flex-col items-center md:mt-0 md:block md:text-left">
           <div class="mb-5 mt-10 font-bold text-primary-300 md:mb-10">
@@ -231,25 +231,23 @@ definePageMeta({
           </div>
           <div class="h-[2px] w-[33vw] bg-gradient-to-r from-[#BE9C7C] to-white" />
         </div>
-        <div
-          class="hero-intro relative flex max-h-[62vh] max-w-[48vw] translate-x-[10%] items-center justify-center rounded-[80px] border border-[#F5F7F9] bg-gradient-to-b from-transparent to-white/30 p-[5.5%] backdrop-blur-sm md:translate-x-0"
-        >
-          <div class="hero-intro-content max-w-[39vw] text-white">
-            <h1 class="mb-6 whitespace-nowrap text-[clamp(2rem,5vw,3.5rem)] font-bold">
-              高雄<br />豪華住宿之選
-            </h1>
-            <p
-              class="mb-[min(5vh,3rem)] whitespace-nowrap text-[clamp(1rem,1.5vw,2rem)] font-semibold md:whitespace-normal"
-            >
-              致力於為您提供無與倫比的奢華體驗與優質服務
-            </p>
-            <NuxtLink
-              to="/rooms"
-              class="btn duration-250 flex w-full items-center justify-center gap-3 border-0 text-end text-xl font-semibold transition-all hover:text-white hover:shadow-[inset_48vw_0_0_0_var(--primary)]"
-            >
-              立即訂房
-            </NuxtLink>
-          </div>
+        <!-- hero-intro -->
+        <!-- text-[clamp(2rem,5vw,3.5rem)] 自訂響應式字體：2rem：字體最小值，5vw：理想字體大小，3.5rem：字體最大值 -->
+        <div class="hero-intro relative text-white">
+          <h1 class="mb-2 whitespace-nowrap text-[clamp(2rem,5vw,3.5rem)] font-bold">
+            高雄<br />豪華住宿之選
+          </h1>
+          <p
+            class="mb-[min(5vh,3rem)] whitespace-nowrap text-[clamp(1.25rem,1.5vw,2rem)] font-semibold md:whitespace-normal"
+          >
+            致力於為您提供無與倫比的奢華體驗與優質服務
+          </p>
+          <NuxtLink
+            to="/rooms"
+            class="btn duration-250 flex w-full items-center justify-center gap-3 border-0 text-end text-xl font-semibold transition-all hover:text-white hover:shadow-[inset_48vw_0_0_0_var(--primary)]"
+          >
+            立即訂房
+          </NuxtLink>
         </div>
       </div>
     </section>

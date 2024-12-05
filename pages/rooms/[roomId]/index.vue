@@ -280,10 +280,7 @@ definePageMeta({
 
         <div>
           <p class="mb-10 text-2xl font-bold text-primary-300">NT$ 10,000</p>
-          <NuxtLink
-            :to="`/rooms/${route.params.roomId}/booking`"
-            class="btn h-[60px] w-full rounded-xl bg-primary-300 font-bold text-white"
-          >
+          <NuxtLink :to="`/rooms/${route.params.roomId}/booking`" class="btn block w-full">
             立即預訂
           </NuxtLink>
         </div>

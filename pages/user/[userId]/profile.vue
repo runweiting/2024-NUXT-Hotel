@@ -3,15 +3,15 @@ const isEditPassword = ref(false)
 const isEditProfile = ref(false)
 const userStore = useUserStore()
 
-const oldPassword = '**********'
-const newPassword = '**********'
-const confirmPassword = '**********'
-const putName = 'Jessica Wang'
-const putPhone = '+886 912 345 678'
-const putBirthday = '1990-08-15'
-const putZipcode = '333'
-const putCityArea = ''
-const putDetail = '中正路1號'
+const oldPassword = ref('**********')
+const newPassword = ref('**********')
+const confirmPassword = ref('**********')
+const putName = ref('Jessica Wang')
+const putPhone = ref('+886 912 345 678')
+const putBirthday = ref('1990-08-15')
+const putZipcode = ref('333')
+const putCityArea = ref('')
+const putDetail = ref('中正路1號')
 
 definePageMeta({
   layout: 'user-layout'

@@ -202,7 +202,7 @@ definePageMeta({
       </Carousel>
 
       <div
-        class="absolute inset-x-0 bottom-10 z-10 flex h-[400px] w-full flex-col items-center justify-between px-4 md:flex-row md:px-20"
+        class="absolute inset-0 z-10 mx-auto my-auto flex h-[400px] w-full flex-col items-center justify-center space-x-10 px-4 md:flex-row md:px-20"
       >
         <div class="mt-10 flex flex-col items-center md:mt-0 md:block md:text-left">
           <div class="mb-5 mt-10 font-bold text-primary-300 md:mb-10">

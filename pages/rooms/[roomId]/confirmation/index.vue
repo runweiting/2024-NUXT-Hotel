@@ -68,16 +68,8 @@ const confirmBooking = () => {
 
   setTimeout(() => {
     isLoading.value = false
-    router.push(
-      `/rooms/${route.params.roomId}/confirmation/HH2302183151222`
-      // {
-      //   name: 'confirmation',
-      //   params: {
-      //     bookingId: 'HH2302183151222'
-      //   }
-      // }
-    )
-  }, 1500)
+    router.push(`/rooms/${route.params.roomId}/confirmation/HH2302183151222`)
+  }, 1000)
 }
 
 const goBack = () => {

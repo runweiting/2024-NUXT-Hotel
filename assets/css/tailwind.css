@@ -35,6 +35,10 @@ body {
 }
 
 @layer utilities {
+  .hero-intro::after {
+    @apply absolute inset-0 -right-[120px] -z-10 mx-auto my-auto h-[345px] w-[450px] rounded-[80px] border border-[#F5F7F9] bg-gradient-to-b from-transparent to-white/30 backdrop-blur-sm;
+    content: '';
+  }
   .news-intro::before {
     @apply absolute -right-[80px] top-[40px] h-48 w-48;
     content: '';
