@@ -76,8 +76,8 @@ const goBack = () => {
   router.back()
 }
 
-definePageMeta({
-  layout: 'front-layout'
+useHeadSafe({
+  title: '確認訂房'
 })
 </script>
 
@@ -220,7 +220,9 @@ definePageMeta({
           </div>
 
           <div class="md:col-span-5">
-            <div class="sticky rounded-3xl bg-white p-6 text-black md:top-40 md:p-10">
+            <div
+              class="sticky rounded-3xl bg-white p-6 text-black shadow shadow-primary-300 md:top-40 md:p-10"
+            >
               <div class="mb-3 overflow-hidden rounded-xl">
                 <picture>
                   <!-- 螢幕寬度 >= 768 px，瀏覽器優先載入 :srcset 所指定圖片 -->

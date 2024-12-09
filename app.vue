@@ -1,3 +1,10 @@
+<script setup lang="ts">
+useHeadSafe({
+  title: '首頁',
+  titleTemplate: (title) => (title ? `${title} | 六角飯店` : '六角飯店')
+})
+</script>
+
 <template>
   <NuxtLoadingIndicator :height="5" :duration="5000" :throttle="0" />
   <NuxtLayout>

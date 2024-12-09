@@ -13,8 +13,8 @@ const putZipcode = ref('333')
 const putCityArea = ref('')
 const putDetail = ref('中正路1號')
 
-definePageMeta({
-  layout: 'user-layout'
+useHeadSafe({
+  title: '個人資料'
 })
 </script>
 

@@ -162,8 +162,8 @@ const rooms: Room[] = [
   }
 ]
 
-definePageMeta({
-  layout: 'front-layout'
+useHeadSafe({
+  title: '房型列表'
 })
 </script>
 

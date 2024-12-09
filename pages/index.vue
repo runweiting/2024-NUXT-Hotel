@@ -181,10 +181,6 @@ const slideNext = () => {
     roomSwiper.value.next()
   }
 }
-
-definePageMeta({
-  layout: 'front-layout'
-})
 </script>
 
 <template>

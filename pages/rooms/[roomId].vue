@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>
+  <div>
     <NuxtPage />
-  </main>
+  </div>
 </template>
 
 <style scoped></style>

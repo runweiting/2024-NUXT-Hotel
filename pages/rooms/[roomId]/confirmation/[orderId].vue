@@ -88,6 +88,9 @@ const goBack = () => {
 definePageMeta({
   layout: 'order-layout'
 })
+useHeadSafe({
+  title: '訂房結果'
+})
 </script>
 
 <template>

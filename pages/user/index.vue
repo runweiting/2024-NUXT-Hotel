@@ -8,9 +8,9 @@ if (useRoute().path === '/user') {
 </script>
 
 <template>
-  <main>
+  <div>
     <NuxtPage />
-  </main>
+  </div>
 </template>
 
 <style scoped></style>

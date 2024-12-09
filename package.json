@@ -5,11 +5,11 @@
   "scripts": {
     "lint": "eslint --ext .ts,.js,.vue .",
     "type-check": "vue-tsc --noEmit",
-    "dev": "NODE_ENV=development nuxt dev",
+    "dev": "nuxt dev",
     "generate:safe": "pnpm type-check && nuxt generate",
-    "build:safe": "NODE_ENV=production pnpm type-check && nuxt build",
-    "build": "NODE_ENV=production nuxt build",
-    "preview": "NODE_ENV=production nuxt preview",
+    "build:safe": "pnpm type-check && nuxt build",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
     "start": "node .output/server/index.mjs",
     "postinstall": "nuxt prepare"
   },

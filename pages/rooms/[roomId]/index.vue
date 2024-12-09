@@ -110,8 +110,8 @@ const openModal = () => {
   open()
 }
 
-definePageMeta({
-  layout: 'front-layout'
+useHeadSafe({
+  title: '客房介紹'
 })
 </script>
 

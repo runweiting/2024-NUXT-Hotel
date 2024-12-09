@@ -1,12 +1,13 @@
 <script setup lang="ts">
-// 版型直接寫在 layout 裡
-definePageMeta({
-  layout: 'user-layout'
+useHeadSafe({
+  title: '我的帳戶'
 })
 </script>
 
 <template>
-  <NuxtPage />
+  <div>
+    <NuxtPage />
+  </div>
 </template>
 
 <style scoped></style>

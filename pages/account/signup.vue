@@ -11,8 +11,9 @@ const changeStep = (result: boolean) => {
     nextStep()
   }
 }
-definePageMeta({
-  layout: 'account-layout'
+
+useHeadSafe({
+  title: '會員註冊'
 })
 </script>
 

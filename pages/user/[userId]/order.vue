@@ -84,8 +84,8 @@ const openModal = () => {
   open()
 }
 
-definePageMeta({
-  layout: 'user-layout'
+useHeadSafe({
+  title: '我的訂單'
 })
 </script>
 

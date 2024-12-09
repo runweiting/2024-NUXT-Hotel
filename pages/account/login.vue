@@ -1,6 +1,6 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'account-layout'
+useHeadSafe({
+  title: '會員登入'
 })
 </script>
 
