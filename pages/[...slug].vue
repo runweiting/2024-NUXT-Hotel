@@ -14,7 +14,7 @@ const pathParams = computed(() => {
 </script>
 
 <template>
-  <section class="mt-[120px] bg-black">
+  <section class="mt-[120px]">
     <div class="items-center text-white">
       <div class="flex flex-wrap items-center p-4">
         <div class="w-full p-4 text-center lg:w-1/2">

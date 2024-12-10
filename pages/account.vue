@@ -10,7 +10,7 @@ definePageMeta({
 
 <template>
   <div>
-    <header class="w-full bg-black">
+    <header class="w-full">
       <nav class="px-3 py-4 md:px-20 md:py-6">
         <div class="flex items-center justify-between">
           <!-- Logo -->

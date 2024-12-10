@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useEmailPasswordForm } from '~/composables/useEmailPasswordForm'
+import { useUserStore } from '~/stores/useUserStore'
 
 const { signupEmail, signupPassword, confirmPassword, stepOneErrors, handleStepOne } =
   useEmailPasswordForm()

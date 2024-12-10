@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-primary-50;
+  @apply bg-black;
 }
 
 /* 擴充全域字體 */

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useSignupForm } from '~/composables/useSignupForm'
+import { useUserStore } from '~/stores/useUserStore'
 
 const { signupName, signupPhone, birthday, zipcode, cityArea, detail, errors, handleSignup } =
   useSignupForm()

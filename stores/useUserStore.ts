@@ -1,19 +1,17 @@
 import axios, { AxiosError } from 'axios'
 import type { ApiDataResponse, ApiStatusResponse, ErrorResponse } from '~/types/api/ApiResponse'
-import type { BaseUserInfo, UserSignup, UserLogin } from '~/types/User'
+import type { BaseUserInfo, UserSignup, UserLogin, UserState } from '~/types/User'
+import { setTokenCookie, deleteTokenCookie } from '~/utils/setTokenCookie'
 
 export const useUserStore = defineStore('user', () => {
   const { successToast, warningToast, errorToast } = useSweetAlert()
 
   // 定義狀態
-  const userState = reactive<{
-    data: {}
-    error: string | null
-    isLoading: boolean
-  }>({
+  const userState = reactive<UserState>({
     data: {},
     error: null,
-    isLoading: false
+    isLoading: false,
+    isLogin: false
   })
 
   // 將 signupEmail, signupPassword 狀態儲存在 store
@@ -33,11 +31,22 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+  // 重置狀態
+  const resetState = () => {
+    userState.data = {}
+    userState.error = null
+    userState.isLoading = false
+    userState.isLogin = false
+  }
+
   const signup = async (payload: UserSignup): Promise<void> => {
     userState.isLoading = true
     try {
       const res = await axios.post<ApiDataResponse<BaseUserInfo>>('/api/v1/user/signup', payload)
       userState.data = res.data.result
+      if (res.data.token) {
+        setTokenCookie(res.data.token)
+      }
       successToast('註冊成功')
     } catch (err: any) {
       handleError(err)
@@ -51,8 +60,12 @@ export const useUserStore = defineStore('user', () => {
     try {
       const res = await axios.post<ApiDataResponse<BaseUserInfo>>('/api/v1/user/login', payload)
       userState.data = res.data.result
-      // token 還沒處理
+      if (res.data.token) {
+        setTokenCookie(res.data.token)
+      }
+      userState.isLogin = true
       successToast('登入成功')
+      navigateTo(`/user/${userState.data.id}/profile`)
     } catch (err: any) {
       handleError(err)
     } finally {
@@ -60,11 +73,22 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const logout = () => {
+    resetState()
+    deleteTokenCookie()
+    successToast('登出成功')
+    navigateTo('/')
+  }
+
   return {
     savedEmail,
     savedPassword,
     signup,
     login,
-    isLoading: userState.isLoading
+    logout,
+    userState,
+    error: computed(() => userState.error),
+    isLoading: computed(() => userState.isLoading),
+    isLogin: computed(() => userState.isLogin)
   }
 })

@@ -59,3 +59,10 @@ export interface BookingPayload {
   peopleNum: number
   userInfo: UserBooking
 }
+
+export interface UserState {
+  data: any
+  error: string | null
+  isLoading: boolean
+  isLogin: boolean
+}

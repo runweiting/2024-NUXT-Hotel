@@ -28,6 +28,9 @@ onUnmounted(() => {
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+const userStore = useUserStore()
+const { userState, isLogin } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -82,32 +85,44 @@ const toggleMenu = () => {
             </li>
 
             <!-- Desktop User Menu -->
-            <li class="group relative hidden md:block">
-              <button
+            <li class="hidden md:block">
+              <NuxtLink
+                v-if="!isLogin"
+                to="/account/login"
                 class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-300"
               >
                 <Icon name="mdi:account-circle-outline" class="text-xl" />
-                Jessica
-              </button>
-              <div
-                class="group/menu-item absolute right-0 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
-              >
+                會員登入
+              </NuxtLink>
+              <div v-else class="group relative">
                 <NuxtLink
-                  to="/user/Jessica"
-                  class="block px-6 py-4 text-gray-700 hover:bg-primary-50 hover:text-primary-900"
+                  :to="`/user/${userState.data.id}`"
+                  class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-300"
                 >
-                  我的帳戶
+                  <Icon name="mdi:account-circle-outline" class="text-xl" />
+                  {{ userState.data.name }}
                 </NuxtLink>
-                <button
-                  class="w-full px-6 py-4 text-left text-gray-700 hover:bg-primary-50 hover:text-primary-900"
+                <div
+                  class="group/menu-item absolute right-0 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
                 >
-                  登出
-                </button>
+                  <NuxtLink
+                    :to="`/user/${userState.data.id}`"
+                    class="block px-6 py-4 text-gray-700 hover:bg-primary-50 hover:text-primary-900"
+                  >
+                    我的帳戶
+                  </NuxtLink>
+                  <button
+                    class="w-full px-6 py-4 text-left text-gray-700 hover:bg-primary-50 hover:text-primary-900"
+                    @click="userStore.logout"
+                  >
+                    登出
+                  </button>
+                </div>
               </div>
             </li>
 
             <!-- Mobile Login Link -->
-            <li class="md:hidden">
+            <li v-if="!isLogin" class="md:hidden">
               <NuxtLink
                 to="/account/login"
                 class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
