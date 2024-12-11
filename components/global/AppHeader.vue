@@ -7,8 +7,8 @@ const route = useRoute()
 const isTransparentRoute = computed(() => transparentRoutes.includes(route.name as string))
 
 // 捲動狀態
-const isScrolled = ref(false)
-const isMenuOpen = ref(false)
+const isScrolled = ref<boolean>(false)
+const isMenuOpen = ref<boolean>(false)
 
 // 如果 window 往下滾動超過 50px isScrolled 為 true
 const handleScroll = () => {
@@ -30,7 +30,6 @@ const toggleMenu = () => {
 }
 
 const userStore = useUserStore()
-const { userState, isLogin } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -87,7 +86,7 @@ const { userState, isLogin } = storeToRefs(userStore)
             <!-- Desktop User Menu -->
             <li class="hidden md:block">
               <NuxtLink
-                v-if="!isLogin"
+                v-if="!userStore.isLogin"
                 to="/account/login"
                 class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-300"
               >
@@ -96,17 +95,17 @@ const { userState, isLogin } = storeToRefs(userStore)
               </NuxtLink>
               <div v-else class="group relative">
                 <NuxtLink
-                  :to="`/user/${userState.data.id}`"
+                  :to="`/user/${userStore.userInfo?.id}`"
                   class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-300"
                 >
                   <Icon name="mdi:account-circle-outline" class="text-xl" />
-                  {{ userState.data.name }}
+                  {{ userStore.userInfo?.name }}
                 </NuxtLink>
                 <div
                   class="group/menu-item absolute right-0 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
                 >
                   <NuxtLink
-                    :to="`/user/${userState.data.id}`"
+                    :to="`/user/${userStore.userInfo?.id}`"
                     class="block px-6 py-4 text-gray-700 hover:bg-primary-50 hover:text-primary-900"
                   >
                     我的帳戶
@@ -122,7 +121,7 @@ const { userState, isLogin } = storeToRefs(userStore)
             </li>
 
             <!-- Mobile Login Link -->
-            <li v-if="!isLogin" class="md:hidden">
+            <li v-if="!userStore.isLogin" class="md:hidden">
               <NuxtLink
                 to="/account/login"
                 class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"

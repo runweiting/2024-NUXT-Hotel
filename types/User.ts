@@ -61,8 +61,11 @@ export interface BookingPayload {
 }
 
 export interface UserState {
-  data: any
+  userInfo: BaseUserInfo | null
+  token: string
   error: string | null
   isLoading: boolean
   isLogin: boolean
+  savedEmail: string | null
+  savedPassword: string | null
 }

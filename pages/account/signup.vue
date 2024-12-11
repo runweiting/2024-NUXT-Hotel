@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const userStore = useUserStore()
-const { userState, error } = storeToRefs(userStore)
+const { userInfo, error } = storeToRefs(userStore)
 const currentStep = ref(1)
 const nextStep = () => {
   currentStep.value++
@@ -88,14 +88,14 @@ useHeadSafe({
             <div v-if="!error" class="mb-10 flex items-center justify-center space-x-5">
               <Icon class="h-10 w-10 rounded-full bg-green-500" icon="material-symbols:check" />
               <div class="flex flex-col space-y-2 font-bold">
-                <h1 class="text-4xl">恭喜，{{ userState.data.name }}！</h1>
+                <h1 class="text-4xl">恭喜，{{ userInfo?.name }}！</h1>
                 <p class="text-2xl">您已註冊成功</p>
               </div>
             </div>
             <p class="font-medium">
               我們已發送詳細註冊資訊至
               <span class="underline underline-offset-2">
-                {{ userState.data.email }}
+                {{ userInfo?.email }}
               </span>
               ，<br />請查看您的電子信箱，謝謝您。
             </p>
