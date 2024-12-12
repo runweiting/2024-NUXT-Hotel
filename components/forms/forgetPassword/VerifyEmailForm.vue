@@ -1,6 +1,13 @@
 <script setup lang="ts">
 const { verifyEmail, errors, handleVerifyEmail } = useVerifyEmailForm()
 const userStore = useUserStore()
+// const emit = defineEmits<{
+//   (e: 'toggle-verify-loading'): void
+// }>()
+// const confirmVerifyEmail = async () => {
+//   emit('toggle-verify-loading')
+//   await handleVerifyEmail()
+// }
 </script>
 
 <template>

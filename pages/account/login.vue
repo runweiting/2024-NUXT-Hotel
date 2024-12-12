@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const userStore = useUserStore()
 const isShowForgetPassword = ref<boolean>(false)
 const showForgetPasswordForm = () => (isShowForgetPassword.value = true)
 
@@ -40,6 +41,7 @@ useHeadSafe({
         </div>
       </div>
     </section>
+    <VerifyLoading v-if="userStore.isLoading" />
   </div>
 </template>
 

@@ -32,7 +32,7 @@
         <NuxtImg src="/images/logo-primary.svg" alt="logo" class="mb-4 max-w-[144px]" />
       </picture>
 
-      <p class="mb-0 text-lg font-bold text-primary-700">正在處理您的預訂</p>
+      <p class="mb-0 text-lg font-bold text-primary-700">正在處理您的驗證</p>
     </div>
   </div>
 </template>

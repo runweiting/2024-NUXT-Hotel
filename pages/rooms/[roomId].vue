@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
+  <div class="bg-primary-50">
     <NuxtPage />
   </div>
 </template>

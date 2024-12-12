@@ -117,12 +117,26 @@ export const useUserStore = defineStore('user', () => {
       )
       console.log('res', res.data)
       if (res.data.result.isEmailExists) {
-        successToast('此信箱已註冊，請前往收信領取驗證碼')
-        // 發送驗證碼
+        await generateEmailCode(payload)
+        successToast('請前往信箱領取驗證碼')
       } else {
         warningToast('此信箱尚未註冊，請立即註冊')
         navigateTo('/account/signup')
       }
+    } catch (err: any) {
+      userState.error = err.response?.data?.message
+    } finally {
+      userState.isLoading = false
+    }
+  }
+
+  const generateEmailCode = async (payload: UserVerifyEmail): Promise<void> => {
+    try {
+      const res = await $apiClient.post<ApiStatusResponse>(
+        '/api/v1/verify/generateEmailCode',
+        payload
+      )
+      console.log(res.data.status)
     } catch (err: any) {
       userState.error = err.response?.data?.message
     }
@@ -136,6 +150,7 @@ export const useUserStore = defineStore('user', () => {
     logout,
     checkToken,
     verifyEmail,
+    generateEmailCode,
     userInfo: computed(() => userState.userInfo),
     error: computed(() => userState.error),
     isLoading: computed(() => userState.isLoading),
