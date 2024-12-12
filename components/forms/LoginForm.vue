@@ -1,6 +1,15 @@
 <script setup lang="ts">
 const { signupEmail, signupPassword, errors, handleLogin } = useLoginForm()
 const userStore = useUserStore()
+const rememberAccount = ref<boolean>(false)
+
+// 新增從 Cookie 讀取預設值的邏輯
+const emailCookie = useCookie('signupEmail')
+if (emailCookie.value) {
+  signupEmail.value = emailCookie.value
+  rememberAccount.value = true
+}
+
 defineEmits<{
   (e: 'toggle-forget-password'): void
 }>()
@@ -45,6 +54,7 @@ defineEmits<{
         <div class="flex items-center space-x-2">
           <input
             id="rememberAccount"
+            v-model="rememberAccount"
             type="checkbox"
             class="block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             aria-describedby="rememberAccountLegend"

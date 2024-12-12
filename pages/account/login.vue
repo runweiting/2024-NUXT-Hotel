@@ -1,7 +1,19 @@
 <script setup lang="ts">
 const userStore = useUserStore()
-const isShowForgetPassword = ref<boolean>(false)
-const showForgetPasswordForm = () => (isShowForgetPassword.value = true)
+// 使用單一變數管理當前顯示的表單
+const currentForm = ref<'login' | 'forgetPassword' | 'changePassword'>('login')
+
+const showVerifyEmailForm = () => {
+  currentForm.value = 'forgetPassword'
+}
+
+const showNewPasswordForm = () => {
+  currentForm.value = 'changePassword'
+}
+
+const showLoginForm = () => {
+  currentForm.value = 'login'
+}
 
 useHeadSafe({
   title: '會員登入'
@@ -26,18 +38,34 @@ useHeadSafe({
       <div
         class="signup-info relative z-10 flex w-1/2 flex-col items-center justify-start space-y-10 px-20"
       >
-        <div class="flex flex-col space-y-2">
+        <div v-if="currentForm == 'login'" class="flex flex-col space-y-2">
           <p class="font-bold text-primary-300">享樂酒店，誠摯歡迎</p>
           <h1 class="text-4xl font-bold text-white">立即開始旅程</h1>
+        </div>
+        <div v-else-if="currentForm === 'forgetPassword'" class="flex flex-col space-y-2">
+          <p class="font-bold text-primary-300">享樂酒店，誠摯歡迎</p>
+          <h1 class="text-4xl font-bold text-white">驗證註冊信箱</h1>
+        </div>
+        <div v-else-if="currentForm === 'changePassword'" class="flex flex-col space-y-2">
+          <p class="font-bold text-primary-300">享樂酒店，誠摯歡迎</p>
+          <h1 class="text-4xl font-bold text-white">重設密碼</h1>
         </div>
 
         <!-- Login Section -->
         <div class="w-3/4">
+          <!-- 根據 currentForm 的值顯示對應的表單 -->
           <FormsLoginForm
-            v-if="!isShowForgetPassword"
-            @toggle-forget-password="showForgetPasswordForm"
+            v-if="currentForm === 'login'"
+            @toggle-forget-password="showVerifyEmailForm"
           />
-          <FormsForgetPasswordVerifyEmailForm v-else />
+          <FormsForgetPasswordVerifyEmailForm
+            v-else-if="currentForm === 'forgetPassword'"
+            @toggle-change-password="showNewPasswordForm"
+          />
+          <FormsForgetPasswordNewPasswordForm
+            v-else-if="currentForm === 'changePassword'"
+            @toggle-login="showLoginForm"
+          />
         </div>
       </div>
     </section>

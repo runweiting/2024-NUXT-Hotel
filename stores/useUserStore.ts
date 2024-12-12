@@ -3,7 +3,14 @@ import type {
   ApiStatusResponse,
   VerifyEmailResponse
 } from '~/types/api/ApiResponse'
-import type { BaseUserInfo, UserSignup, UserLogin, UserVerifyEmail, UserState } from '~/types/User'
+import type {
+  BaseUserInfo,
+  UserSignup,
+  UserLogin,
+  UserVerifyEmail,
+  UserForgot,
+  UserState
+} from '~/types/User'
 import { setTokenCookie, deleteTokenCookie } from '~/utils/setTokenCookie'
 
 export const useUserStore = defineStore('user', () => {
@@ -132,13 +139,23 @@ export const useUserStore = defineStore('user', () => {
 
   const generateEmailCode = async (payload: UserVerifyEmail): Promise<void> => {
     try {
-      const res = await $apiClient.post<ApiStatusResponse>(
-        '/api/v1/verify/generateEmailCode',
-        payload
-      )
-      console.log(res.data.status)
+      await $apiClient.post<ApiStatusResponse>('/api/v1/verify/generateEmailCode', payload)
     } catch (err: any) {
       userState.error = err.response?.data?.message
+    }
+  }
+
+  const forgetPassword = async (payload: UserForgot): Promise<void> => {
+    userState.isLoading = true
+    try {
+      const res = await $apiClient.post<ApiStatusResponse>('/api/v1/user/forgot', payload)
+      if (res.data.status) {
+        successToast('密碼已更新，請重新登入')
+      }
+    } catch (err: any) {
+      userState.error = err.response?.data?.message
+    } finally {
+      userState.isLoading = false
     }
   }
 
@@ -151,6 +168,7 @@ export const useUserStore = defineStore('user', () => {
     checkToken,
     verifyEmail,
     generateEmailCode,
+    forgetPassword,
     userInfo: computed(() => userState.userInfo),
     error: computed(() => userState.error),
     isLoading: computed(() => userState.isLoading),

@@ -1,18 +1,18 @@
 <script setup lang="ts">
 const { verifyEmail, errors, handleVerifyEmail } = useVerifyEmailForm()
 const userStore = useUserStore()
-// const emit = defineEmits<{
-//   (e: 'toggle-verify-loading'): void
-// }>()
-// const confirmVerifyEmail = async () => {
-//   emit('toggle-verify-loading')
-//   await handleVerifyEmail()
-// }
+const emit = defineEmits<{
+  (e: 'toggle-change-password'): void
+}>()
+const handleSubmit = async () => {
+  await handleVerifyEmail()
+  emit('toggle-change-password')
+}
 </script>
 
 <template>
   <div>
-    <form class="mb-4 flex flex-col space-y-6" @submit.prevent="handleVerifyEmail">
+    <form class="mb-4 flex flex-col space-y-6" @submit.prevent="handleSubmit">
       <fieldset>
         <legend id="verifyEmailLegend" class="flex items-start text-white">
           驗證電子信箱
