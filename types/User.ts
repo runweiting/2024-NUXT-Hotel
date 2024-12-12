@@ -29,6 +29,10 @@ export interface UserSignup extends UserLogin {
   address: UserAddress
 }
 
+export interface UserVerifyEmail {
+  email: string
+}
+
 export interface UserForgot {
   email: string
   code: string
@@ -61,11 +65,11 @@ export interface BookingPayload {
 }
 
 export interface UserState {
+  savedEmail: string | null
+  savedPassword: string | null
   userInfo: BaseUserInfo | null
   token: string
   error: string | null
   isLoading: boolean
   isLogin: boolean
-  savedEmail: string | null
-  savedPassword: string | null
 }

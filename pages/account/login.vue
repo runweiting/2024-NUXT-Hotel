@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const isShowForgetPassword = ref<boolean>(false)
+const showForgetPasswordForm = () => (isShowForgetPassword.value = true)
+
 useHeadSafe({
   title: '會員登入'
 })
@@ -29,7 +32,11 @@ useHeadSafe({
 
         <!-- Login Section -->
         <div class="w-3/4">
-          <FormsLoginForm />
+          <FormsLoginForm
+            v-if="!isShowForgetPassword"
+            @toggle-forget-password="showForgetPasswordForm"
+          />
+          <FormsForgetPasswordVerifyEmailForm v-else />
         </div>
       </div>
     </section>

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const { signupEmail, signupPassword, errors, handleLogin } = useLoginForm()
 const userStore = useUserStore()
+defineEmits<{
+  (e: 'toggle-forget-password'): void
+}>()
 </script>
 
 <template>
@@ -48,9 +51,12 @@ const userStore = useUserStore()
           />
           <label for="rememberAccount" class="text-white">記住帳號</label>
         </div>
-        <NuxtLink to="/" class="font-bold text-primary-300 underline underline-offset-1"
-          >忘記密碼？</NuxtLink
+        <button
+          class="font-bold text-primary-300 underline underline-offset-1"
+          @click="$emit('toggle-forget-password')"
         >
+          忘記密碼？
+        </button>
       </div>
       <button type="submit" class="btn" :disabled="userStore.isLoading">會員登入</button>
       <div class="text-white">

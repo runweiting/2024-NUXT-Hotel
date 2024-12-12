@@ -1,31 +1,35 @@
-import type { ApiDataResponse, ApiStatusResponse } from '~/types/api/ApiResponse'
-import type { BaseUserInfo, UserSignup, UserLogin, UserState } from '~/types/User'
+import type {
+  ApiDataResponse,
+  ApiStatusResponse,
+  VerifyEmailResponse
+} from '~/types/api/ApiResponse'
+import type { BaseUserInfo, UserSignup, UserLogin, UserVerifyEmail, UserState } from '~/types/User'
 import { setTokenCookie, deleteTokenCookie } from '~/utils/setTokenCookie'
 
 export const useUserStore = defineStore('user', () => {
   const { $apiClient } = useNuxtApp()
-  const { successToast } = useSweetAlert()
+  const { successToast, warningToast } = useSweetAlert()
 
   // 定義狀態
   const userState = reactive<UserState>({
+    savedEmail: null,
+    savedPassword: null,
     userInfo: null,
     token: '',
     error: null,
     isLoading: false,
-    isLogin: false,
-    savedEmail: null,
-    savedPassword: null
+    isLogin: false
   })
 
   // 重置狀態
   const resetState = () => {
+    userState.savedEmail = null
+    userState.savedPassword = null
     userState.userInfo = null
     userState.token = ''
     userState.error = null
     userState.isLoading = false
     userState.isLogin = false
-    userState.savedEmail = null
-    userState.savedPassword = null
   }
 
   const signup = async (payload: UserSignup): Promise<void> => {
@@ -104,6 +108,26 @@ export const useUserStore = defineStore('user', () => {
     return false
   }
 
+  const verifyEmail = async (payload: UserVerifyEmail): Promise<void> => {
+    userState.isLoading = true
+    try {
+      const res = await $apiClient.post<ApiDataResponse<VerifyEmailResponse>>(
+        '/api/v1/verify/email',
+        payload
+      )
+      console.log('res', res.data)
+      if (res.data.result.isEmailExists) {
+        successToast('此信箱已註冊，請前往收信領取驗證碼')
+        // 發送驗證碼
+      } else {
+        warningToast('此信箱尚未註冊，請立即註冊')
+        navigateTo('/account/signup')
+      }
+    } catch (err: any) {
+      userState.error = err.response?.data?.message
+    }
+  }
+
   return {
     savedEmail: userState.savedEmail,
     savedPassword: userState.savedPassword,
@@ -111,6 +135,7 @@ export const useUserStore = defineStore('user', () => {
     login,
     logout,
     checkToken,
+    verifyEmail,
     userInfo: computed(() => userState.userInfo),
     error: computed(() => userState.error),
     isLoading: computed(() => userState.isLoading),

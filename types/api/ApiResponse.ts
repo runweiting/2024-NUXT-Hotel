@@ -20,6 +20,10 @@ export interface ErrorResponse extends BaseResponse {
   message: string
 }
 
+export interface VerifyEmailResponse {
+  isEmailExists: boolean
+}
+
 // 根據 API 用途選擇對應的回應型別
 export type ApiDataResponse<T> = DataResponse<T>
 export type ApiStatusResponse = StatusResponse
