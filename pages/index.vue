@@ -1,123 +1,12 @@
 <script setup lang="ts">
 import 'vue3-carousel/dist/carousel.css'
 
-interface newsItem {
-  id: number
-  title: string
-  content: string
-  imgSrc: string
-  imgSrcSm: string
-  alt: string
-}
-interface BusinessHours {
-  days: string
-  hours: string
-}
-interface RestaurantsItem {
-  id: number
-  name: string
-  time: BusinessHours
-  description: string
-  imgSrc: string
-  imgSrcSm: string
-}
-interface TransportMethod {
+interface TransportItem {
   icon: string
   title: string
   description: string
 }
-const news: newsItem[] = [
-  {
-    id: 1,
-    title: '秋季旅遊，豪華享受方案',
-    content:
-      '秋天就是要來場豪華的旅遊！我們為您準備了一系列的秋季特別方案，包括舒適的住宿、美食饗宴，以及精彩的活動。不論您是想來一趟浪漫之旅，還是想和家人共度美好時光，都能在這裡找到最適合的方案。',
-    imgSrc: '/images/home-news-1.png',
-    imgSrcSm: '/images/home-news-sm-1.png',
-    alt: '可看見海景及泳池的套房'
-  },
-  {
-    id: 2,
-    title: '輕鬆住房專案',
-    content:
-      '我們知道，有時候您只是需要一個舒適的地方放鬆心情。因此，我們推出了「輕鬆住房專案」，讓您無壓力地享受住宿。不管是短期的休息，還是長期的住宿，我們都會以最貼心的服務，讓您感到賓至如歸。',
-    imgSrc: '/images/home-news-2.png',
-    imgSrcSm: '/images/home-news-sm-2.png',
-    alt: '在雙人床上的兩顆灰色枕頭'
-  },
-  {
-    id: 3,
-    title: '耶誕快樂，住房送禮',
-    content:
-      '聖誕節來臨，我們為您準備了特別的禮物！在聖誕期間訂房，不僅有特別優惠，還會送上我們精心準備的聖誕禮物。讓我們一起慶祝這個溫馨的節日吧！',
-    imgSrc: '/images/home-news-3.png',
-    imgSrcSm: '/images/home-news-sm-3.png',
-    alt: '坐在沙發上的聖誕麋鹿玩偶'
-  }
-]
-const restaurants: RestaurantsItem[] = [
-  {
-    id: 1,
-    name: '海霸',
-    time: {
-      days: 'SUN-MON',
-      hours: '11:00 - 20:30'
-    },
-    description:
-      '以新鮮海產料理聞名，我們的專業廚師選用高雄當地的海鮮，每一道菜都充滿海洋的鮮美與清甜。無論是烤魚、蒸蝦還是煮蛤蜊，都能讓您品嚐到最新鮮的海洋風味。',
-    imgSrc: '/images/home-food-1.png',
-    imgSrcSm: '/images/home-food-sm-1.png'
-  },
-  {
-    id: 2,
-    name: '日食',
-    time: {
-      days: 'SUN-MON',
-      hours: '17:00 - 22:00'
-    },
-    description:
-      '為您提供優質的牛排，每一塊肉都來自頂級的牛肉，經過專業廚師的巧手烹調，口感豐滿、風味絕佳。搭配我們的特製醬料，讓您的味蕾享受一場美味的盛宴。',
-    imgSrc: '/images/home-food-2.png',
-    imgSrcSm: '/images/home-food-sm-2.png'
-  },
-  {
-    id: 3,
-    name: '山臻',
-    time: {
-      days: 'SUN-MON',
-      hours: '11:30 - 20:30'
-    },
-    description:
-      '帶您進入一次辣味與鮮香兼具的川菜美食之旅。我們的廚師掌握正宗的川菜烹調技巧，從麻辣鍋到口水雞，每一道菜都有其獨特的風味，讓您回味無窮。',
-    imgSrc: '/images/home-food-3.png',
-    imgSrcSm: '/images/home-food-sm-3.png'
-  },
-  {
-    id: 4,
-    name: '月永',
-    time: {
-      days: 'SUN-MON',
-      hours: '11:00 - 20:00'
-    },
-    description:
-      '從鮮美的海鮮、經典的牛排，到各國的特色美食，我們都一應俱全。在這裡，您可以品嚐到世界各地的美食，每一道菜都由專業廚師用心製作，讓您在享受美食的同時，也能感受到我們的熱情與用心。',
-    imgSrc: '/images/home-food-4.png',
-    imgSrcSm: '/images/home-food-sm-4.png'
-  },
-  {
-    id: 5,
-    name: '天潮',
-    time: {
-      days: 'SUN-MON',
-      hours: '14:00 - 19:30'
-    },
-    description:
-      '我們提供各種精緻甜點與糕點，無論您喜歡的是巧克力蛋糕、法式馬卡龍，還是台灣傳統的糕點，都能在這裡找到。讓我們的甜點帶您進入一場繽紛的甜蜜旅程。',
-    imgSrc: '/images/home-food-5.png',
-    imgSrcSm: '/images/home-food-sm-5.png'
-  }
-]
-const transportMethods: TransportMethod[] = [
+const transportMethods: TransportItem[] = [
   {
     icon: 'mdi:car',
     title: '自行開車',
@@ -139,9 +28,7 @@ const transportMethods: TransportMethod[] = [
 ]
 
 // 輪播控制
-const heroSwiper = ref()
 const roomSwiper = ref()
-const restaurantSwiper = ref()
 
 // 輪播資料
 const heroSlides = Array(5)
@@ -160,14 +47,6 @@ const roomSlides = Array(5)
     imgSrcSm: '/images/home-room-sm-1.png',
     alt: 'room-a'
   }))
-const restaurantSlides = Array(5)
-  .fill(0)
-  .map((_, i) => ({
-    id: i,
-    imgSrc: '/images/home-room-1.png',
-    imgSrcSm: '/images/home-room-sm-1.png',
-    alt: 'room-a'
-  }))
 
 // 控制房間輪播的函數
 const slidePrev = () => {
@@ -175,7 +54,6 @@ const slidePrev = () => {
     roomSwiper.value.prev()
   }
 }
-
 const slideNext = () => {
   if (roomSwiper.value) {
     roomSwiper.value.next()
@@ -249,30 +127,7 @@ const slideNext = () => {
     </section>
 
     <!-- News Section -->
-    <section class="news-intro md:py-30 relative bg-primary-50 p-20">
-      <div class="container">
-        <div class="grid grid-flow-col grid-rows-3 gap-10">
-          <div class="row-span-3">
-            <h2 class="mb-6 text-5xl font-bold text-primary-300 md:mb-10">最新<br />消息</h2>
-            <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-white" />
-          </div>
-          <div v-for="item in news" :key="item.id" class="flex flex-col border-0 bg-transparent">
-            <div class="flex items-center gap-6 md:flex-row">
-              <picture class="w-full flex-shrink-0 md:w-[44%]">
-                <source :srcset="item.imgSrc" media="(min-width: 576px)" />
-                <NuxtImg :src="item.imgSrcSm" :alt="item.alt" class="w-full rounded-lg" />
-              </picture>
-              <div class="text-primary-900">
-                <h3 class="mb-2 text-3xl font-bold md:mb-6">{{ item.title }}</h3>
-                <p class="text-sm font-medium md:text-base">
-                  {{ item.content }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <CardsNews />
 
     <!-- About Section -->
     <section class="md:py-30 relative -z-10 bg-black py-20">
@@ -370,50 +225,7 @@ const slideNext = () => {
     </section>
 
     <!-- Delicacy Intro Section -->
-    <section class="md:py-30 relative bg-primary-50 p-20">
-      <div class="delicacy-intro container">
-        <div class="mb-10 flex items-center gap-10 md:mb-20">
-          <h2 class="mb-0 text-4xl font-bold text-primary-300">佳餚<br />美饌</h2>
-          <div class="h-0.5 w-20 bg-primary-100"></div>
-        </div>
-
-        <Carousel
-          :items-to-show="2"
-          :wrap-around="true"
-          :transition="1500"
-          :autoplay="3000"
-          :pause-autoplay-on-hover="true"
-          class="overflow-x-visible"
-        >
-          <Slide v-for="restaurant in restaurants" :key="restaurant.id" class="px-2">
-            <div class="group relative rounded-3xl border-0">
-              <picture>
-                <source :srcset="restaurant.imgSrc" media="(min-width:576px)" />
-                <NuxtImg
-                  :src="restaurant.imgSrcSm"
-                  :alt="restaurant.name"
-                  class="h-auto w-full rounded-3xl object-cover transition-transform"
-                />
-              </picture>
-              <div
-                class="absolute bottom-0 w-full rounded-b-3xl bg-black bg-opacity-60 p-4 text-white md:p-6"
-              >
-                <div class="mb-4 flex justify-between md:mb-6">
-                  <h5 class="text-lg font-bold">{{ restaurant.name }}</h5>
-                  <div class="text-neutral-40 flex gap-4 text-xs">
-                    <span class="font-bold">{{ restaurant.time.days }}</span>
-                    <span class="font-bold">{{ restaurant.time.hours }}</span>
-                  </div>
-                </div>
-                <p class="text-xs md:text-sm">
-                  {{ restaurant.description }}
-                </p>
-              </div>
-            </div>
-          </Slide>
-        </Carousel>
-      </div>
-    </section>
+    <CardsRestaurants />
 
     <!-- Transport Section -->
     <section class="transport-intro relative bg-black pb-40 pt-20">
