@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
-
-interface DateTimeProps {
-  date: {
-    start: string | null
-    end: string | null
-  }
-  minDate: Date
-  maxDate: Date
-  daysCount: number
-}
+import type { DateTimeProps } from '~/types/Booking'
 
 const props = defineProps<{
   dateTime: DateTimeProps

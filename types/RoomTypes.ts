@@ -5,7 +5,7 @@ export interface DetailInfo {
   isProvide: boolean
 }
 
-export interface RoomTypeApi {
+export interface RoomType {
   name: string
   description: string
   imageUrl: string
@@ -27,13 +27,13 @@ export interface RoomTypeApi {
 // composable response type
 export interface UseRoomReturn {
   getRoomList: () => Promise<{
-    roomTypeList: ComputedRef<RoomTypeApi[]> // 已經過處理的資料
+    roomTypeList: ComputedRef<RoomType[]> // 已經過處理的資料
     hasError: ComputedRef<boolean> // 錯誤狀態
     isLoading: ComputedRef<boolean> // 載入狀態
     refresh: () => Promise<void> // 重新載入方法
   }>
   getRoomInfo: (roomId: string) => Promise<{
-    room: ComputedRef<RoomTypeApi>
+    room: ComputedRef<RoomType>
     hasError: ComputedRef<boolean>
     isLoading: ComputedRef<boolean>
     refresh: (opts?: UseFetchOptions<unknown>) => Promise<void>
