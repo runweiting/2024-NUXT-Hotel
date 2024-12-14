@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ModalsContainer } from 'vue-final-modal'
 const route = useRoute()
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -24,7 +25,7 @@ const route = useRoute()
             <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
             <NuxtImg src="/images/avatar-6.png" alt="profile-hero" class="h-[144px] w-[144px]" />
           </picture>
-          <h1 class="text-4xl font-bold text-white">Hello, Jessica!</h1>
+          <h1 class="text-4xl font-bold text-white">Hello, {{ userStore.userInfo?.name }}!</h1>
         </div>
       </div>
       <div>

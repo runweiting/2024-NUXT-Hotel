@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useSignupForm } from '~/composables/useSignupForm'
+import { useSignupStepTwoForm } from '~/composables/useSignupStepTwoForm'
 import { useUserStore } from '~/stores/useUserStore'
 
-const { signupName, signupPhone, birthday, zipcode, cityArea, detail, errors, handleSignup } =
-  useSignupForm()
+const { signupName, signupPhone, birthday, zipcode, city, county, detail, errors, handleSignup } =
+  useSignupStepTwoForm()
 const userStore = useUserStore()
 const emit = defineEmits(['submit'])
 
@@ -64,7 +64,7 @@ const onSubmit = async () => {
         />
         <FormsErrorMessage :msg="errors.birthday" />
       </fieldset>
-      <div class="grid grid-cols-2 gap-2">
+      <div class="grid grid-cols-3 gap-2">
         <fieldset>
           <legend id="signupZipCodeLegend" class="flex items-start text-white">
             郵遞區號
@@ -82,16 +82,32 @@ const onSubmit = async () => {
           <FormsErrorMessage :msg="errors.zipcode" />
         </fieldset>
         <fieldset>
-          <legend id="signupCityAreaLegend" class="flex items-start text-white">
+          <legend id="signupCityLegend" class="flex items-start text-white">
             城市及區域
             <Icon class="m-1 h-2 w-2 text-red-500" name="mdi:required" />
           </legend>
           <FormsInputField
-            id="signupCityArea"
-            v-model="cityArea"
+            id="signupCity"
+            v-model="city"
             type="text"
-            placeholder="自動填入城市及區域"
-            aria-describedby="signupCityAreaLegend"
+            placeholder="自動填入城市"
+            aria-describedby="signupCityLegend"
+            autocomplete="off"
+            :disabled="userStore.isLoading"
+            readonly
+          />
+        </fieldset>
+        <fieldset>
+          <legend id="signupCountyLegend" class="flex items-start text-white">
+            城市及區域
+            <Icon class="m-1 h-2 w-2 text-red-500" name="mdi:required" />
+          </legend>
+          <FormsInputField
+            id="signupCounty"
+            v-model="county"
+            type="text"
+            placeholder="自動填入區域"
+            aria-describedby="signupCountyLegend"
             autocomplete="off"
             :disabled="userStore.isLoading"
             readonly

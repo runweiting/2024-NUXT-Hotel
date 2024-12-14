@@ -6,7 +6,7 @@ import zipcodeData from '~/assets/tw-zipcode.json'
 // 預先處理成 Set 提高查詢效能
 const allZipcodes = new Set(Object.values(zipcodeData).flatMap((areas) => Object.values(areas)))
 
-export const useSignupForm = () => {
+export const useSignupStepTwoForm = () => {
   const userStore = useUserStore()
 
   // 1. z 定義 zod scheme 表單驗證規則 for stepTwo
@@ -38,7 +38,8 @@ export const useSignupForm = () => {
         },
         { message: '請輸入正確的郵遞區號' }
       ),
-    cityArea: z.string().optional(), // 可選欄位
+    city: z.string().optional(), // 可選欄位
+    county: z.string().optional(), // 可選欄位
     detail: z
       .string({ message: '地址為必填' })
       .min(5, { message: '地址至少需要 5 個字元' })
@@ -58,7 +59,8 @@ export const useSignupForm = () => {
   const phoneField = useField<string>('signupPhone')
   const birthdayField = useField<string>('birthday')
   const zipcodeField = useField<string>('zipcode')
-  const cityAreaField = useField<string>('cityArea')
+  const cityField = useField<string>('city')
+  const countyField = useField<string>('county')
   const detailField = useField<string>('detail')
 
   // 4. 監聽 zipcodeField 自動填入 cityAreaField
@@ -69,15 +71,16 @@ export const useSignupForm = () => {
     (newZipcode) => {
       if (newZipcode && allZipcodes.has(newZipcode)) {
         // 找出對應的城市和區域
-        for (const [city, areas] of Object.entries(zipcodeData)) {
+        for (const [city, countys] of Object.entries(zipcodeData)) {
           // 第一層迴圈：遍歷每個城市、[city, areas] 解構賦值
           // city 是城市名稱（例如：基隆市）、areas 是該城市的區域物件（例如：{仁愛區: "200", 信義區: "201"...}）
-          for (const [area, code] of Object.entries(areas)) {
+          for (const [county, code] of Object.entries(countys)) {
             // 第二層迴圈：遍歷每個城市的每個區域、[area, code] 解構賦值
             // area 是區域名稱（例如：仁愛區）、code 是郵遞區號（例如："200"）
             if (code === newZipcode) {
               // 當找到匹配的郵遞區號時，自動填入地址的城市和區域名稱
-              cityAreaField.value.value = `${city}${area}`
+              cityField.value.value = city
+              countyField.value.value = county
               return // 立即結束兩層迴圈
             }
           }
@@ -101,7 +104,9 @@ export const useSignupForm = () => {
         birthday: values.birthday,
         address: {
           zipcode: values.zipcode.trim(),
-          detail: `${values.cityArea || ''}${values.detail || ''}`.trim()
+          city: values.city?.trim(),
+          county: values.county?.trim(),
+          detail: values.detail.trim()
         }
       }
       await userStore.signup(form)
@@ -116,7 +121,8 @@ export const useSignupForm = () => {
     signupPhone: phoneField.value,
     birthday: birthdayField.value,
     zipcode: zipcodeField.value,
-    cityArea: cityAreaField.value,
+    city: cityField.value,
+    county: countyField.value,
     detail: detailField.value,
     errors,
     handleSignup

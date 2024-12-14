@@ -1,4 +1,5 @@
 import axios from 'axios'
+import type { AxiosInstance } from 'axios'
 
 export function setTokenCookie(token: string): void {
   const cookie = useCookie('myToken', {
@@ -12,16 +13,18 @@ export function setTokenCookie(token: string): void {
 
   // 只在客戶端設置 Authorization header
   if (import.meta.client) {
-    axios.defaults.headers.common['Authorization'] = token
+    const apiClient = useNuxtApp().$apiClient
+    apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
   }
 }
 
 export function deleteTokenCookie(): void {
   const getCookie = useCookie('myToken')
   getCookie.value = null
-}
 
-// export function deleteTokenCookie (): void {
-//   document.cookie = `myToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None`
-//   axios.defaults.headers.common['Authorization'] = ''
-// }
+  // 清除 $apiClient 的 Authorization header
+  if (import.meta.client) {
+    const apiClient = useNuxtApp().$apiClient
+    delete apiClient.defaults.headers.common['Authorization']
+  }
+}

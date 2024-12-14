@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useValidateField } from 'vee-validate'
 
-export const useEmailPasswordForm = () => {
+export const useSignupStepOneForm = () => {
   const userStore = useUserStore()
 
   // 1. z 定義 zod scheme 表單驗證規則 for stepOne

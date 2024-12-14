@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useForgetPasswordForm } from '~/composables/useForgetPasswordForm'
+
 const { signupEmail, verificationCode, newPassword, errors, handleForgetPassword } =
   useForgetPasswordForm()
 const userStore = useUserStore()

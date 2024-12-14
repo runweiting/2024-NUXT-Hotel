@@ -58,11 +58,11 @@ useHeadSafe({
             v-if="currentForm === 'login'"
             @toggle-forget-password="showVerifyEmailForm"
           />
-          <FormsForgetPasswordVerifyEmailForm
+          <FormsForgetVerifyEmailForm
             v-else-if="currentForm === 'forgetPassword'"
             @toggle-change-password="showNewPasswordForm"
           />
-          <FormsForgetPasswordNewPasswordForm
+          <FormsForgetPasswordForm
             v-else-if="currentForm === 'changePassword'"
             @toggle-login="showLoginForm"
           />

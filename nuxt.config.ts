@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   // 4. 導入配置
   imports: {
-    dirs: ['stores']
+    dirs: ['stores', 'composables']
   },
   // 5. alias 別名配置
   alias: {

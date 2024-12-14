@@ -1,5 +1,5 @@
 export interface UserAddress {
-  zipcode: string
+  zipcode: number | string
   detail: string
   city?: string
   county?: string
@@ -39,7 +39,7 @@ export interface UserForgot {
   newPassword: string
 }
 
-export interface PutUser {
+export interface UserPut {
   userId: string
   name: string
   phone: string
@@ -67,6 +67,8 @@ export interface BookingPayload {
 export interface UserState {
   savedEmail: string | null
   savedPassword: string | null
+  oldPassword: string | null
+  newPassword: string | null
   userInfo: BaseUserInfo | null
   token: string
   error: string | null

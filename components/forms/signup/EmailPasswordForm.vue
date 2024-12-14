@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useEmailPasswordForm } from '~/composables/useEmailPasswordForm'
+import { useSignupStepOneForm } from '~/composables/useSignupStepOneForm'
 import { useUserStore } from '~/stores/useUserStore'
 
 const { signupEmail, signupPassword, confirmPassword, stepOneErrors, handleStepOne } =
-  useEmailPasswordForm()
+  useSignupStepOneForm()
 const userStore = useUserStore()
 const emit = defineEmits(['next'])
 

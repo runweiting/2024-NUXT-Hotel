@@ -12,7 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     switch (errorCode) {
       case 401:
-        navigateTo('/login')
+        navigateTo('/account/login')
         break
       case 403:
         warningToast('權限不足')

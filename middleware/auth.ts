@@ -18,4 +18,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   如果是登入頁，才不會再次重導，避免陷入無限重導的迴圈 */
   const isValid = await userStore.checkToken()
   if (!isValid && to.path !== '/account/login') return navigateTo('/account/login')
+
+  // 當路徑為 /user 且 token 有效時，導向 /user/${userId}/profile
+  if (to.path === '/user') {
+    const userId = userStore.userInfo?.id
+    if (userId) {
+      navigateTo(`/user/${userId}/profile`)
+    }
+  }
 })

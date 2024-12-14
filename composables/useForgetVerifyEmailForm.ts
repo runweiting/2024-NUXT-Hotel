@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import type { UserVerifyEmail } from '~/types/User'
 
-export const useVerifyEmailForm = () => {
+export const useForgetVerifyEmailForm = () => {
   const userStore = useUserStore()
 
   // 1. z 定義 zod scheme 表單驗證規則

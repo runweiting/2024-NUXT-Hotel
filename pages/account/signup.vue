@@ -82,7 +82,7 @@ useHeadSafe({
         <!-- Signup Section -->
         <div class="w-3/4">
           <FormsSignupEmailPasswordForm v-if="currentStep === 1" @next="changeStep" />
-          <FormsSignupPersonalInfoForm v-else-if="currentStep === 2" @submit="nextStep" />
+          <FormsSignupProfileForm v-else-if="currentStep === 2" @submit="nextStep" />
           <div v-else class="mt-14 flex flex-col items-center justify-center text-white">
             <div v-if="!userStore.error" class="mb-10 flex items-center justify-center space-x-5">
               <Icon class="h-10 w-10 rounded-full bg-green-500" icon="material-symbols:check" />
