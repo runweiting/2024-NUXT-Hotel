@@ -2,7 +2,7 @@
 import 'vue3-carousel/dist/carousel.css'
 
 const { getRoomList } = useRoom()
-const { roomTypeList, hasError, isLoading, refresh } = await getRoomList()
+const { roomList, hasError, isLoading, refresh } = await getRoomList()
 </script>
 
 <template>
@@ -18,8 +18,8 @@ const { roomTypeList, hasError, isLoading, refresh } = await getRoomList()
         </div>
         <ul v-else class="flex list-none flex-col gap-6 md:gap-12">
           <li
-            v-for="roomType in roomTypeList"
-            :key="roomType._id"
+            v-for="room in roomList"
+            :key="room._id"
             class="overflow-hidden rounded-3xl border-0 lg:flex-row"
           >
             <div class="grid grid-cols-12">
@@ -35,13 +35,13 @@ const { roomTypeList, hasError, isLoading, refresh } = await getRoomList()
                   <Slide v-for="n in 3" :key="n" class="w-full overflow-hidden">
                     <picture>
                       <!-- 桌面版圖片，優先在大於 768px 的寬度載入 -->
-                      <source :srcset="roomType.imageUrlList[n]" media="(min-width: 768px)" />
+                      <source :srcset="room.imageUrlList[n]" media="(min-width: 768px)" />
                       <!-- 手機版圖片，優先在小於 768px 的寬度載入 -->
-                      <source :srcset="roomType.imageUrlList[n]" media="(max-width: 767px)" />
+                      <source :srcset="room.imageUrlList[n]" media="(max-width: 767px)" />
                       <!-- 預設圖片（回退機制） -->
                       <NuxtImg
-                        :src="roomType.imageUrlList[n]"
-                        :alt="`room-${roomType.name}-${n}`"
+                        :src="room.imageUrlList[n]"
+                        :alt="`room-${room.name}-${n}`"
                         class="min-h-[457px] w-full object-cover transition-transform"
                         loading="lazy"
                       />
@@ -57,12 +57,12 @@ const { roomTypeList, hasError, isLoading, refresh } = await getRoomList()
               </div>
               <div class="relative col-span-12 bg-white px-8 py-4 lg:col-span-5">
                 <div class="text-black md:py-10">
-                  <NuxtLink :to="`/rooms/${roomType._id}`" class="absolute inset-0 z-10" />
+                  <NuxtLink :to="`/rooms/${room._id}`" class="absolute inset-0 z-10" />
                   <h3 class="mb-4 text-4xl font-bold">
-                    {{ roomType.name }}
+                    {{ room.name }}
                   </h3>
                   <p class="mb-6 text-xs font-medium md:mb-10 md:text-sm">
-                    {{ roomType.description }}
+                    {{ room.description }}
                   </p>
                   <ul class="mb-6 flex list-none gap-4 md:mb-10">
                     <li class="h-[97px] w-[97px] rounded-lg border border-primary-100 p-4">
@@ -71,7 +71,7 @@ const { roomTypeList, hasError, isLoading, refresh } = await getRoomList()
                         class="mb-2 text-xl text-primary-300"
                       />
                       <p class="mb-0 whitespace-nowrap font-bold text-black">
-                        {{ roomType.areaInfo }}
+                        {{ room.areaInfo }}
                       </p>
                     </li>
                     <li class="h-[97px] w-[97px] rounded-lg border border-primary-100 p-4">
@@ -80,19 +80,19 @@ const { roomTypeList, hasError, isLoading, refresh } = await getRoomList()
                         class="mb-2 text-xl text-primary-300"
                       />
                       <p class="mb-0 whitespace-nowrap font-bold text-black">
-                        {{ roomType.bedInfo }}
+                        {{ room.bedInfo }}
                       </p>
                     </li>
                     <li class="h-[97px] w-[97px] rounded-lg border border-primary-100 p-4">
                       <Icon name="ic:baseline-person" class="mb-2 text-xl text-primary-300" />
                       <p class="mb-0 whitespace-nowrap font-bold text-black">
-                        {{ roomType.maxPeople }}人
+                        {{ room.maxPeople }}人
                       </p>
                     </li>
                   </ul>
                   <div class="mb-6 h-[2px] w-full bg-gradient-to-r from-[#BE9C7C] to-white" />
                   <div class="flex items-center justify-between text-primary-300">
-                    <p class="mb-0 text-2xl font-bold">NT$ {{ roomType.price.toLocaleString() }}</p>
+                    <p class="mb-0 text-2xl font-bold">NT$ {{ room.price.toLocaleString() }}</p>
                     <Icon name="mdi:arrow-right" class="h-6 w-6" />
                   </div>
                 </div>

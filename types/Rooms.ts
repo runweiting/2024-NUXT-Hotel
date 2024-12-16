@@ -5,7 +5,7 @@ export interface DetailInfo {
   isProvide: boolean
 }
 
-export interface RoomType {
+export interface RoomItem {
   name: string
   description: string
   imageUrl: string
@@ -15,6 +15,8 @@ export interface RoomType {
   maxPeople: number
   price: number
   formattedPrice?: string // 新增格式化的價格
+  totalPrice: number
+  formattedTotalPrice?: string
   status: number
   layoutInfo: DetailInfo[]
   facilityInfo: DetailInfo[]
@@ -27,13 +29,13 @@ export interface RoomType {
 // composable response type
 export interface UseRoomReturn {
   getRoomList: () => Promise<{
-    roomTypeList: ComputedRef<RoomType[]> // 已經過處理的資料
+    roomList: ComputedRef<RoomItem[]> // 已經過處理的資料
     hasError: ComputedRef<boolean> // 錯誤狀態
     isLoading: ComputedRef<boolean> // 載入狀態
     refresh: () => Promise<void> // 重新載入方法
   }>
-  getRoomInfo: (roomId: string) => Promise<{
-    room: ComputedRef<RoomType>
+  getRoomItem: (roomId: string) => Promise<{
+    room: ComputedRef<RoomItem>
     hasError: ComputedRef<boolean>
     isLoading: ComputedRef<boolean>
     refresh: (opts?: UseFetchOptions<unknown>) => Promise<void>

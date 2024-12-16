@@ -1,6 +1,3 @@
-import axios from 'axios'
-import type { AxiosInstance } from 'axios'
-
 export function setTokenCookie(token: string): void {
   const cookie = useCookie('myToken', {
     maxAge: 7 * 24 * 60 * 60,

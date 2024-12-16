@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
-import type { DateTimeProps } from '~/types/Booking'
+import type { DateTimeProps } from '~/types/Orders'
 
 const props = defineProps<{
   dateTime: DateTimeProps
-  title?: string
 }>()
 
 defineEmits<{
@@ -14,7 +13,7 @@ defineEmits<{
 
 const daysCount = ref(0)
 // 用戶選取的日期範圍
-const tempDate = reactive({
+const tempBookingDate = reactive({
   date: {
     start: props.dateTime.date.start,
     end: props.dateTime.date.end
@@ -30,25 +29,26 @@ const masks = {
 }
 
 const clearDate = () => {
-  tempDate.date.start = null
-  tempDate.date.end = null
-  tempDate.key++
+  tempBookingDate.date.start = null
+  tempBookingDate.date.end = null
+  tempBookingDate.key++
 }
 // 根據所選日期範圍初始化 daysCount
 watch(
-  () => tempDate.date,
+  () => tempBookingDate.date,
   (dateRange) => {
     if (dateRange.start && dateRange.end) {
       const startDate = new Date(dateRange.start).getTime()
       const endDate = new Date(dateRange.end).getTime()
       const oneDay = 24 * 60 * 60 * 1000
-      daysCount.value = Math.round(Math.abs((startDate - endDate) / oneDay)) + 1
+      daysCount.value = Math.round(Math.abs((startDate - endDate) / oneDay))
     } else {
       daysCount.value = 0
     }
   },
   { immediate: true }
 )
+console.log('Modal tempBookingDate', tempBookingDate)
 </script>
 
 <template>
@@ -73,7 +73,7 @@ watch(
               <input
                 id="start-date"
                 type="text"
-                :value="tempDate.date.start"
+                :value="tempBookingDate.date.start"
                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 readonly
               />
@@ -87,7 +87,7 @@ watch(
               <input
                 id="end-date"
                 type="text"
-                :value="tempDate.date.end"
+                :value="tempBookingDate.date.end"
                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 readonly
               />
@@ -96,13 +96,13 @@ watch(
         </div>
       </div>
       <VDatePicker
-        :key="tempDate.key"
-        v-model.range.string="tempDate.date"
+        :key="tempBookingDate.key"
+        v-model.range.string="tempBookingDate.date"
         color="blue"
         :masks="masks"
         :first-day-of-week="1"
-        :min-date="tempDate.minDate"
-        :max-date="tempDate.maxDate"
+        :min-date="tempBookingDate.minDate"
+        :max-date="tempBookingDate.maxDate"
         :rows="1"
         :columns="2"
         expanded
@@ -118,9 +118,9 @@ watch(
           class="flex-1 rounded-lg bg-blue-500 py-3 text-white"
           @click="
             $emit('confirm', {
-              date: tempDate.date,
-              minDate: tempDate.minDate,
-              maxDate: tempDate.maxDate,
+              date: tempBookingDate.date,
+              minDate: tempBookingDate.minDate,
+              maxDate: tempBookingDate.maxDate,
               daysCount: daysCount
             })
           "

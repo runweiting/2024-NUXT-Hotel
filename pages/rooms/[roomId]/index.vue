@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useModal } from 'vue-final-modal'
 import ModalConfirmBooking from '~/components/ModalConfirmBooking.vue'
-import type { DateTimeProps } from '~/types/Booking'
+import type { DateTimeProps } from '~/types/Orders'
 
 const roomRules = [
   '入住時間為下午3點，退房時間為上午12點。',
@@ -18,39 +18,29 @@ const roomRules = [
 
 const route = useRoute()
 const roomId = route.params.roomId as string
-const { getRoomInfo } = useRoom()
-const { room, hasError, isLoading, refresh } = await getRoomInfo(roomId)
+const { getRoomItem } = useRoom()
+const { room, hasError, isLoading, refresh } = await getRoomItem(roomId)
+const orderStore = useOrderStore()
 
-const MAX_BOOKING_PEOPLE = 10
-const bookingPeople = ref(1)
+// 定義資料狀態
 const currentDate = new Date()
-const formatDate = (date: Date) => {
-  const offsetToUTC8 = date.getHours() + 8
-  date.setHours(offsetToUTC8)
-  return date.toISOString().split('T')[0]
-}
 
-const bookingDate = reactive<DateTimeProps>({
-  date: {
-    start: formatDate(currentDate),
-    end: null as string | null
-  },
-  minDate: new Date(),
-  maxDate: new Date(currentDate.setFullYear(currentDate.getFullYear() + 1)),
-  daysCount: 0
-})
-
+// 定義 Modal
 const { open, close } = useModal({
   component: ModalConfirmBooking,
   attrs: {
-    // 傳入 bookingDate
-    dateTime: bookingDate,
+    // 傳入 dateTime 其值為 bookingDate
+    dateTime: orderStore.bookingDate as DateTimeProps,
     // 當 ModalConfirm 觸發 onConfirm 時，執行此回呼函數
-    onConfirm: (bookingInfo: any) => {
+    onConfirm: (bookingInfo: DateTimeProps) => {
+      console.log('bookingInfo', bookingInfo)
       const { start, end } = bookingInfo.date
-      bookingDate.date.start = start ?? formatDate(currentDate)
-      bookingDate.date.end = end
-      bookingDate.daysCount = bookingInfo.daysCount
+      if (orderStore.bookingDate) {
+        orderStore.bookingDate.date.start = start ?? currentDate.toISOString().split('T')[0]
+        orderStore.bookingDate.date.end = end
+        orderStore.bookingDate.daysCount = bookingInfo.daysCount
+        console.log('onConfirm 裡的 orderStore.bookingDate', orderStore.bookingDate)
+      }
       close()
     }
   }
@@ -195,7 +185,9 @@ useHeadSafe({
         <p class="mb-4">{{ room.description }}</p>
         <div class="mb-10 flex items-center space-x-2">
           <Icon name="mdi:alert-decagram" class="h-4 w-4 text-primary-300" />
-          <p class="text-sm text-black">此房型最多供 4 人居住，不接受寵物入住。</p>
+          <p class="text-sm text-black">
+            此房型最多供 {{ room.maxPeople }} 人居住，不接受寵物入住。
+          </p>
         </div>
         <div class="mb-4 flex flex-col gap-4">
           <div class="flex-1">
@@ -204,7 +196,7 @@ useHeadSafe({
               id="checkinInput"
               readonly
               type="text"
-              :value="bookingDate.date.start"
+              :value="orderStore.bookingDate?.date.start"
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               @click="openModal"
             />
@@ -218,7 +210,7 @@ useHeadSafe({
               id="checkoutInput"
               readonly
               type="text"
-              :value="bookingDate.date.end"
+              :value="orderStore.bookingDate?.date.end"
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               @click="openModal"
             />
@@ -227,23 +219,39 @@ useHeadSafe({
 
         <div class="mb-2 flex items-center justify-between">
           <span>入住天數</span>
-          <span class="font-bold">{{ bookingDate.daysCount }} 晚</span>
+          <span class="font-bold">{{ orderStore.bookingDate?.daysCount }} 晚</span>
         </div>
         <div class="mb-10 flex items-center justify-between">
           <span>人數</span>
           <div class="flex items-center gap-4">
-            <button @click="bookingPeople > 1 && bookingPeople--">
+            <button @click="orderStore.peopleNum > 1 && orderStore.peopleNum--">
               <Icon name="mdi:minus-circle" class="h-6 w-6 font-bold text-primary-300" />
             </button>
-            <span class="font-bold">{{ bookingPeople }}</span>
-            <button @click="bookingPeople < MAX_BOOKING_PEOPLE && bookingPeople++">
+            <span class="font-bold">{{ orderStore.peopleNum }}</span>
+            <button @click="orderStore.peopleNum < room.maxPeople && orderStore.peopleNum++">
               <Icon name="mdi:plus-circle" class="h-6 w-6 text-primary-300" />
             </button>
           </div>
         </div>
 
         <div>
-          <p class="mb-10 text-2xl font-bold text-primary-300">NT$ 10,000</p>
+          <div class="mb-2 flex items-center justify-between">
+            <span class="text-black">一晚</span>
+            <div class="flex items-end space-x-4">
+              <span>NT$</span>
+              <p class="text-xl font-bold">{{ room.formattedPrice }}</p>
+            </div>
+          </div>
+          <div class="mb-10 flex items-center justify-between">
+            <span class="text-black">小計</span>
+            <div class="flex items-end space-x-4">
+              <span>NT$</span>
+              <p
+                v-formatPrice="(orderStore.bookingDate?.daysCount ?? 1) * room.price"
+                class="text-xl font-bold"
+              ></p>
+            </div>
+          </div>
           <NuxtLink :to="`/rooms/${route.params.roomId}/confirmation`" class="btn block w-full">
             立即預訂
           </NuxtLink>

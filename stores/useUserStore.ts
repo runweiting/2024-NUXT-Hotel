@@ -78,7 +78,6 @@ export const useUserStore = defineStore('user', () => {
         userState.isLogin = true
         navigateTo(`/user/${userState.userInfo.id}/profile`)
         successToast('登入成功')
-        console.log('userState.userInfo', userState.userInfo)
       }
     } catch (err: any) {
       userState.error = err.response?.data?.message
@@ -98,16 +97,10 @@ export const useUserStore = defineStore('user', () => {
     // 如果沒有 Token，直接返回 false
     const getToken = useCookie('myToken')
     if (!getToken.value) {
-      resetState()
       return false
     }
     try {
-      const res = await $apiClient.get<ApiStatusResponse>('/api/v1/user/check', {
-        // 攜帶 Token 進行驗證
-        headers: {
-          Authorization: `Bearer ${getToken.value}`
-        }
-      })
+      const res = await $apiClient.get<ApiStatusResponse>('/api/v1/user/check')
       if (res.data.token) {
         userState.token = res.data.token
         setTokenCookie(res.data.token)
@@ -174,7 +167,6 @@ export const useUserStore = defineStore('user', () => {
       }
     } catch (err: any) {
       userState.error = err.response?.data?.message
-      console.log(err)
     } finally {
       userState.isLoading = false
     }

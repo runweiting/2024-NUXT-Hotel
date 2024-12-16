@@ -8,14 +8,11 @@ export default defineNuxtPlugin((nuxtApp) => {
   const handleError = (error: AxiosError<ErrorResponse>) => {
     const errorMessage = error.response?.data?.message || '發生未知錯誤'
     const errorCode = error.response?.status
-    errorToast(errorMessage)
+    warningToast(errorMessage)
 
     switch (errorCode) {
       case 401:
         navigateTo('/account/login')
-        break
-      case 403:
-        warningToast('權限不足')
         break
       default:
         console.error({
@@ -34,7 +31,15 @@ export default defineNuxtPlugin((nuxtApp) => {
   apiClient.interceptors.response.use(
     (response) => response,
     (error: AxiosError<ErrorResponse>) => {
-      handleError(error)
+      if (error.response?.data.message) {
+        // 後端有回應錯誤訊息的狀況
+        handleError(error)
+      } else {
+        // 發生後端不會有回應的狀況，例如網路問題
+        errorToast('無法連接到伺服器，請稍後再試')
+        console.error('Network or server error:', error.message)
+      }
+      // 拋出錯誤以供後續捕捉
       return Promise.reject(error)
     }
   )
