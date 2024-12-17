@@ -2,6 +2,8 @@
 import { useModal } from 'vue-final-modal'
 import ModalConfirmBooking from '~/components/ModalConfirmBooking.vue'
 import type { DateTimeProps } from '~/types/Orders'
+import { date2LocaleString } from '~/utils/date2LocaleString'
+import { getNightsNum } from '~/utils/getNightsNum'
 
 const roomRules = [
   '入住時間為下午3點，退房時間為上午12點。',
@@ -25,6 +27,11 @@ const orderStore = useOrderStore()
 // 定義資料狀態
 const currentDate = new Date()
 
+onMounted(() => {
+  // 初始化時清空狀態
+  orderStore.resetState()
+})
+
 // 定義 Modal
 const { open, close } = useModal({
   component: ModalConfirmBooking,
@@ -33,13 +40,13 @@ const { open, close } = useModal({
     dateTime: orderStore.bookingDate as DateTimeProps,
     // 當 ModalConfirm 觸發 onConfirm 時，執行此回呼函數
     onConfirm: (bookingInfo: DateTimeProps) => {
-      console.log('bookingInfo', bookingInfo)
       const { start, end } = bookingInfo.date
       if (orderStore.bookingDate) {
-        orderStore.bookingDate.date.start = start ?? currentDate.toISOString().split('T')[0]
+        const nightsNum = getNightsNum(start, end)
+        // 更新 orderStore 中的 bookingDate
+        orderStore.bookingDate.date.start = start ?? date2LocaleString(currentDate)
         orderStore.bookingDate.date.end = end
-        orderStore.bookingDate.daysCount = bookingInfo.daysCount
-        console.log('onConfirm 裡的 orderStore.bookingDate', orderStore.bookingDate)
+        orderStore.bookingDate.nightsNum = nightsNum
       }
       close()
     }
@@ -219,7 +226,7 @@ useHeadSafe({
 
         <div class="mb-2 flex items-center justify-between">
           <span>入住天數</span>
-          <span class="font-bold">{{ orderStore.bookingDate?.daysCount }} 晚</span>
+          <span class="font-bold">{{ orderStore.bookingDate?.nightsNum }} 晚</span>
         </div>
         <div class="mb-10 flex items-center justify-between">
           <span>人數</span>
@@ -247,7 +254,7 @@ useHeadSafe({
             <div class="flex items-end space-x-4">
               <span>NT$</span>
               <p
-                v-formatPrice="(orderStore.bookingDate?.daysCount ?? 1) * room.price"
+                v-formatPrice="(orderStore.bookingDate?.nightsNum ?? 1) * room.price"
                 class="text-xl font-bold"
               ></p>
             </div>

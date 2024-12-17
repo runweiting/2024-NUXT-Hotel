@@ -57,12 +57,9 @@ export const useUpdatePasswordForm = () => {
         oldPassword: values.oldPassword,
         newPassword: values.confirmPassword
       }
-      console.log('password form', form)
       await userStore.updateProfile(form)
       userStore.oldPassword = values.oldPassword.trim()
       userStore.newPassword = values.newPassword.trim()
-      console.log('password userStore.oldPassword', userStore.oldPassword)
-      console.log('password userStore.newPassword', userStore.newPassword)
       resetForm()
     } catch (err: any) {
       console.error('Error in handleSignUp:', err)

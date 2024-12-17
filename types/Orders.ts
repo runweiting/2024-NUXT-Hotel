@@ -1,15 +1,15 @@
+import type { ApiDataResponse } from './api/ApiResponse'
 import type { UserAddress } from './User'
 import type { RoomItem } from './Rooms'
 import type { UseFetchOptions } from 'nuxt/app'
-
 export interface DateTimeProps {
   date: {
-    start: string | null
+    start: string
     end: string | null
   }
   minDate: Date
   maxDate: Date
-  daysCount: number
+  nightsNum: number
 }
 
 export interface OrderItem {
@@ -24,6 +24,7 @@ export interface OrderItem {
   checkInDate: string
   checkOutDate: string
   peopleNum: number
+  nightsNum: number
   status: number
   createdAt: string
   updatedAt: string
@@ -57,12 +58,6 @@ export interface OrderState {
 
 // composable response type
 export interface UseOrderReturn {
-  getOrderList: () => Promise<{
-    orderList: ComputedRef<OrderItem[]> // 已經過處理的資料
-    hasError: ComputedRef<boolean> // 錯誤狀態
-    isLoading: ComputedRef<boolean> // 載入狀態
-    refresh: () => Promise<void> // 重新載入方法
-  }>
   getOrderItem: (orderId: string) => Promise<{
     order: ComputedRef<OrderItem>
     hasError: ComputedRef<boolean>

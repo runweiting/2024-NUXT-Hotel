@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
 
+const props = defineProps<{
+  orderId: ComputedRef
+}>()
+
 const emit = defineEmits<{
   (e: 'confirm'): void
   (e: 'close'): void
@@ -18,7 +22,7 @@ const emit = defineEmits<{
     <div class="">
       <!-- Modal header -->
       <div class="flex items-center justify-between rounded-t border-b p-4">
-        <h3 class="text-xl font-semibold">取消預定</h3>
+        <h3 v-if="props.orderId">訂單編號：{{ props.orderId }}</h3>
         <button
           type="button"
           class="ms-auto inline-flex items-center justify-center text-gray-400 hover:text-black"
@@ -29,7 +33,7 @@ const emit = defineEmits<{
       </div>
       <!-- Modal body -->
       <div class="p-10">
-        <p class="leading-relaxed">確定要取消此房型的預訂嗎？</p>
+        <p class="text-xl font-semibold leading-relaxed">確認取消此房型的預訂嗎？</p>
       </div>
       <!-- Modal footer -->
       <div class="flex items-center space-x-4 rounded-b border-t border-gray-200 p-4">

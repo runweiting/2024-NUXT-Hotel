@@ -11,7 +11,7 @@ defineEmits<{
   (e: 'close'): void
 }>()
 
-const daysCount = ref(0)
+const nightsNum = ref(0)
 // 用戶選取的日期範圍
 const tempBookingDate = reactive({
   date: {
@@ -29,11 +29,10 @@ const masks = {
 }
 
 const clearDate = () => {
-  tempBookingDate.date.start = null
   tempBookingDate.date.end = null
   tempBookingDate.key++
 }
-// 根據所選日期範圍初始化 daysCount
+// 根據所選日期範圍初始化 nightsNum
 watch(
   () => tempBookingDate.date,
   (dateRange) => {
@@ -41,14 +40,13 @@ watch(
       const startDate = new Date(dateRange.start).getTime()
       const endDate = new Date(dateRange.end).getTime()
       const oneDay = 24 * 60 * 60 * 1000
-      daysCount.value = Math.round(Math.abs((startDate - endDate) / oneDay))
+      nightsNum.value = Math.round(Math.abs((startDate - endDate) / oneDay))
     } else {
-      daysCount.value = 0
+      nightsNum.value = 0
     }
   },
   { immediate: true }
 )
-console.log('Modal tempBookingDate', tempBookingDate)
 </script>
 
 <template>
@@ -61,7 +59,7 @@ console.log('Modal tempBookingDate', tempBookingDate)
   >
     <div class="p-6">
       <div class="mb-4 flex items-center justify-between">
-        <h3 class="text-3xl font-bold">{{ daysCount }} 晚</h3>
+        <h3 class="text-3xl font-bold">{{ nightsNum }} 晚</h3>
         <div class="mb-4 flex items-center justify-between">
           <div class="flex space-x-4">
             <div class="flex-1">
@@ -121,7 +119,7 @@ console.log('Modal tempBookingDate', tempBookingDate)
               date: tempBookingDate.date,
               minDate: tempBookingDate.minDate,
               maxDate: tempBookingDate.maxDate,
-              daysCount: daysCount
+              nightsNum: nightsNum
             })
           "
         >

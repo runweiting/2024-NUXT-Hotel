@@ -1,5 +1,8 @@
 import type { ApiDataResponse } from '~/types/api/ApiResponse'
 import type { OrderItem, UseOrderReturn } from '~/types/Orders'
+import { formatPrice } from '~/utils/formatPrice'
+import { date2LocaleString } from '~/utils/date2LocaleString'
+import { getNightsNum } from '~/utils/getNightsNum'
 
 export const useOrder = (): UseOrderReturn => {
   const runtimeConfig = useRuntimeConfig()
@@ -42,61 +45,21 @@ export const useOrder = (): UseOrderReturn => {
     checkInDate: '',
     checkOutDate: '',
     peopleNum: 0,
+    nightsNum: 0,
     status: 0,
     createdAt: '',
     updatedAt: '',
     formattedPrice: '',
     totalPrice: 0
   }
-  // 共用的日期轉換函式
-  const date2LocaleString = (date: string) => new Date(date).toLocaleDateString()
-  // 共用的價格轉換函式
-  const formatPrice = (price: number): string => {
-    return price.toLocaleString('zh-TW', {
-      style: 'currency',
-      currency: 'TWD',
-      // 設定最少 0 位小數，最多 0 位小數
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    })
-  }
-
-  const getOrderList = async () => {
-    const { data, status, error, refresh } = await useFetchWithToken<ApiDataResponse<OrderItem[]>>(
-      `${hexSchoolApiUrl}/api/v1/orders/`,
-      {
-        transform: (data: any) => {
-          if (!data.status) return data
-          return {
-            ...data,
-            result: data.result.map((order: OrderItem) => ({
-              ...order,
-              formattedPrice: formatPrice(order.roomId.price),
-              createdAt: date2LocaleString(order.createdAt),
-              updatedAt: date2LocaleString(order.updatedAt)
-            }))
-          }
-        }
-      }
-    )
-    const orderList = computed<OrderItem[]>(() => (data.value?.status ? data.value?.result : []))
-    const hasError = computed(() => error.value !== null)
-    const isLoading = computed(() => status.value === 'pending')
-
-    return {
-      orderList,
-      hasError,
-      isLoading,
-      refresh
-    }
-  }
 
   const getOrderItem = async (orderId: string) => {
-    const orderStore = useOrderStore()
-
-    const { data, status, error, refresh } = await useFetchWithToken<ApiDataResponse<OrderItem>>(
+    const { data, status, error, refresh } = await useFetch<ApiDataResponse<OrderItem>>(
       `${hexSchoolApiUrl}/api/v1/orders/${orderId}`,
       {
+        headers: {
+          Authorization: `Bearer ${useCookie('myToken').value}`
+        },
         transform: (data: any) => {
           if (!data.status) return data
           const order = data.result
@@ -106,10 +69,9 @@ export const useOrder = (): UseOrderReturn => {
               ...order,
               checkInDate: date2LocaleString(order.checkInDate),
               checkOutDate: date2LocaleString(order.checkOutDate),
+              nightsNum: getNightsNum(order.checkInDate, order.checkOutDate),
               formattedPrice: formatPrice(order.roomId.price),
-              totalPrice: order.roomId.price * (orderStore.bookingDate?.daysCount ?? 1),
-              createdAt: date2LocaleString(order.createdAt),
-              updatedAt: date2LocaleString(order.updatedAt)
+              totalPrice: order.roomId.price * getNightsNum(order.checkInDate, order.checkOutDate)
             }
           }
         }
@@ -131,7 +93,6 @@ export const useOrder = (): UseOrderReturn => {
   }
 
   return {
-    getOrderList,
     getOrderItem
   }
 }

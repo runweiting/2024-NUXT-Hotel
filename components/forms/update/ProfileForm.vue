@@ -18,8 +18,6 @@ const {
 } = useUpdateProfileForm()
 
 const toggleEditMode = () => {
-  console.log('userStore.oldPassword', userStore.oldPassword)
-  console.log('userStore.newPassword', userStore.newPassword)
   if (!userStore.oldPassword && !userStore.newPassword) {
     warningToast('請先重設密碼，才能編輯資料')
     return

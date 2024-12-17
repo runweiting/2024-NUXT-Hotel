@@ -1,5 +1,6 @@
 import type { ApiDataResponse } from '~/types/api/ApiResponse'
 import type { RoomItem, UseRoomReturn } from '~/types/Rooms'
+import { formatPrice } from '~/utils/formatPrice'
 
 export const useRoom = (): UseRoomReturn => {
   const runtimeConfig = useRuntimeConfig()
@@ -26,18 +27,6 @@ export const useRoom = (): UseRoomReturn => {
     createdAt: '',
     updatedAt: ''
   }
-  // 共用的日期轉換函式
-  const date2LocaleString = (date: string) => new Date(date).toLocaleDateString()
-  // 共用的價格轉換函式
-  const formatPrice = (price: number): string => {
-    return price.toLocaleString('zh-TW', {
-      style: 'currency',
-      currency: 'TWD',
-      // 設定最少 0 位小數，最多 0 位小數
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    })
-  }
 
   const getRoomList = async () => {
     const { data, status, error, refresh } = await useFetch<ApiDataResponse<RoomItem[]>>(
@@ -49,9 +38,7 @@ export const useRoom = (): UseRoomReturn => {
             ...data,
             result: data.result.map((room: RoomItem) => ({
               ...room,
-              formattedPrice: formatPrice(room.price),
-              createdAt: date2LocaleString(room.createdAt),
-              updatedAt: date2LocaleString(room.updatedAt)
+              formattedPrice: formatPrice(room.price)
             }))
           }
         }
@@ -82,12 +69,10 @@ export const useRoom = (): UseRoomReturn => {
             result: {
               ...room,
               formattedPrice: formatPrice(room.price),
-              totalPrice: room.price * (orderStore.bookingDate?.daysCount ?? 1),
+              totalPrice: room.price * (orderStore.bookingDate?.nightsNum ?? 1),
               formattedTotalPrice: formatPrice(
-                room.price * (orderStore.bookingDate?.daysCount ?? 1)
-              ),
-              createdAt: date2LocaleString(room.createdAt),
-              updatedAt: date2LocaleString(room.updatedAt)
+                room.price * (orderStore.bookingDate?.nightsNum ?? 1)
+              )
             }
           }
         }

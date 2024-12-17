@@ -93,7 +93,7 @@ useHeadSafe({
             <!-- Room Type -->
             <div class="flex items-center justify-between text-lg font-bold">
               <h3>{{ order.roomId.name }}</h3>
-              <span>{{ orderStore.bookingDate?.daysCount }} 晚</span>
+              <span>{{ order.nightsNum }} 晚</span>
             </div>
             <div class="mb-3 flex items-center justify-between text-lg font-bold">
               <h3>住宿人數</h3>

@@ -172,7 +172,7 @@ useHeadSafe({
             <div class="mb-4 space-y-4">
               <div class="flex items-center justify-between">
                 <span>
-                  NT$ {{ room.formattedPrice }} × {{ orderStore.bookingDate?.daysCount }} 晚
+                  NT$ {{ room.formattedPrice }} × {{ orderStore.bookingDate?.nightsNum }} 晚
                 </span>
                 <div class="flex items-end space-x-4">
                   <span>NT$</span>

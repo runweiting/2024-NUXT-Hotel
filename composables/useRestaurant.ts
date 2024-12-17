@@ -1,5 +1,6 @@
 import type { ApiDataResponse } from '~/types/api/ApiResponse'
 import type { RestaurantItem, UseRestaurantReturn } from '~/types/Restaurants'
+import { date2LocaleString } from '~/utils/date2LocaleString'
 
 export const useRestaurant = (): UseRestaurantReturn => {
   const runtimeConfig = useRuntimeConfig()
@@ -30,7 +31,7 @@ export const useRestaurant = (): UseRestaurantReturn => {
   const restaurantList = computed(() => (data.value?.status ? data.value.result : []))
   const hasError = computed(() => error.value !== null)
   const isLoading = computed(() => status.value === 'pending')
-  const date2LocaleString = (date: string) => new Date(date).toLocaleDateString()
+
   return {
     restaurantList,
     hasError,
