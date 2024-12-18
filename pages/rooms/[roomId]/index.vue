@@ -58,7 +58,7 @@ const openModal = () => {
 }
 
 useHeadSafe({
-  title: '客房介紹'
+  title: '房型介紹'
 })
 </script>
 

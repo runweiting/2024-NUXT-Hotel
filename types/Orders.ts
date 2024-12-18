@@ -26,6 +26,7 @@ export interface OrderItem {
   peopleNum: number
   nightsNum: number
   status: number
+  originalCreatedAt: string
   createdAt: string
   updatedAt: string
   formattedPrice: string

@@ -1,8 +1,4 @@
-<script setup lang="ts">
-useHeadSafe({
-  title: '我的帳戶'
-})
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>

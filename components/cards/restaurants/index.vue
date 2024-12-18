@@ -4,11 +4,11 @@ const { restaurantList, hasError, isLoading, refresh } = useRestaurant()
 
 <template>
   <div>
-    <section class="md:py-30 relative bg-primary-50 p-20">
-      <div class="delicacy-intro container">
-        <div class="mb-10 flex items-center gap-10 md:mb-20">
-          <h2 class="mb-0 text-4xl font-bold text-primary-300">佳餚<br />美饌</h2>
-          <div class="h-0.5 w-20 bg-primary-100"></div>
+    <section class="md:py-30 relative bg-primary-50 py-20 sm:ps-5">
+      <div class="delicacy-intro">
+        <div class="mb-6 flex items-center gap-10 ps-5 sm:ps-0 md:mb-10">
+          <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-primary-300">佳餚<br />美饌</h2>
+          <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-white" />
         </div>
         <FetchDataLoading v-if="isLoading" />
         <div v-else-if="hasError" class="flex items-center space-x-4">
@@ -19,7 +19,17 @@ const { restaurantList, hasError, isLoading, refresh } = useRestaurant()
         </div>
         <Carousel
           v-else
-          :items-to-show="3"
+          :breakpoints="{
+            375: {
+              itemsToShow: 1
+            },
+            640: {
+              itemsToShow: 2
+            },
+            1024: {
+              itemsToShow: 3
+            }
+          }"
           :wrap-around="true"
           :transition="1500"
           :autoplay="3000"
@@ -27,13 +37,13 @@ const { restaurantList, hasError, isLoading, refresh } = useRestaurant()
           class="overflow-x-visible"
         >
           <Slide v-for="restaurant in restaurantList" :key="restaurant._id" class="px-2">
-            <div class="group relative rounded-3xl border-0">
+            <div class="group relative rounded-3xl">
               <picture>
-                <source :srcset="restaurant.image" media="(min-width:576px)" />
+                <source :srcset="restaurant.image" media="(min-width:640px)" />
                 <NuxtImg
                   :src="restaurant.image"
                   :alt="restaurant.title"
-                  class="h-auto w-full rounded-3xl object-cover transition-transform"
+                  class="h-[480px] w-full rounded-3xl object-cover transition-transform"
                 />
               </picture>
               <div

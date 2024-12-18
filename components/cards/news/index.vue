@@ -4,11 +4,13 @@ const { newsList, hasError, isLoading, refresh } = useNews()
 
 <template>
   <div>
-    <section class="news-intro md:py-30 relative bg-primary-50 p-20">
+    <section class="news-intro md:py-30 relative bg-primary-50 px-2 py-20 md:px-8">
       <div class="container">
-        <div class="grid grid-flow-col grid-rows-3 gap-10">
-          <div class="row-span-3">
-            <h2 class="mb-6 text-5xl font-bold text-primary-300 md:mb-10">最新<br />消息</h2>
+        <div class="grid-col-1 grid gap-8 md:grid-flow-row md:gap-10 lg:grid-flow-col">
+          <div class="md:row-span-3">
+            <h2 class="mb-6 text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-primary-300 md:mb-10">
+              最新<br />消息
+            </h2>
             <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-white" />
           </div>
           <FetchDataLoading v-if="isLoading" />
@@ -22,14 +24,14 @@ const { newsList, hasError, isLoading, refresh } = useNews()
             :key="news._id"
             class="flex flex-col border-0 bg-transparent"
           >
-            <div class="flex items-center gap-6 md:flex-row">
+            <div class="flex flex-col items-center gap-6 md:flex-row">
               <picture class="w-full flex-shrink-0 md:w-[44%]">
                 <source :srcset="news.image" media="(min-width: 576px)" />
                 <NuxtImg :src="news.image" :alt="news.title" class="w-full rounded-lg" />
               </picture>
               <div class="text-primary-900">
-                <h3 class="mb-2 text-3xl font-bold md:mb-6">{{ news.title }}</h3>
-                <p class="text-sm font-medium md:text-base">
+                <h3 class="mb-2 text-2xl font-bold md:mb-6">{{ news.title }}</h3>
+                <p class="text-sm">
                   {{ news.description }}
                 </p>
               </div>

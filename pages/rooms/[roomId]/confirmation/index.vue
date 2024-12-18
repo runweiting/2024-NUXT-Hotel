@@ -64,8 +64,12 @@ useHeadSafe({
               <!-- Booking Dates -->
               <div class="flex flex-col">
                 <h3 class="room-title-deco relative mb-2 pl-4 text-xl font-bold">訂房日期</h3>
-                <p class="mb-2 font-medium">入住：{{ orderStore.bookingDate?.date.start }}</p>
-                <p class="mb-0 font-medium">退房：{{ orderStore.bookingDate?.date.end }}</p>
+                <p class="mb-2 font-medium">
+                  入住：{{ orderStore.bookingDate?.date.start }}，15:00 可入住
+                </p>
+                <p class="mb-0 font-medium">
+                  退房：{{ orderStore.bookingDate?.date.end }}，12:00 前退房
+                </p>
               </div>
 
               <!-- Guest Count -->

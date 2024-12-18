@@ -77,9 +77,11 @@ const slideNext = () => {
           <!-- 黑色透明遮罩 -->
           <div class="absolute inset-0 bg-black/60"></div>
           <picture>
-            <!-- source 提供媒體條件判斷，螢幕寬度 >= 576 px，瀏覽器優先載入 slide.imgSrc 所指定圖片 -->
-            <source :srcset="slide.imgSrc" media="(min-width:576px)" />
-            <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
+            <!-- <source> 會從上到下進行判斷，螢幕寬度 >= 640px 時，優先載入 slide.imgSrc -->
+            <source :srcset="slide.imgSrc" media="(min-width:640px)" />
+            <!-- 螢幕寬度 >= 375px 時，載入 slide.imgSrcSm -->
+            <source :srcset="slide.imgSrcSm" media="(min-width:375px)" />
+            <!-- 備用圖片，當沒有 <source> 匹配條件時顯示 -->
             <NuxtImg
               :src="slide.imgSrcSm"
               :alt="slide.alt"
@@ -96,31 +98,32 @@ const slideNext = () => {
       </Carousel>
 
       <div
-        class="absolute inset-0 z-10 mx-auto my-auto flex h-[400px] w-full items-center justify-center space-x-10 px-4 md:flex-row md:px-20"
+        class="absolute inset-0 z-10 mt-[140px] flex h-[400px] w-full flex-col items-center justify-center px-4 sm:mx-auto sm:my-auto sm:flex-row sm:gap-4 md:gap-6 md:px-20 lg:gap-10"
       >
-        <div class="mt-10 flex flex-col items-center md:mt-0 md:block md:text-left">
-          <div class="mb-5 mt-10 font-bold text-primary-300 md:mb-10">
-            <h2 class="mb-2 text-4xl">享樂酒店</h2>
-            <h5 class="text-2xl md:text-xl">Enjoyment Luxury Hotel</h5>
+        <div class="mt-14 flex flex-col items-center justify-center md:mt-0 md:items-start">
+          <div class="mb-5 mt-10 text-center font-bold text-primary-300 sm:text-start md:mb-10">
+            <!-- 自訂響應式字體 text-[clamp(2rem,5vw,3.5rem)]：2rem：字體最小值，5vw：理想字體大小，3.5rem：字體最大值 -->
+            <h2 class="text-[clamp(1.5rem,2vw,2.25rem)]">享樂酒店</h2>
+            <h5 class="text-[clamp(1em,1.5vw,2.5rem)]">Enjoyment Luxury Hotel</h5>
           </div>
-          <div class="h-[2px] w-[33vw] bg-gradient-to-r from-[#BE9C7C] to-white" />
+          <div
+            class="my-10 h-[2px] w-[20vw] rotate-90 bg-gradient-to-r from-[#BE9C7C] to-white sm:my-0 sm:w-[32vw] sm:transform-none"
+          />
         </div>
         <!-- hero-intro -->
-        <!-- text-[clamp(2rem,5vw,3.5rem)] 自訂響應式字體：2rem：字體最小值，5vw：理想字體大小，3.5rem：字體最大值 -->
-        <div class="hero-intro relative text-white">
-          <h1 class="mb-2 whitespace-nowrap text-[clamp(2rem,5vw,3.5rem)] font-bold">
-            高雄<br />豪華住宿之選
-          </h1>
-          <p
-            class="mb-[min(5vh,3rem)] whitespace-nowrap text-[clamp(1.25rem,1.5vw,2rem)] font-semibold md:whitespace-normal"
-          >
-            致力於為您提供無與倫比的奢華體驗與優質服務
+        <div class="hero-intro relative mt-[100px] px-4 text-white sm:mt-[30px] md:mt-[50px]">
+          <h1 class="text-[clamp(2.5rem,4vw,3rem)] font-bold">高雄<br />豪華住宿之選</h1>
+          <p class="mb-6 text-[clamp(1rem,1.25vw,2.25rem)] font-semibold">
+            我們致力為您提供無與倫比的奢華體驗與優質服務
           </p>
           <NuxtLink
             to="/rooms"
-            class="btn duration-250 flex w-full items-center justify-center gap-3 border-0 text-end text-xl font-semibold transition-all hover:text-white hover:shadow-[inset_48vw_0_0_0_var(--primary)]"
+            class="btn flex h-14 w-full items-center justify-end gap-4 sm:h-10 lg:h-14"
           >
-            立即訂房
+            <span>立即訂房</span>
+            <div
+              class="h-[2px] w-[20vw] bg-gradient-to-r from-[white] to-transparent sm:my-0 sm:w-[30vw] md:w-[10vw]"
+            />
           </NuxtLink>
         </div>
       </div>
@@ -130,40 +133,44 @@ const slideNext = () => {
     <CardsNews />
 
     <!-- About Section -->
-    <section class="md:py-30 relative -z-10 bg-black py-20">
+    <section class="relative -z-10 bg-black py-[200px]">
       <div class="container relative">
         <div class="absolute inset-0 -z-20">
           <picture>
-            <source srcset="/images/home-about.png" media="(min-width:576px)" />
+            <!-- 寬度 >= 640px 時優先載入 slide.imgSrc -->
+            <source srcset="/images/home-about.png" media="(min-width:640px)" />
             <NuxtImg
               src="/images/home-about.png"
               alt="home-about"
-              class="inset-0 h-full w-full object-cover"
+              class="h-100vh inset-0 w-full object-cover"
             />
           </picture>
         </div>
-        <div class="p-10 text-white md:mx-auto md:mt-20 md:p-20">
-          <div class="rounded-3xl bg-gradient-to-b from-primary-300 to-black/50 p-14">
-            <div class="mb-10 flex items-center gap-10 md:mb-20">
-              <h2 class="mb-0 whitespace-nowrap text-4xl font-bold">關於<br />我們</h2>
-              <div class="h-[2px] w-[165px] bg-white" />
+        <div
+          class="relative top-[100px] z-10 p-2 text-white sm:top-[150px] md:mx-auto md:mt-20 md:p-20"
+        >
+          <div
+            class="rounded-t-3xl rounded-bl-3xl border border-white bg-gradient-to-b from-black/50 to-primary-300 p-6 backdrop-blur-sm md:p-12"
+          >
+            <div class="mb-8 flex items-center gap-10 md:mb-12">
+              <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-white">關於<br />我們</h2>
+              <div class="h-[2px] w-[165px] bg-gradient-to-r from-[white] to-transparent" />
             </div>
-            <div class="space-y-4 font-medium md:space-y-10">
-              <!-- About content paragraphs -->
-              <p class="mb-0 text-sm md:text-base">
+            <div class="space-y-4 text-sm font-medium md:space-y-8">
+              <p>
                 享樂酒店，位於美麗島高雄的心臟地帶，是這座城市的璀璨瑰寶與傲人地標。
                 <br />
                 我們的存在，不僅僅是為了提供奢華的住宿體驗，更是為了將高雄的美麗與活力，獻給每一位蒞臨的旅客。
               </p>
-              <p class="mb-0 text-sm md:text-base">
+              <p>
                 我們的酒店，擁有時尚典雅的裝潢，每一個細節都充滿著藝術與設計的精緻。
                 <br />
                 我們的員工，都以熱情的服務與專業的態度，讓每一位客人都能感受到賓至如歸的溫暖。
               </p>
-              <p class="mb-0 text-sm md:text-base">
+              <p>
                 在這裡，您可以遙望窗外，欣賞高雄的城市景色，感受這座城市的繁華與活力；您也可以舒適地坐在我們的餐廳，品嚐精緻的佳餚，體驗無與倫比的味覺盛宴。
               </p>
-              <p class="mb-0 text-sm md:text-base">
+              <p>
                 享樂酒店，不僅是您在高雄的住宿之選，更是您感受高雄魅力的最佳舞台。我們期待著您的蒞臨，讓我們共同編織一段難忘的高雄故事。
               </p>
             </div>
@@ -173,8 +180,8 @@ const slideNext = () => {
     </section>
 
     <!-- Room Intro Section -->
-    <section class="md:py-30 bg-black px-3 py-20 md:px-0">
-      <div class="relative grid grid-cols-2 gap-6">
+    <section class="md:py-30 bg-black px-2 py-20">
+      <div class="relative flex flex-col gap-6 sm:flex-row">
         <Carousel
           ref="roomSwiper"
           :items-to-show="1"
@@ -182,11 +189,13 @@ const slideNext = () => {
           :transition="1000"
           :autoplay="3000"
           :pause-autoplay-on-hover="true"
+          class="sm:w-1/2"
         >
           <Slide v-for="slide in roomSlides" :key="slide.id">
             <picture>
-              <source :srcset="slide.imgSrc" media="(min-width:768px)" />
-              <NuxtImg :src="slide.imgSrc" :alt="slide.alt" class="w-100 object-cover" />
+              <source :srcset="slide.imgSrc" media="(min-width:640px)" />
+              <source :srcset="slide.imgSrcSm" media="(min-width:375px)" />
+              <NuxtImg :src="slide.imgSrcSm" :alt="slide.alt" class="h-100vh w-full object-cover" />
             </picture>
           </Slide>
           <!-- Addons -->
@@ -197,19 +206,16 @@ const slideNext = () => {
           </template>
         </Carousel>
 
-        <div class="room-intro self-end">
-          <div class="flex flex-col p-10 text-white">
-            <h2 class="mb-2 text-4xl font-bold md:mb-4">尊爵雙人房</h2>
-            <p class="mb-6 text-sm md:mb-10 md:text-base">
+        <div class="room-intro self-end sm:w-1/2">
+          <div class="flex flex-col px-2 text-white">
+            <h2 class="mb-2 text-[clamp(1.75rem,2vw,2rem)] font-bold md:mb-4">尊爵雙人房</h2>
+            <p class="mb-6 text-sm md:mb-10">
               享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。
             </p>
-            <div class="mb-6 text-3xl font-bold md:mb-10">NT$ 10,000</div>
-            <NuxtLink
-              to="/rooms"
-              class="btn mb-6 flex w-full items-center justify-end gap-3 text-end text-xl font-bold md:mb-10 md:p-10 md:text-xl"
-            >
-              查看更多
-              <div class="h-[2px] w-[10vw] bg-gradient-to-r from-white/60 to-[#BE9C7C]" />
+            <div class="mb-6 text-[clamp(1.5rem,2vw,2rem)] font-bold md:mb-10">NT$ 10,000</div>
+            <NuxtLink to="/rooms" class="btn flex h-12 w-full items-center justify-end gap-4">
+              <span>查看更多</span>
+              <div class="h-[2px] w-[20vw] bg-gradient-to-r from-[white] to-transparent" />
             </NuxtLink>
             <div class="flex justify-end text-white">
               <button class="border-0 bg-transparent p-4" type="button" @click="slidePrev()">
@@ -228,34 +234,36 @@ const slideNext = () => {
     <CardsRestaurants />
 
     <!-- Transport Section -->
-    <section class="transport-intro relative bg-black pb-40 pt-20">
-      <div class="md:pt-30 container pb-10 pt-20 md:pb-20">
-        <div class="mb-10 flex items-center gap-10 md:mb-20">
-          <h2 class="mb-0 text-4xl font-bold text-primary-300">交通<br />方式</h2>
-          <div class="h-0.5 w-20 bg-primary-100"></div>
+    <section class="transport-intro md:py-30 relative bg-black py-20">
+      <div class="container px-8">
+        <div class="mb-6 flex items-center gap-10 md:mb-10">
+          <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-primary-300">交通<br />方式</h2>
+          <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-black" />
         </div>
-
         <div class="flex flex-col gap-6">
-          <div class="col-span-3 mb-10">
+          <div>
             <p class="mb-4 font-bold text-white">台灣高雄市新興區六角路123號</p>
             <picture>
-              <source srcset="/images/home-map.png" media="(min-width:576px)" />
+              <source srcset="/images/home-map.png" media="(min-width:640px)" />
+              <source srcset="/images/home-map-sm.png" media="(min-width:375px)" />
+              <!-- (max-width: 640px)：螢幕寬度 <= 640px 時，圖片應占據整個視窗寬度的 100% -->
+              <!-- 50vw（默認情況）：當視窗寬度 > 640px 時，圖片應該占據視窗寬度的 50% -->
               <NuxtImg
                 src="/images/home-map.png"
                 alt="描述地圖中酒店所在的位置"
-                class="h-auto w-full object-cover"
-                sizes="(max-width: 576px) 100vw, 50vw"
+                class="h-100vh w-full object-cover"
+                sizes="(max-width: 640px) 100vw, 50vw"
               />
             </picture>
           </div>
 
-          <div class="grid grid-flow-row grid-cols-3 gap-4 text-white">
+          <div class="flex flex-col gap-6 text-white sm:flex-row">
             <div v-for="(method, index) in transportMethods" :key="index">
               <Icon :name="method.icon" class="mb-2 h-12 w-12 text-primary-300 md:mb-4" />
-              <h5 class="text-lg font-bold md:text-xl">
+              <h5 class="mb-2 font-bold">
                 {{ method.title }}
               </h5>
-              <p class="mb-0 text-xs md:text-sm">
+              <p class="text-sm">
                 {{ method.description }}
               </p>
             </div>

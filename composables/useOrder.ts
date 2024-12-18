@@ -47,6 +47,7 @@ export const useOrder = (): UseOrderReturn => {
     peopleNum: 0,
     nightsNum: 0,
     status: 0,
+    originalCreatedAt: '',
     createdAt: '',
     updatedAt: '',
     formattedPrice: '',

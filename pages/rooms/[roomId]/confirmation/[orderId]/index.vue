@@ -99,8 +99,12 @@ useHeadSafe({
               <h3>住宿人數</h3>
               <span>{{ order.peopleNum }} 位</span>
             </div>
-            <p class="room-title-deco-sm relative pl-4">入住：{{ order.checkInDate }}</p>
-            <p class="room-title-deco-sm relative mb-3 pl-4">退房：{{ order.checkOutDate }}</p>
+            <p class="room-title-deco-sm relative pl-4">
+              入住：{{ order.checkInDate }}，15:00 可入住
+            </p>
+            <p class="room-title-deco-sm relative mb-3 pl-4">
+              退房：{{ order.checkOutDate }}，12:00 前退房
+            </p>
             <div class="flex items-center justify-between text-lg font-bold">
               <h3>總價</h3>
               <span v-formatPrice="order.totalPrice - coupon" class="text-xl font-bold"></span>

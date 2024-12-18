@@ -36,7 +36,7 @@ body {
 
 @layer utilities {
   .hero-intro::after {
-    @apply absolute inset-0 -right-[120px] -z-10 mx-auto my-auto h-[345px] w-[450px] rounded-[80px] border border-[#F5F7F9] bg-gradient-to-b from-transparent to-white/30 backdrop-blur-sm;
+    @apply absolute inset-0 -right-[60px] -z-10 mx-auto my-auto h-[400px] w-[290px] rounded-[80px] border border-[#F5F7F9] bg-gradient-to-b from-transparent to-white/30 backdrop-blur-sm sm:h-[240px] sm:w-[340px] md:-right-[120px] md:h-[260px] md:w-[360px] lg:h-[320px] lg:w-[420px];
     content: '';
   }
   .news-intro::before {
@@ -50,7 +50,7 @@ body {
     background-image: url('/images/deco-dot-group.svg');
   }
   .room-intro::before {
-    @apply absolute -right-20 -top-6 z-10 h-[84px] w-[375px] bg-no-repeat;
+    @apply absolute -right-20 -top-24 z-10 h-[84px] w-[375px] bg-no-repeat;
     content: '';
     background-image: url('/images/deco-line-group-horizontal-sm.svg');
 
@@ -95,7 +95,7 @@ body {
   }
 
   .delicacy-intro::before {
-    @apply absolute -top-[50px] right-0 z-10 h-48 w-48;
+    @apply absolute -top-[50px] right-0 z-10 hidden h-48 w-48 sm:block;
     content: '';
     background-image: url('/images/deco-dot-group.svg');
   }

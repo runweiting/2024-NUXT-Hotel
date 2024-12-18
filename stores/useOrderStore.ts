@@ -53,14 +53,29 @@ export const useOrderStore = defineStore('order', () => {
       const rawOrders = res.data.result || []
       orderList.value = rawOrders.map((order) => ({
         ...order,
+        originalCreatedAt: order.createdAt,
+        createdAt: date2LocaleString(order.createdAt),
         checkInDate: date2LocaleString(order.checkInDate),
         checkOutDate: date2LocaleString(order.checkOutDate),
         nightsNum: getNightsNum(order.checkInDate, order.checkOutDate),
         formattedPrice: formatPrice(order.roomId.price),
         totalPrice: order.roomId.price * getNightsNum(order.checkInDate, order.checkOutDate)
       }))
-      pendingOrderList.value = orderList.value.filter((order) => order.status === 0)
-      canceledOrderList.value = orderList.value.filter((order) => order.status === -1)
+
+      // 使用原始 createdAt 排序
+      pendingOrderList.value = orderList.value
+        .filter((order) => order.status === 0)
+        .sort(
+          (a, b) =>
+            new Date(b.originalCreatedAt).getTime() - new Date(a.originalCreatedAt).getTime()
+        )
+
+      canceledOrderList.value = orderList.value
+        .filter((order) => order.status === -1)
+        .sort(
+          (a, b) =>
+            new Date(b.originalCreatedAt).getTime() - new Date(a.originalCreatedAt).getTime()
+        )
     } catch (err: any) {
       orderState.error = err.response?.data?.message
     } finally {
