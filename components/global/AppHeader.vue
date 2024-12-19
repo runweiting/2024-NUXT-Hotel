@@ -29,6 +29,16 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
 
+// 導航並關閉選單
+const navigateAndCloseMenu = (to: string) => {
+  // 如果是移動端，關閉選單
+  if (isMenuOpen.value) {
+    isMenuOpen.value = false
+  }
+  // 使用 Nuxt 導航
+  navigateTo(to)
+}
+
 const userStore = useUserStore()
 </script>
 
@@ -39,7 +49,7 @@ const userStore = useUserStore()
       isScrolled ? 'bg-black' : isTransparentRoute ? 'bg-transparent' : 'bg-black'
     ]"
   >
-    <nav class="px-3 py-4 md:px-20 md:py-6">
+    <nav class="px-3 py-4 md:px-12 md:py-6">
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <NuxtLink to="/" class="flex-shrink-0">
@@ -73,45 +83,45 @@ const userStore = useUserStore()
               : 'hidden'
           ]"
         >
-          <ul class="flex flex-col items-center gap-4 md:flex-row md:gap-6">
+          <ul class="flex flex-col items-center gap-2 md:flex-row lg:gap-6">
             <li>
-              <NuxtLink
-                to="/rooms"
-                class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
+              <div
+                class="block cursor-pointer px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
+                @click="navigateAndCloseMenu('/rooms')"
               >
                 客房旅宿
-              </NuxtLink>
+              </div>
             </li>
 
             <!-- Desktop User Menu -->
             <li class="hidden md:block">
-              <NuxtLink
+              <div
                 v-if="!userStore.isLogin"
-                to="/account/login"
-                class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-300"
+                class="flex cursor-pointer items-center gap-2 p-4 font-bold text-white transition-colors group-hover:text-primary-300"
+                @click="navigateAndCloseMenu('/account/login')"
               >
                 <Icon name="mdi:account-circle-outline" class="text-xl" />
                 會員登入
-              </NuxtLink>
+              </div>
               <div v-else class="group relative">
-                <NuxtLink
-                  :to="`/user/${userStore.userInfo?.id}`"
-                  class="flex items-center gap-2 px-4 py-4 font-bold text-white transition-colors group-hover:text-primary-300"
+                <div
+                  class="flex cursor-pointer items-center gap-2 p-4 font-bold text-white transition-colors group-hover:text-primary-300"
+                  @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}`)"
                 >
                   <Icon name="mdi:account-circle-outline" class="text-xl" />
                   {{ userStore.userInfo?.name }}
-                </NuxtLink>
+                </div>
                 <div
                   class="group/menu-item absolute right-0 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
                 >
-                  <NuxtLink
-                    :to="`/user/${userStore.userInfo?.id}/order`"
-                    class="block px-6 py-4 text-gray-700 hover:bg-primary-50 hover:text-primary-900"
+                  <div
+                    class="block cursor-pointer p-4 px-6 text-gray-700 hover:bg-primary-50 hover:text-primary-900"
+                    @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}/order`)"
                   >
                     我的帳戶
-                  </NuxtLink>
+                  </div>
                   <button
-                    class="w-full px-6 py-4 text-left text-gray-700 hover:bg-primary-50 hover:text-primary-900"
+                    class="w-full p-4 px-6 text-left text-gray-700 hover:bg-primary-50 hover:text-primary-900"
                     @click="userStore.logout"
                   >
                     登出
@@ -122,22 +132,22 @@ const userStore = useUserStore()
 
             <!-- Mobile Login Link -->
             <li v-if="!userStore.isLogin" class="md:hidden">
-              <NuxtLink
-                to="/account/login"
+              <div
                 class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
+                @click="navigateAndCloseMenu('/account/login')"
               >
                 會員登入
-              </NuxtLink>
+              </div>
             </li>
 
             <!-- Book Now Button -->
             <li>
-              <NuxtLink
-                to="/rooms"
+              <div
                 class="inline-block rounded-lg bg-primary-300 px-8 py-4 font-bold text-white transition-colors hover:bg-primary-700"
+                @click="navigateAndCloseMenu('/rooms')"
               >
                 立即訂房
-              </NuxtLink>
+              </div>
             </li>
           </ul>
         </div>

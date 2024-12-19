@@ -28,17 +28,16 @@ useHeadSafe({
         :pause-autoplay-on-hover="true"
         class="relative"
       >
-        <Slide v-for="slide in heroSlides" :key="slide.id" class="relative">
+        <Slide v-for="slide in heroSlides" :key="slide.id" class="relative overflow-hidden">
           <!-- 黑色透明遮罩 -->
           <div class="absolute inset-0 bg-black/60"></div>
-          <picture>
-            <!-- source 提供媒體條件判斷，螢幕寬度 >= 576 px，瀏覽器優先載入 slide.imgSrc 所指定圖片 -->
-            <source :srcset="slide.imgSrc" media="(min-width:576px)" />
-            <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
+          <picture class="h-[460px]">
+            <source :srcset="slide.imgSrc" media="(min-width:640px)" />
+            <source :srcset="slide.imgSrcSm" media="(min-width:375px)" />
             <NuxtImg
               :src="slide.imgSrcSm"
               :alt="slide.alt"
-              class="h-100vh w-full object-cover brightness-50"
+              class="h-100vh w-full object-cover brightness-50 sm:h-[460px] lg:w-[1024px]"
             />
           </picture>
         </Slide>
@@ -51,14 +50,16 @@ useHeadSafe({
       </Carousel>
 
       <div
-        class="absolute inset-0 z-10 mx-auto my-auto flex h-[400px] w-full flex-col items-center justify-center space-x-10 px-4 md:flex-row md:px-20"
+        class="absolute inset-0 z-10 mt-[140px] flex h-[180px] w-full flex-col items-center justify-center px-4 sm:mx-auto sm:my-auto sm:flex-row sm:items-end sm:gap-4 md:gap-6 md:px-20 lg:gap-10"
       >
-        <div class="mt-10 flex flex-col items-center md:mt-0 md:block md:text-left">
-          <div class="mb-5 mt-10 font-bold text-primary-300 md:mb-10">
-            <h2 class="mb-2 text-4xl">享樂酒店</h2>
-            <h5 class="text-2xl md:text-xl">Enjoyment Luxury Hotel</h5>
+        <div class="mt-14 flex flex-col items-center justify-center md:mt-0 md:items-start">
+          <div class="mb-5 mt-10 text-center font-bold text-primary-300 sm:text-start md:mb-10">
+            <h2 class="text-[clamp(1.5rem,2vw,2.25rem)]">享樂酒店</h2>
+            <h5 class="text-[clamp(1em,1.5vw,2.5rem)]">Enjoyment Luxury Hotel</h5>
           </div>
-          <div class="h-[2px] w-[33vw] bg-gradient-to-r from-[#BE9C7C] to-white" />
+          <div
+            class="my-10 h-[2px] w-[20vw] rotate-90 bg-gradient-to-r from-[#BE9C7C] to-white sm:my-0 sm:w-[32vw] sm:transform-none"
+          />
         </div>
         <h1 class="p-10 text-[clamp(2rem,5vw,3.5rem)] font-bold text-white">客房旅宿</h1>
       </div>

@@ -25,7 +25,7 @@ useHeadSafe({
 
 <template>
   <div class="container p-12">
-    <section class="md:py-30 mb-6 mt-[150px] py-10 text-black">
+    <section class="md:pb-30 mb-6 mt-[72px] text-black sm:mt-[95px] md:mt-[120px]">
       <div class="grid gap-16 md:grid-cols-12">
         <div class="md:col-span-6">
           <button
