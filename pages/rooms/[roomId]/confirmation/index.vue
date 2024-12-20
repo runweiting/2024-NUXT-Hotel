@@ -24,27 +24,21 @@ useHeadSafe({
 </script>
 
 <template>
-  <div class="container p-12">
+  <div class="container p-6 sm:p-12 md:p-8">
     <section class="md:pb-30 mb-6 mt-[72px] text-black sm:mt-[95px] md:mt-[120px]">
-      <div class="grid gap-16 md:grid-cols-12">
-        <div class="md:col-span-6">
-          <button
-            class="mb-10 flex items-center gap-2 border-0 bg-transparent"
-            type="button"
-            @click="goBack"
-          >
+      <div class="flex flex-col md:flex-row md:gap-8">
+        <div class="flex-1">
+          <button class="mb-10 flex items-center gap-2" type="button" @click="goBack">
             <Icon name="mdi:keyboard-arrow-left" class="h-8 w-8" />
-            <h1 class="mb-0 text-3xl font-bold">確認訂房資訊</h1>
+            <h1 class="text-2xl font-bold">確認訂房資訊</h1>
           </button>
 
           <!-- Room Info Section -->
           <section>
             <div class="mb-8 flex items-center justify-between">
-              <h2 class="text-lg font-bold md:text-2xl">訂房資訊</h2>
-              <button class="flex items-center gap-2 bg-transparent" type="button" @click="goBack">
-                <span class="bg-transparent font-bold text-primary-300 underline"
-                  >回上一頁編輯</span
-                >
+              <h2 class="text-xl font-bold sm:text-2xl">訂房資訊</h2>
+              <button class="flex items-center gap-2" type="button" @click="goBack">
+                <span class="font-bold text-primary-300 underline">回上一頁編輯</span>
               </button>
             </div>
             <FetchDataLoading v-if="isLoading" />
@@ -57,25 +51,31 @@ useHeadSafe({
             <div v-else class="flex flex-col gap-6">
               <!-- Room Type -->
               <div class="flex flex-col">
-                <h3 class="room-title-deco relative mb-2 pl-4 text-xl font-bold">選擇房型</h3>
+                <h3 class="room-title-deco relative mb-2 pl-4 text-lg font-bold sm:text-xl">
+                  選擇房型
+                </h3>
                 <p class="text-lg font-medium">{{ room.name }}</p>
               </div>
 
               <!-- Booking Dates -->
               <div class="flex flex-col">
-                <h3 class="room-title-deco relative mb-2 pl-4 text-xl font-bold">訂房日期</h3>
-                <p class="mb-2 font-medium">
+                <h3 class="room-title-deco relative mb-2 pl-4 text-lg font-bold sm:text-xl">
+                  訂房日期
+                </h3>
+                <p class="font-medium">
                   入住：{{ orderStore.bookingDate?.date.start }}，15:00 可入住
                 </p>
-                <p class="mb-0 font-medium">
+                <p class="font-medium">
                   退房：{{ orderStore.bookingDate?.date.end }}，12:00 前退房
                 </p>
               </div>
 
               <!-- Guest Count -->
               <div class="flex flex-col">
-                <h3 class="room-title-deco relative mb-2 pl-4 text-xl font-bold">房客人數</h3>
-                <p class="mb-0 font-medium">{{ orderStore.peopleNum }} 人</p>
+                <h3 class="room-title-deco relative mb-2 pl-4 text-lg font-bold sm:text-xl">
+                  房客人數
+                </h3>
+                <p class="font-medium">{{ orderStore.peopleNum }} 人</p>
               </div>
 
               <div class="my-5 h-[2px] w-full bg-gradient-to-r from-[#BE9C7C] to-primary-50" />
@@ -86,49 +86,70 @@ useHeadSafe({
               <div class="my-5 h-[2px] w-full bg-gradient-to-r from-[#BE9C7C] to-primary-50" />
 
               <!-- Basic Room Info -->
-              <section class="mb-5">
-                <h3 class="room-title-deco relative mb-4 ps-4 text-2xl font-bold">房型基本資訊</h3>
-                <div class="flex flex-row space-x-4">
-                  <div
-                    v-for="(info, index) in [
-                      { icon: 'relative-scale', text: `${room.areaInfo} 坪` },
-                      { icon: 'bed-king', text: room.bedInfo },
-                      {
-                        icon: 'account',
-                        text: `最多 ${room.maxPeople}人`
-                      }
-                    ]"
-                    :key="index"
-                    class="h-[97px] w-[97px] rounded-lg bg-white p-4 text-center drop-shadow-sm"
+              <section>
+                <h3 class="room-title-deco relative mb-4 ps-4 text-xl font-bold sm:text-2xl">
+                  房型基本資訊
+                </h3>
+                <ul class="flex gap-4 lg:gap-4">
+                  <li
+                    class="aspect-square w-1/3 rounded-lg bg-white p-4 sm:w-1/5 md:w-1/3 lg:w-1/5 lg:p-3"
                   >
                     <Icon
-                      :name="`mdi:${info.icon}`"
-                      class="mx-auto mb-2 text-2xl text-primary-300"
+                      name="fluent:slide-size-24-filled"
+                      class="mb-2 text-xl text-primary-300"
                     />
-                    <p class="font-bold">{{ info.text }}</p>
-                  </div>
-                </div>
+                    <p class="font-medium">
+                      {{ room.areaInfo }}
+                    </p>
+                  </li>
+                  <li
+                    class="aspect-square w-1/3 rounded-lg bg-white p-4 sm:w-1/5 md:w-1/3 lg:w-1/5 lg:p-3"
+                  >
+                    <Icon name="material-symbols:king-bed" class="mb-2 text-xl text-primary-300" />
+                    <p class="font-medium">
+                      {{ room.bedInfo }}
+                    </p>
+                  </li>
+                  <li
+                    class="aspect-square w-1/3 rounded-lg bg-white p-4 sm:w-1/5 md:w-1/3 lg:w-1/5 lg:p-3"
+                  >
+                    <Icon name="ic:baseline-person" class="mb-2 text-xl text-primary-300" />
+                    <p class="font-medium">{{ room.maxPeople }}人</p>
+                  </li>
+                </ul>
               </section>
 
               <!-- Room Features -->
-              <section class="mb-5">
-                <h3 class="room-title-deco relative mb-4 ps-4 text-2xl font-bold">房間格局</h3>
-                <div class="grid grid-cols-4 gap-4 rounded-lg bg-white p-4 drop-shadow-sm">
-                  <div v-for="(feature, index) in room.layoutInfo" :key="index" class="flex gap-2">
+              <section>
+                <h3 class="room-title-deco relative mb-4 ps-4 text-xl font-bold sm:text-2xl">
+                  房間格局
+                </h3>
+                <div
+                  class="grid grid-cols-3 rounded-lg bg-white p-4 drop-shadow-sm sm:grid-cols-4 sm:gap-4 md:grid-cols-3 md:gap-2"
+                >
+                  <div
+                    v-for="(feature, index) in room.layoutInfo"
+                    :key="index"
+                    class="flex gap-1 sm:gap-2"
+                  >
                     <Icon name="mdi:check" class="text-2xl text-primary-300" />
-                    <p class="font-bold">{{ feature.title }}</p>
+                    <p class="font-medium">{{ feature.title }}</p>
                   </div>
                 </div>
               </section>
 
               <!-- Room Amenities -->
-              <section class="mb-5">
-                <h3 class="room-title-deco relative mb-4 ps-4 text-2xl font-bold">房間設備</h3>
-                <div class="grid grid-cols-4 gap-4 rounded-lg bg-white p-4 drop-shadow-sm">
+              <section>
+                <h3 class="room-title-deco relative mb-4 ps-4 text-xl font-bold sm:text-2xl">
+                  房間設備
+                </h3>
+                <div
+                  class="grid grid-cols-3 rounded-lg bg-white p-4 drop-shadow-sm sm:grid-cols-4 sm:gap-4 md:grid-cols-3 md:gap-2"
+                >
                   <div
                     v-for="(facility, index) in room.facilityInfo"
                     :key="index"
-                    class="flex gap-2"
+                    class="flex gap-1 sm:gap-2"
                   >
                     <Icon
                       v-if="facility.isProvide"
@@ -136,23 +157,31 @@ useHeadSafe({
                       class="text-2xl text-primary-300"
                     />
                     <Icon v-else name="mdi:close" class="text-2xl text-primary-300" />
-                    <p class="font-bold">{{ facility.title }}</p>
+                    <p class="font-medium">{{ facility.title }}</p>
                   </div>
                 </div>
               </section>
 
               <!-- Room Supplies -->
               <section>
-                <h3 class="room-title-deco relative mb-4 ps-4 text-2xl font-bold">備品提供</h3>
-                <div class="grid grid-cols-4 gap-4 rounded-lg bg-white p-4 drop-shadow-sm">
-                  <div v-for="(amenity, index) in room.amenityInfo" :key="index" class="flex gap-2">
+                <h3 class="room-title-deco relative mb-4 ps-4 text-xl font-bold sm:text-2xl">
+                  備品提供
+                </h3>
+                <div
+                  class="grid grid-cols-3 rounded-lg bg-white p-4 drop-shadow-sm sm:grid-cols-4 sm:gap-4 md:grid-cols-3 md:gap-2"
+                >
+                  <div
+                    v-for="(amenity, index) in room.amenityInfo"
+                    :key="index"
+                    class="flex gap-1 sm:gap-2"
+                  >
                     <Icon
                       v-if="amenity.isProvide"
                       name="mdi:check"
                       class="text-2xl text-primary-300"
                     />
                     <Icon v-else name="mdi:close" class="text-2xl text-primary-300" />
-                    <p class="font-bold">{{ amenity.title }}</p>
+                    <p class="font-medium">{{ amenity.title }}</p>
                   </div>
                 </div>
               </section>
@@ -160,9 +189,13 @@ useHeadSafe({
           </section>
         </div>
 
-        <div class="md:col-span-6">
+        <div
+          class="my-[44px] h-[2px] w-full bg-gradient-to-r from-[#BE9C7C] to-primary-50 md:hidden"
+        />
+
+        <div class="flex-1">
           <div
-            class="sticky rounded-3xl bg-white p-6 text-black shadow shadow-primary-300 md:top-40 md:p-10"
+            class="sticky rounded-3xl bg-white p-6 text-black shadow shadow-primary-300 md:top-40 md:p-8"
           >
             <div class="mb-4 overflow-hidden rounded-xl">
               <picture>
@@ -175,9 +208,7 @@ useHeadSafe({
             <h2 class="mb-6 text-lg font-bold md:text-2xl">價格詳情</h2>
             <div class="mb-4 space-y-4">
               <div class="flex items-center justify-between">
-                <span>
-                  NT$ {{ room.formattedPrice }} × {{ orderStore.bookingDate?.nightsNum }} 晚
-                </span>
+                <span>{{ room.formattedPrice }} × {{ orderStore.bookingDate?.nightsNum }} 晚 </span>
                 <div class="flex items-end space-x-4">
                   <span>NT$</span>
                   <span class="text-xl font-bold">{{ room.formattedTotalPrice }}</span>

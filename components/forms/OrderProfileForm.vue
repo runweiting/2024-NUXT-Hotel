@@ -27,7 +27,7 @@ defineExpose({
 
 <template>
   <div class="flex items-center justify-between">
-    <h2 class="text-lg font-bold md:text-2xl">訂房人資訊</h2>
+    <h2 class="text-xl font-bold md:text-2xl">訂房人資訊</h2>
     <button
       type="button"
       class="border-0 bg-transparent font-bold text-primary-300 underline"
@@ -135,23 +135,23 @@ defineExpose({
             readonly
           />
         </fieldset>
-        <fieldset class="col-span-2">
-          <legend id="bookingAddressLegend" class="flex items-start">
-            地址
-            <Icon class="m-1 h-2 w-2 text-red-500" name="mdi:required" />
-          </legend>
-          <FormsInputField
-            id="bookingAddress"
-            v-model="bookingDetail"
-            type="text"
-            placeholder="請輸入地址"
-            aria-describedby="signupAddressLegend"
-            autocomplete="off"
-            :disabled="orderStore.isLoading"
-          />
-          <FormsErrorMessage :msg="errors.bookingDetail" />
-        </fieldset>
       </div>
+      <fieldset>
+        <legend id="bookingAddressLegend" class="flex items-start">
+          地址
+          <Icon class="m-1 h-2 w-2 text-red-500" name="mdi:required" />
+        </legend>
+        <FormsInputField
+          id="bookingAddress"
+          v-model="bookingDetail"
+          type="text"
+          placeholder="請輸入地址"
+          aria-describedby="signupAddressLegend"
+          autocomplete="off"
+          :disabled="orderStore.isLoading"
+        />
+        <FormsErrorMessage :msg="errors.bookingDetail" />
+      </fieldset>
     </form>
   </div>
 </template>

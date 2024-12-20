@@ -14,7 +14,7 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="max-w-md">
+  <div>
     <form class="grid grid-cols-1 gap-6" @submit.prevent="onSubmit">
       <fieldset>
         <legend id="signupNameLegend" class="flex items-start text-white">
@@ -83,7 +83,7 @@ const onSubmit = async () => {
         </fieldset>
         <fieldset>
           <legend id="signupCityLegend" class="flex items-start text-white">
-            城市及區域
+            城市
             <Icon class="m-1 h-2 w-2 text-red-500" name="mdi:required" />
           </legend>
           <FormsInputField
@@ -99,7 +99,7 @@ const onSubmit = async () => {
         </fieldset>
         <fieldset>
           <legend id="signupCountyLegend" class="flex items-start text-white">
-            城市及區域
+            區域
             <Icon class="m-1 h-2 w-2 text-red-500" name="mdi:required" />
           </legend>
           <FormsInputField

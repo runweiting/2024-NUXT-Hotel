@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const userStore = useUserStore()
+
 // 定義透明背景的路由名稱
 const transparentRoutes = ['index', 'rooms']
 
@@ -39,7 +41,11 @@ const navigateAndCloseMenu = (to: string) => {
   navigateTo(to)
 }
 
-const userStore = useUserStore()
+const isGroupMenuOpen = ref(false)
+
+const toggleGroupMenu = () => {
+  isGroupMenuOpen.value = !isGroupMenuOpen.value
+}
 </script>
 
 <template>
@@ -86,7 +92,7 @@ const userStore = useUserStore()
           <ul class="flex flex-col items-center gap-2 md:flex-row lg:gap-6">
             <li>
               <div
-                class="block cursor-pointer px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
+                class="block cursor-pointer px-4 py-4 font-bold text-white transition-colors hover:text-primary-100 md:px-2"
                 @click="navigateAndCloseMenu('/rooms')"
               >
                 客房旅宿
@@ -105,49 +111,71 @@ const userStore = useUserStore()
               </div>
               <div v-else class="group relative">
                 <div
-                  class="flex cursor-pointer items-center gap-2 p-4 font-bold text-white transition-colors group-hover:text-primary-300"
+                  class="flex cursor-pointer items-center gap-2 p-4 font-bold text-white transition-colors group-hover:text-primary-300 md:px-2"
                   @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}`)"
                 >
                   <Icon name="mdi:account-circle-outline" class="text-xl" />
                   {{ userStore.userInfo?.name }}
                 </div>
                 <div
-                  class="group/menu-item absolute right-0 hidden w-64 overflow-hidden rounded-2xl bg-white shadow-lg group-hover:block"
+                  class="absolute right-0 hidden w-[150px] overflow-hidden rounded-2xl bg-white text-black shadow-lg group-hover:block"
                 >
-                  <div
-                    class="block cursor-pointer p-4 px-6 text-gray-700 hover:bg-primary-50 hover:text-primary-900"
-                    @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}/order`)"
-                  >
-                    我的帳戶
+                  <div class="flex flex-col divide-y">
+                    <div class="group/menu-item">
+                      <div
+                        class="cursor-pointer p-4 px-6 group-hover/menu-item:underline group-hover/menu-item:decoration-primary-500 group-hover/menu-item:decoration-2 group-hover/menu-item:underline-offset-4"
+                        @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}/order`)"
+                      >
+                        我的帳戶
+                      </div>
+                    </div>
+                    <div class="group/menu-item">
+                      <button
+                        class="cursor-pointer p-4 px-6 group-hover/menu-item:underline group-hover/menu-item:decoration-primary-500 group-hover/menu-item:decoration-2 group-hover/menu-item:underline-offset-4"
+                        @click="userStore.logout"
+                      >
+                        登出
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    class="w-full p-4 px-6 text-left text-gray-700 hover:bg-primary-50 hover:text-primary-900"
-                    @click="userStore.logout"
-                  >
-                    登出
-                  </button>
                 </div>
               </div>
             </li>
 
             <!-- Mobile Login Link -->
-            <li v-if="!userStore.isLogin" class="md:hidden">
+            <li class="md:hidden">
               <div
+                v-if="!userStore.isLogin"
                 class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
                 @click="navigateAndCloseMenu('/account/login')"
               >
                 會員登入
+              </div>
+              <div
+                v-else
+                class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
+                @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}/order`)"
+              >
+                我的帳戶
               </div>
             </li>
 
             <!-- Book Now Button -->
             <li>
               <div
-                class="inline-block rounded-lg bg-primary-300 px-8 py-4 font-bold text-white transition-colors hover:bg-primary-700"
+                class="inline-block rounded-lg bg-primary-300 px-8 py-4 font-bold text-white transition-colors hover:bg-primary-700 md:px-4"
                 @click="navigateAndCloseMenu('/rooms')"
               >
                 立即訂房
               </div>
+            </li>
+            <li>
+              <button
+                class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100 md:px-2"
+                @click="userStore.logout"
+              >
+                登出
+              </button>
             </li>
           </ul>
         </div>

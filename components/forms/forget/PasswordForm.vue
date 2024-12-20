@@ -15,7 +15,7 @@ const handleSubmit = async () => {
 
 <template>
   <div>
-    <form class="mb-4 flex flex-col space-y-6" @submit.prevent="handleSubmit">
+    <form class="flex flex-col space-y-6" @submit.prevent="handleSubmit">
       <fieldset>
         <legend id="signupEmailLegend" class="flex items-start text-white">
           註冊電子信箱

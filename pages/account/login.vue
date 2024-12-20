@@ -23,36 +23,35 @@ useHeadSafe({
 <template>
   <div>
     <section class="flex overflow-hidden">
-      <div class="w-1/2">
+      <!-- md: Hero Section -->
+      <div class="hidden sm:block sm:w-1/2">
         <picture>
-          <!-- 螢幕寬度 >= 768 px，瀏覽器優先載入 :srcset 所指定圖片 -->
-          <source srcset="/images/login-hero.png" media="(min-width: 768px)" />
-          <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
+          <source srcset="/images/login-hero.png" media="(min-width: 640px)" />
           <NuxtImg
             src="/images/login-hero.png"
             alt="login-hero"
-            class="h-[700px] w-full object-cover"
+            class="h-[600px] w-full object-cover"
           />
         </picture>
       </div>
+      <!-- Login Section -->
       <div
-        class="signup-info relative z-10 flex w-1/2 flex-col items-center justify-start space-y-10 px-20"
+        class="deco-line-horizontal relative z-10 flex h-[500px] w-full flex-col items-start justify-center gap-8 p-10 sm:w-1/2 lg:px-20"
       >
-        <div v-if="currentForm == 'login'" class="flex flex-col space-y-2">
-          <p class="font-bold text-primary-300">享樂酒店，誠摯歡迎</p>
-          <h1 class="text-4xl font-bold text-white">立即開始旅程</h1>
+        <div v-if="currentForm == 'login'" class="flex flex-col gap-2 font-bold">
+          <p class="text-sm text-primary-300">享樂酒店，誠摯歡迎</p>
+          <h1 class="text-3xl text-white">立即開始旅程</h1>
         </div>
-        <div v-else-if="currentForm === 'forgetPassword'" class="flex flex-col space-y-2">
-          <p class="font-bold text-primary-300">享樂酒店，誠摯歡迎</p>
-          <h1 class="text-4xl font-bold text-white">驗證註冊信箱</h1>
+        <div v-else-if="currentForm === 'forgetPassword'" class="flex flex-col gap-2 font-bold">
+          <p class="text-sm text-primary-300">享樂酒店，誠摯歡迎</p>
+          <h1 class="text-3xl text-white">驗證註冊信箱</h1>
         </div>
-        <div v-else-if="currentForm === 'changePassword'" class="flex flex-col space-y-2">
-          <p class="font-bold text-primary-300">享樂酒店，誠摯歡迎</p>
-          <h1 class="text-4xl font-bold text-white">重設密碼</h1>
+        <div v-else-if="currentForm === 'changePassword'" class="flex flex-col gap-2 font-bold">
+          <p class="text-sm text-primary-300">享樂酒店，誠摯歡迎</p>
+          <h1 class="text-3xl text-white">重設密碼</h1>
         </div>
 
-        <!-- Login Section -->
-        <div class="w-3/4">
+        <div class="w-full">
           <!-- 根據 currentForm 的值顯示對應的表單 -->
           <FormsLoginForm
             v-if="currentForm === 'login'"

@@ -83,7 +83,11 @@ useHeadSafe({
         <div class="col-span-2 row-span-2">
           <picture class="h-[460px]">
             <source :srcset="room.imageUrl" media="(min-width: 640px)" />
-            <NuxtImg :src="room.imageUrl" alt="imageUrl" class="w-full object-cover md:h-[300px]" />
+            <NuxtImg
+              :src="room.imageUrl"
+              alt="imageUrl"
+              class="w-full object-cover md:h-[300px] lg:h-[400px]"
+            />
           </picture>
         </div>
         <div
@@ -96,7 +100,7 @@ useHeadSafe({
             <NuxtImg
               :src="image"
               :alt="`room-image-${index}`"
-              class="w-full object-cover md:h-[146px]"
+              class="w-full object-cover md:h-[146px] lg:h-[196px]"
             />
           </picture>
         </div>

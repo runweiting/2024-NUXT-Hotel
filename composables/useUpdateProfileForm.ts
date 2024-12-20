@@ -123,6 +123,7 @@ export const useUpdateProfileForm = () => {
         newPassword: userStore.oldPassword as string
       }
       await userStore.updateProfile(form)
+      resetForm()
       // 很妙的是，store 裡的資料已更新，但是 composables 裡的資料還是舊的 userInfo，所以這樣改
       const newUserInfo = await userStore.getProfile()
       // 重新取得並設置表單值

@@ -15,7 +15,7 @@ const onSubmit = async () => {
 
 <template>
   <div>
-    <form class="mb-4 flex flex-col space-y-6" @submit.prevent="onSubmit">
+    <form class="mb-4 flex flex-col gap-6" @submit.prevent="onSubmit">
       <fieldset>
         <legend id="signupEmailLegend" class="flex items-start text-white">
           電子信箱

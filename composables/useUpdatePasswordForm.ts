@@ -28,7 +28,7 @@ export const useUpdatePasswordForm = () => {
     })
 
   // 2. useForm 轉換 schema 為 vee-validate schema
-  const { handleSubmit, errors } = useForm({
+  const { handleSubmit, errors, validate } = useForm({
     validationSchema: toTypedSchema(schema)
   })
 
@@ -42,7 +42,10 @@ export const useUpdatePasswordForm = () => {
   b. 收集表單數據：將所有欄位的值收集起來，組成一個 values 對象
   c. 處理提交邏輯：如驗證通過，才會將表單值作為參數傳遞給提交處理器
   d. values 是由 handleSubmit 提供的，包含所有已驗證的表單數據 */
-  const handlePassword = handleSubmit(async (values, { resetForm }): Promise<void> => {
+  const handlePassword = handleSubmit(async (values, { resetForm }): Promise<void | boolean> => {
+    // 先進行表單驗證
+    await validate()
+
     try {
       const form: UserPut = {
         userId: userStore.userId as string,

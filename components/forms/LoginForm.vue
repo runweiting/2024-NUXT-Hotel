@@ -17,7 +17,7 @@ defineEmits<{
 
 <template>
   <div>
-    <form class="mb-4 flex flex-col space-y-6" @submit.prevent="handleLogin">
+    <form class="flex flex-col gap-6" @submit.prevent="handleLogin">
       <fieldset>
         <legend id="signupEmailLegend" class="flex items-start text-white">
           電子信箱

@@ -7,29 +7,30 @@ const userStore = useUserStore()
 <template>
   <div>
     <AppHeader />
-    <main class="bg-black">
+    <main class="bg-black text-white">
       <div class="relative pt-[120px]">
         <picture>
-          <!-- 螢幕寬度 >= 768 px，瀏覽器優先載入 :srcset 所指定圖片 -->
-          <source srcset="/images/profile-hero.png" media="(min-width: 576px)" />
-          <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
+          <source srcset="/images/profile-hero.png" media="(min-width: 640px)" />
+          <source srcset="/images/profile-hero-sm.png" media="(min-width: 375px)" />
           <NuxtImg
             src="/images/profile-hero.png"
             alt="profile-hero"
-            class="h-[300px] w-full object-cover"
+            class="h-[240px] w-full object-cover sm:h-[300px]"
           />
         </picture>
-        <div class="absolute inset-y-0 top-[120px] flex items-center space-x-6 px-20">
-          <picture>
+        <div
+          class="absolute inset-y-0 top-[120px] flex flex-col justify-center gap-4 px-8 sm:flex-row sm:items-center xl:px-20"
+        >
+          <picture class="aspect-square w-[72px] sm:w-[144px]">
+            <source srcset="/images/avatar-6.png" media="(min-width: 375px)" />
             <source srcset="/images/avatar-6.png" />
-            <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
-            <NuxtImg src="/images/avatar-6.png" alt="profile-hero" class="h-[144px] w-[144px]" />
+            <NuxtImg src="/images/avatar-6.png" alt="profile-hero" class="h-full w-full" />
           </picture>
-          <h1 class="text-4xl font-bold text-white">Hello, {{ userStore.userInfo?.name }}!</h1>
+          <h1 class="text-3xl font-bold">Hello, {{ userStore.userInfo?.name }}!</h1>
         </div>
       </div>
-      <div>
-        <ul class="flex space-x-4 px-20 py-14 text-white">
+      <div class="px-4 py-8 text-black sm:px-12 sm:py-16 xl:px-20 xl:py-24">
+        <ul class="mb-8 flex gap-4 sm:mb-12">
           <li>
             <NuxtLink :to="`/user/${route.params.userId}/profile`" class="btn-outline-active"
               >個人資料</NuxtLink
@@ -45,9 +46,7 @@ const userStore = useUserStore()
         <ModalsContainer />
       </div>
       <picture>
-        <!-- 螢幕寬度 >= 768 px，瀏覽器優先載入 :srcset 所指定圖片 -->
-        <source srcset="/images/deco-line-group-horizontal-full.svg" media="(min-width: 576px)" />
-        <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
+        <source srcset="/images/deco-line-group-horizontal-full.svg" media="(min-width: 640px)" />
         <NuxtImg
           src="/images/deco-line-group-horizontal-sm.svg"
           alt="deco-line-group"

@@ -7,7 +7,9 @@ const { restaurantList, hasError, isLoading, refresh } = useRestaurant()
     <section class="md:py-30 relative bg-primary-50 py-20 sm:ps-5">
       <div class="delicacy-intro">
         <div class="mb-6 flex items-center gap-10 ps-5 sm:ps-0 md:mb-10">
-          <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-primary-300">佳餚<br />美饌</h2>
+          <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold leading-[1.2em] text-primary-300">
+            佳餚<br />美饌
+          </h2>
           <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-white" />
         </div>
         <FetchDataLoading v-if="isLoading" />

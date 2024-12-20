@@ -217,6 +217,7 @@ export const useUserStore = defineStore('user', () => {
     generateEmailCode,
     forgetPassword,
     updateProfile,
-    getProfile
+    getProfile,
+    resetState
   }
 })

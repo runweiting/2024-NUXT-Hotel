@@ -112,7 +112,9 @@ const slideNext = () => {
         </div>
         <!-- hero-intro -->
         <div class="hero-intro relative mt-[100px] px-4 text-white sm:mt-[30px] md:mt-[50px]">
-          <h1 class="text-[clamp(2.5rem,4vw,3rem)] font-bold">高雄<br />豪華住宿之選</h1>
+          <h1 class="mb-3 text-[clamp(2.5rem,4vw,3rem)] font-bold leading-[1.2em]">
+            高雄<br />豪華住宿之選
+          </h1>
           <p class="mb-6 text-[clamp(1rem,1.25vw,2.25rem)] font-semibold">
             我們致力為您提供無與倫比的奢華體驗與優質服務
           </p>
@@ -153,7 +155,9 @@ const slideNext = () => {
             class="rounded-t-3xl rounded-bl-3xl border border-white bg-gradient-to-b from-black/50 to-primary-300 p-6 backdrop-blur-sm md:p-12"
           >
             <div class="mb-8 flex items-center gap-10 md:mb-12">
-              <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-white">關於<br />我們</h2>
+              <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold leading-[1.2em] text-white">
+                關於<br />我們
+              </h2>
               <div class="h-[2px] w-[165px] bg-gradient-to-r from-[white] to-transparent" />
             </div>
             <div class="space-y-4 text-sm font-medium md:space-y-8">
@@ -237,7 +241,9 @@ const slideNext = () => {
     <section class="transport-intro md:py-30 relative bg-black py-20">
       <div class="container px-8">
         <div class="mb-6 flex items-center gap-10 md:mb-10">
-          <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-primary-300">交通<br />方式</h2>
+          <h2 class="text-[clamp(2rem,3.5vw,2.5rem)] font-bold leading-[1.2em] text-primary-300">
+            交通<br />方式
+          </h2>
           <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-black" />
         </div>
         <div class="flex flex-col gap-6">

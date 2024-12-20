@@ -8,7 +8,9 @@ const { newsList, hasError, isLoading, refresh } = useNews()
       <div class="container">
         <div class="grid-col-1 grid gap-8 md:grid-flow-row md:gap-10 lg:grid-flow-col">
           <div class="md:row-span-3">
-            <h2 class="mb-6 text-[clamp(2rem,3.5vw,2.5rem)] font-bold text-primary-300 md:mb-10">
+            <h2
+              class="mb-6 text-[clamp(2rem,3.5vw,2.5rem)] font-bold leading-[1.2em] text-primary-300 md:mb-10"
+            >
               最新<br />消息
             </h2>
             <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-white" />
