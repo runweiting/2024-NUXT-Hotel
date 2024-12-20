@@ -65,7 +65,7 @@ export const useUpdatePasswordForm = () => {
       userStore.newPassword = values.newPassword.trim()
       resetForm()
     } catch (err: any) {
-      console.error('Error in handleSignUp:', err)
+      console.error('Error in handlePassword:', err)
     }
   })
 

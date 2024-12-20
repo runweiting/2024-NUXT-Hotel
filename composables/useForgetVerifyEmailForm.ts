@@ -31,7 +31,7 @@ export const useForgetVerifyEmailForm = () => {
       await userStore.verifyEmail(email)
       resetForm()
     } catch (err) {
-      console.error('Error in handleLogin:', err)
+      console.error('Error in handleVerifyEmail:', err)
     }
   })
 

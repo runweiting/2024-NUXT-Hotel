@@ -139,7 +139,7 @@ export const useUpdateProfileForm = () => {
         putDetail: newUserInfo?.address.detail || ''
       })
     } catch (err) {
-      console.error('Error in handleSignUp:', err)
+      console.error('Error in handleUpdateProfile:', err)
     }
   })
 

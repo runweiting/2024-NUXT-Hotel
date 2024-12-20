@@ -108,7 +108,7 @@ export const useOrderProfileForm = () => {
       await orderStore.createOrder(form)
       resetForm()
     } catch (err) {
-      console.error('Error in handleSignUp:', err)
+      console.error('Error in handleProfile:', err)
     }
   })
 

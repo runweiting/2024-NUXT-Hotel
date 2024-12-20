@@ -112,7 +112,7 @@ export const useSignupStepTwoForm = () => {
       await userStore.signup(form)
       resetForm()
     } catch (err) {
-      console.error('Error in handleSignUp:', err)
+      console.error('Error in handleSignup:', err)
     }
   })
 

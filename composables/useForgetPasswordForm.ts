@@ -44,7 +44,7 @@ export const useForgetPasswordForm = () => {
       await userStore.forgetPassword(form)
       resetForm()
     } catch (err) {
-      console.error('Error in handleLogin:', err)
+      console.error('Error in handleForgetPassword:', err)
     }
   })
 
