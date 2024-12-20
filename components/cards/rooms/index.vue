@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import 'vue3-carousel/dist/carousel.css'
-
 const { getRoomList } = useRoom()
 const { roomList, hasError, isLoading, refresh } = await getRoomList()
 </script>
@@ -110,29 +108,4 @@ const { roomList, hasError, isLoading, refresh } = await getRoomList()
   </div>
 </template>
 
-<style scoped>
-.custom-pagination :deep(.carousel__pagination-item) {
-  padding-inline: 4px;
-}
-
-.custom-pagination :deep(.carousel__pagination-button) {
-  width: 32px;
-  height: 4px;
-  background-color: white;
-  border-radius: 100px;
-  opacity: 1;
-}
-
-.custom-pagination :deep(.carousel__pagination-button::after) {
-  background-color: transparent !important;
-  display: none !important;
-}
-
-.custom-pagination :deep(.carousel__pagination-button--active) {
-  width: 60px;
-  height: 4px;
-  background-color: #bf9d7d;
-  border-radius: 100px;
-  opacity: 1;
-}
-</style>
+<style scoped></style>

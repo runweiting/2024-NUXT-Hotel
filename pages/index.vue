@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import 'vue3-carousel/dist/carousel.css'
-
 interface TransportItem {
   icon: string
   title: string
@@ -280,29 +278,4 @@ const slideNext = () => {
   </main>
 </template>
 
-<style scoped>
-.custom-pagination :deep(.carousel__pagination-item) {
-  padding-inline: 4px;
-}
-
-.custom-pagination :deep(.carousel__pagination-button) {
-  width: 32px;
-  height: 8px;
-  background-color: white;
-  border-radius: 100px;
-  opacity: 1;
-}
-
-.custom-pagination :deep(.carousel__pagination-button::after) {
-  background-color: transparent !important;
-  display: none !important;
-}
-
-.custom-pagination :deep(.carousel__pagination-button--active) {
-  width: 60px;
-  height: 8px;
-  background-color: #bf9d7d;
-  border-radius: 100px;
-  opacity: 1;
-}
-</style>
+<style scoped></style>

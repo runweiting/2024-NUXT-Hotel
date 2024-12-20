@@ -32,6 +32,30 @@ body {
   .btn-outline-active {
     @apply rounded-md border border-primary-500 px-4 py-2 text-center font-bold text-white transition-all duration-200 hover:bg-primary-700 disabled:bg-primary-200 [&.active]:bg-primary-700;
   }
+  .custom-pagination .carousel__pagination-item {
+    padding-inline: 4px;
+  }
+
+  .custom-pagination .carousel__pagination-button {
+    width: 32px;
+    height: 8px;
+    background-color: white;
+    border-radius: 100px;
+    opacity: 1;
+  }
+
+  .custom-pagination .carousel__pagination-button::after {
+    background-color: transparent !important;
+    display: none !important;
+  }
+
+  .custom-pagination .carousel__pagination-button--active {
+    width: 60px;
+    height: 8px;
+    background-color: #bf9d7d;
+    border-radius: 100px;
+    opacity: 1;
+  }
 }
 
 @layer utilities {
