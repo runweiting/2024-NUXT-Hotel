@@ -61,12 +61,12 @@ const toggleExpanded = () => {
 <template>
   <VueFinalModal
     class="flex items-center justify-center bg-black/30 backdrop-blur-sm"
-    content-class="w-[300px] sm:w-[400px] bg-white rounded-3xl shadow-lg"
+    content-class="w-[300px] sm:w-[400px] md:w-[700px] xl:w-[800px] 2xl:w-[900px] bg-white rounded-3xl shadow-lg"
     content-transition="vfm-fade"
     overlay-transition="vfm-fade"
     @click-overlay="$emit('close')"
   >
-    <div class="flex flex-col p-4">
+    <div class="flex flex-col p-4 md:p-8 xl:p-12 2xl:p-16">
       <!-- md -->
       <div class="hidden md:block">
         <h3 class="room-title-deco-sm relative ps-4 sm:mb-4">請選擇日期</h3>

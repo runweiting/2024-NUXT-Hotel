@@ -35,7 +35,7 @@ useHeadSafe({
             <NuxtImg
               :src="slide.imgSrcSm"
               :alt="slide.alt"
-              class="h-100vh w-full object-cover brightness-50 sm:h-[460px] lg:w-[1024px]"
+              class="h-100vh w-full object-cover brightness-50 sm:h-[460px] lg:w-[1024px] xl:w-[1280px]"
             />
           </picture>
         </Slide>
