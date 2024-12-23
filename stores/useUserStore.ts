@@ -28,7 +28,8 @@ export const useUserStore = defineStore('user', () => {
     token: '',
     error: null,
     isLoading: false,
-    isLogin: false
+    isLogin: false,
+    isAdmin: false
   })
 
   // 重置狀態
@@ -42,6 +43,13 @@ export const useUserStore = defineStore('user', () => {
     userState.error = null
     userState.isLoading = false
     userState.isLogin = false
+  }
+
+  const setUserAdmin = (isAdmin: boolean) => (userState.isAdmin = isAdmin)
+
+  const checkAdmin = async (email: string) => {
+    const isAdmin = email === 'admin@test.com'
+    setUserAdmin(isAdmin)
   }
 
   const signup = async (payload: UserSignup): Promise<void> => {
@@ -75,6 +83,7 @@ export const useUserStore = defineStore('user', () => {
       if (res.data.token) {
         userState.userInfo = res.data.result
         setTokenCookie(res.data.token)
+        checkAdmin(payload.email)
         userState.isLogin = true
         navigateTo(`/user/${userState.userInfo.id}/profile`)
         successToast('登入成功')
@@ -89,7 +98,7 @@ export const useUserStore = defineStore('user', () => {
   const logout = () => {
     resetState()
     deleteTokenCookie()
-    successToast('登出成功')
+    successToast('已登出')
     navigateTo('/')
   }
 
@@ -106,6 +115,9 @@ export const useUserStore = defineStore('user', () => {
         setTokenCookie(res.data.token)
         userState.isLogin = true
         return true
+      }
+      if (!res.data.token) {
+        deleteTokenCookie()
       }
     } catch (err: any) {
       userState.error = err.response?.data?.message
@@ -209,6 +221,7 @@ export const useUserStore = defineStore('user', () => {
     error: computed(() => userState.error),
     isLoading: computed(() => userState.isLoading),
     isLogin: computed(() => userState.isLogin),
+    isAdmin: computed(() => userState.isAdmin),
     signup,
     login,
     logout,
@@ -218,6 +231,7 @@ export const useUserStore = defineStore('user', () => {
     forgetPassword,
     updateProfile,
     getProfile,
-    resetState
+    resetState,
+    setUserAdmin
   }
 })

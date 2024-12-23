@@ -4,7 +4,8 @@ definePageMeta({
     if (to.path === '/account') {
       return navigateTo('/account/signup')
     }
-  }
+  },
+  requiresAuth: true
 })
 </script>
 

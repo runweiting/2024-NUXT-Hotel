@@ -46,6 +46,15 @@ useHeadSafe({
     <!-- Order Info Section -->
     <div class="w-full md:w-3/5">
       <FetchDataLoading v-if="isLoading" />
+      <div v-else-if="pendingOrderList.length === 0">
+        <div class="rounded-3xl bg-white p-6 text-black md:p-8">
+          <h2 class="mb-4 text-xl font-bold">即將來的行程</h2>
+          <p class="mb-4">目前訂單數量為：{{ pendingOrderList.length }}</p>
+          <NuxtLink to="/rooms" class="font-bold text-primary-300 underline underline-offset-1"
+            >前往客房旅宿頁</NuxtLink
+          >
+        </div>
+      </div>
       <div v-else class="flex flex-col gap-4">
         <section
           v-for="(order, index) in pendingOrderList"

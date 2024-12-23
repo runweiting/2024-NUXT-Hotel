@@ -12,7 +12,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     switch (errorCode) {
       case 401:
-        navigateTo('/account/login')
+        // 讓導航邏輯交由 middleware 處理
+        deleteTokenCookie()
         break
       default:
         console.error({
@@ -24,8 +25,17 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   const apiClient = axios.create({
-    baseURL: runtimeConfig.public.hexSchoolApiUrl as string,
+    baseURL: runtimeConfig.public.appApiUrl as string,
     headers: { 'Content-Type': 'application/json' }
+  })
+
+  // 為了主動驗證 Token，將所有的請求都會自動附加 Token
+  apiClient.interceptors.request.use((config) => {
+    const getToken = useCookie('myToken')
+    if (getToken.value) {
+      config.headers['Authorization'] = `Bearer ${getToken.value}`
+    }
+    return config
   })
 
   apiClient.interceptors.response.use(

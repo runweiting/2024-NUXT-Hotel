@@ -13,7 +13,7 @@ const { restaurantList, hasError, isLoading, refresh } = useRestaurant()
           <div class="h-[2px] w-[140px] bg-gradient-to-r from-[#BE9C7C] to-white" />
         </div>
         <FetchDataLoading v-if="isLoading" />
-        <div v-else-if="hasError" class="flex items-center space-x-4">
+        <div v-else-if="hasError" class="flex items-center gap-4 px-5">
           <p class="text-lg font-bold text-primary-500">
             Failed to load restaurants. Please try again.
           </p>

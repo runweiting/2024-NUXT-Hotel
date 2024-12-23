@@ -4,10 +4,10 @@ import { date2LocaleString } from '~/utils/date2LocaleString'
 
 export const useRestaurant = (): UseRestaurantReturn => {
   const runtimeConfig = useRuntimeConfig()
-  const { hexSchoolApiUrl } = runtimeConfig.public
+  const { appApiUrl } = runtimeConfig.public
 
   const { data, status, error, refresh } = useFetch<ApiDataResponse<RestaurantItem[]>>(
-    `${hexSchoolApiUrl}/api/v1/home/culinary/`,
+    `${appApiUrl}/api/v1/home/culinary/`,
     {
       transform: (data: any) => {
         /* Type Narrowing 型別縮小：

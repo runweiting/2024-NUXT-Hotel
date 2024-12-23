@@ -74,4 +74,5 @@ export interface UserState {
   error: string | null
   isLoading: boolean
   isLogin: boolean
+  isAdmin: boolean
 }

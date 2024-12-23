@@ -40,12 +40,6 @@ const navigateAndCloseMenu = (to: string) => {
   // 使用 Nuxt 導航
   navigateTo(to)
 }
-
-const isGroupMenuOpen = ref(false)
-
-const toggleGroupMenu = () => {
-  isGroupMenuOpen.value = !isGroupMenuOpen.value
-}
 </script>
 
 <template>
@@ -89,7 +83,7 @@ const toggleGroupMenu = () => {
               : 'hidden'
           ]"
         >
-          <ul class="flex flex-col items-center gap-2 md:flex-row lg:gap-6">
+          <ul class="flex flex-col items-center gap-3 md:flex-row lg:gap-6">
             <li>
               <div
                 class="block cursor-pointer px-4 py-4 font-bold text-white transition-colors hover:text-primary-100 md:px-2"
@@ -169,13 +163,16 @@ const toggleGroupMenu = () => {
                 立即訂房
               </div>
             </li>
+
+            <!-- Admin Page Button -->
             <li>
-              <button
-                class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100 md:px-2"
-                @click="userStore.logout"
+              <div
+                v-if="userStore.isAdmin"
+                class="inline-block rounded-lg bg-white px-8 py-4 font-bold transition-colors hover:bg-gray-500 hover:text-white md:px-4"
+                @click="navigateAndCloseMenu('/admin')"
               >
-                登出
-              </button>
+                後台管理
+              </div>
             </li>
           </ul>
         </div>

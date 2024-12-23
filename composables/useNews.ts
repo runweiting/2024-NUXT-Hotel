@@ -4,10 +4,10 @@ import { date2LocaleString } from '~/utils/date2LocaleString'
 
 export const useNews = (): UseNewsReturn => {
   const runtimeConfig = useRuntimeConfig()
-  const { hexSchoolApiUrl } = runtimeConfig.public
+  const { appApiUrl } = runtimeConfig.public
 
   const { data, status, error, refresh } = useFetch<ApiDataResponse<NewsItem[]>>(
-    `${hexSchoolApiUrl}/api/v1/home/news`,
+    `${appApiUrl}/api/v1/home/news`,
     {
       transform: (data: any) => {
         /* Type Narrowing 型別縮小：

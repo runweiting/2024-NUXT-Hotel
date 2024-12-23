@@ -6,7 +6,7 @@ import { getNightsNum } from '~/utils/getNightsNum'
 
 export const useOrder = (): UseOrderReturn => {
   const runtimeConfig = useRuntimeConfig()
-  const { hexSchoolApiUrl } = runtimeConfig.public
+  const { appApiUrl } = runtimeConfig.public
 
   // 定義預設 room
   const defaultOrder: OrderItem = {
@@ -56,7 +56,7 @@ export const useOrder = (): UseOrderReturn => {
 
   const getOrderItem = async (orderId: string) => {
     const { data, status, error, refresh } = await useFetch<ApiDataResponse<OrderItem>>(
-      `${hexSchoolApiUrl}/api/v1/orders/${orderId}`,
+      `${appApiUrl}/api/v1/orders/${orderId}`,
       {
         headers: {
           Authorization: `Bearer ${useCookie('myToken').value}`

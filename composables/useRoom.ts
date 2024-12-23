@@ -4,7 +4,7 @@ import { formatPrice } from '~/utils/formatPrice'
 
 export const useRoom = (): UseRoomReturn => {
   const runtimeConfig = useRuntimeConfig()
-  const { hexSchoolApiUrl } = runtimeConfig.public
+  const { appApiUrl } = runtimeConfig.public
 
   // 定義預設 room
   const defaultRoom: RoomItem = {
@@ -30,7 +30,7 @@ export const useRoom = (): UseRoomReturn => {
 
   const getRoomList = async () => {
     const { data, status, error, refresh } = await useFetch<ApiDataResponse<RoomItem[]>>(
-      `${hexSchoolApiUrl}/api/v1/rooms`,
+      `${appApiUrl}/api/v1/rooms`,
       {
         transform: (data) => {
           if (!data.status) return data
@@ -59,7 +59,7 @@ export const useRoom = (): UseRoomReturn => {
     const orderStore = useOrderStore()
 
     const { data, status, error, refresh } = await useFetch<ApiDataResponse<RoomItem>>(
-      `${hexSchoolApiUrl}/api/v1/rooms/${roomId}`,
+      `${appApiUrl}/api/v1/rooms/${roomId}`,
       {
         transform: (data) => {
           if (!data.status) return data
