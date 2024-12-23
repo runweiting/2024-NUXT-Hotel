@@ -68,7 +68,6 @@ useHeadSafe({
         </div>
       </div>
     </section>
-    <VerifyLoading v-if="userStore.isLoading" />
   </div>
 </template>
 

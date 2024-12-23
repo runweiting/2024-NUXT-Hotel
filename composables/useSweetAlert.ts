@@ -6,7 +6,7 @@ export function useSweetAlert() {
     return new Promise<void>((resolve) => {
       const Toast = Swal.mixin({
         toast: true,
-        position: 'bottom-end',
+        position: 'center-end',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: false,

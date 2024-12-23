@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useOrderProfileForm } from '~/composables/useOrderProfileForm'
-
 const {
   bookingName,
   bookingEmail,

@@ -27,10 +27,19 @@ const orderStore = useOrderStore()
 // 定義資料狀態
 const currentDate = new Date()
 const showBookingBtn = ref(false)
+const checkoutState = computed(() => orderStore.bookingDate?.date.end)
+const checkoutErrorMsg = ref<string | null>(null)
 
 onMounted(() => {
   // 初始化時清空狀態
   orderStore.resetState()
+})
+
+// 監聽 checkoutState 的變化
+watch(checkoutState, (newValue) => {
+  if (newValue) {
+    checkoutErrorMsg.value = null
+  }
 })
 
 // 定義 Modal
@@ -61,6 +70,14 @@ const { open, close } = useModal({
 
 const openModal = () => {
   open()
+}
+
+const handleBooking = () => {
+  if (!checkoutState.value) {
+    checkoutErrorMsg.value = '入住退房日期為必填'
+    return
+  }
+  navigateTo(`/rooms/${route.params.roomId}/confirmation`)
 }
 
 useHeadSafe({
@@ -267,9 +284,7 @@ useHeadSafe({
                 <span v-formatPrice="(orderStore.bookingDate?.nightsNum ?? 1) * room.price"></span>
               </div>
             </div>
-            <NuxtLink :to="`/rooms/${route.params.roomId}/confirmation`" class="btn w-full">
-              立即預訂
-            </NuxtLink>
+            <button type="button" class="btn block w-full" @click="handleBooking">立即預訂</button>
           </div>
         </div>
       </div>
@@ -288,29 +303,30 @@ useHeadSafe({
         </div>
         <div class="mb-4 flex flex-col gap-2">
           <div class="flex-1">
-            <label for="checkinInput" class="block text-sm font-medium text-gray-700"> 入住 </label>
+            <label for="checkinDate" class="block text-sm font-medium text-gray-700"> 入住 </label>
             <input
-              id="checkinInput"
-              readonly
-              type="text"
+              id="checkinDate"
               :value="orderStore.bookingDate?.date.start"
+              type="text"
+              aria-describedby="checkinDateLegend"
+              readonly
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               @click="openModal"
             />
           </div>
 
           <div class="flex-1">
-            <label for="checkoutInput" class="block text-sm font-medium text-gray-700">
-              退房
-            </label>
+            <label for="checkoutDate" class="block text-sm font-medium text-gray-700"> 退房 </label>
             <input
-              id="checkoutInput"
-              readonly
+              id="checkoutDate"
+              :value="checkoutState"
               type="text"
-              :value="orderStore.bookingDate?.date.end"
+              aria-describedby="checkoutDateLegend"
+              readonly
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               @click="openModal"
             />
+            <FormsErrorMessage :msg="checkoutErrorMsg" />
           </div>
         </div>
 
@@ -349,9 +365,7 @@ useHeadSafe({
               ></p>
             </div>
           </div>
-          <NuxtLink :to="`/rooms/${route.params.roomId}/confirmation`" class="btn block w-full">
-            立即預訂
-          </NuxtLink>
+          <button type="button" class="btn block w-full" @click="handleBooking">立即預訂</button>
         </div>
       </div>
     </div>

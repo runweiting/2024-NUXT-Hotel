@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useUpdatePasswordForm } from '~/composables/useUpdatePasswordForm'
-const { warningToast } = useSweetAlert()
-
 const { oldPassword, newPassword, confirmPassword, errors, handlePassword } =
   useUpdatePasswordForm()
 const userStore = useUserStore()

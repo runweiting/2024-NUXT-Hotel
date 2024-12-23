@@ -6,8 +6,18 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // === Helpers ===
   // 檢查是否為公開頁面
   const isPublicPage = (path: string): boolean => {
-    const publicPages = ['/', '/rooms']
-    return publicPages.includes(path)
+    const publicPages = [
+      '/',
+      '/rooms',
+      '/account/login',
+      '/account/signup',
+      /^\/rooms\/\w+$/ // /rooms/[roomId]
+    ]
+    return publicPages.some((page) => {
+      if (typeof page === 'string') return path === page
+      if (page instanceof RegExp) return page.test(path)
+      return false
+    })
   }
 
   // 處理重定向到登入頁邏輯
@@ -32,14 +42,22 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // 若為公開頁面，直接返回
   if (isPublicPage(to.path)) return
 
-  // 如果路由不需要授權，直接返回
+  // 如不需要授權，直接返回
   if (!to.meta.requiresAuth) return
+
+  // 如需驗證但 token 無效，重定向到登入頁
+  if (to.meta.requiresAuth) {
+    const isValid = await validateToken()
+    if (!isValid) {
+      return redirectToLogin('驗證無效，請重新登入')
+    }
+  }
 
   // 檢查 Token 並進行驗證
   const isValid = await validateToken()
 
   if (!isValid) {
-    return redirectToLogin('請先登入或重新驗證')
+    return redirectToLogin('驗證無效，請重新登入')
   }
 
   // Token 有效，進一步處理特殊路徑邏輯

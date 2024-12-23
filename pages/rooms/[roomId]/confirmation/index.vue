@@ -5,6 +5,7 @@ const roomId = route.params.roomId as string
 const { getRoomItem } = useRoom()
 const { room, isLoading, hasError, refresh } = await getRoomItem(roomId)
 const orderStore = useOrderStore()
+const userStore = useUserStore()
 
 const coupon = ref<number>(1000)
 // 建立 ref 綁定子元件
@@ -21,6 +22,17 @@ const goBack = () => {
 useHeadSafe({
   title: '確認訂房'
 })
+
+// definePageMeta({
+//   middleware: async (to) => {
+//     if (to.path === `/rooms/${roomId}/confirmation`) {
+//       const isVaild = await userStore.checkToken()
+//       if (!isVaild) {
+//         navigateTo('/account/login')
+//       }
+//     }
+//   }
+// })
 </script>
 
 <template>

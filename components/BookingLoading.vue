@@ -1,14 +1,14 @@
 <template>
   <div
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-3 backdrop-blur-[10px]"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-[10px] sm:px-6 md:px-8 lg:px-10"
   >
     <div
-      class="flex h-1/2 w-full max-w-[1020px] flex-col items-center justify-center rounded-3xl bg-white md:h-3/4"
+      class="flex h-[280px] w-full max-w-[335px] flex-col items-center justify-center rounded-2xl bg-white sm:h-[320px] sm:max-w-[560px] sm:rounded-3xl md:h-[400px] md:max-w-[720px] lg:h-[480px] lg:max-w-[960px] xl:h-[560px] xl:max-w-[1020px]"
     >
-      <div role="status" class="mb-14">
+      <div role="status" class="mb-8 sm:mb-10 md:mb-12 lg:mb-14">
         <svg
           aria-hidden="true"
-          class="h-10 w-10 animate-spin fill-primary-300 text-gray-200 dark:text-gray-600"
+          class="h-8 w-8 animate-spin fill-primary-300 text-gray-200 dark:text-gray-600 sm:h-9 sm:w-9 md:h-10 md:w-10"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -26,13 +26,15 @@
       </div>
 
       <picture>
-        <!-- 螢幕寬度 >= 768 px，瀏覽器優先載入 :srcset 所指定圖片 -->
-        <source srcset="/images/logo-primary.svg" media="(min-width: 768px)" />
-        <!-- <NuxtImg> 提供一個備用圖片，當沒有 <source> 標籤的圖片匹配時，就會顯示這個備用圖片 -->
-        <NuxtImg src="/images/logo-primary.svg" alt="logo" class="mb-4 max-w-[144px]" />
+        <source srcset="/images/logo-primary.svg" media="(min-width: 640px)" />
+        <NuxtImg
+          src="/images/logo-primary.svg"
+          alt="logo"
+          class="mb-4 w-24 max-w-[144px] sm:w-28 md:w-32 lg:w-36"
+        />
       </picture>
 
-      <p class="mb-0 text-lg font-bold text-primary-700">正在處理您的預訂</p>
+      <p class="text-base font-bold text-primary-700 sm:text-lg md:text-xl">正在處理您的預訂</p>
     </div>
   </div>
 </template>

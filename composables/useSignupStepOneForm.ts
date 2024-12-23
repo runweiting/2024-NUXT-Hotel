@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
-import { useValidateField } from 'vee-validate'
 
 export const useSignupStepOneForm = () => {
   const userStore = useUserStore()
@@ -40,8 +39,6 @@ export const useSignupStepOneForm = () => {
   c. 處理提交邏輯：如驗證通過，才會將表單值作為參數傳遞給提交處理器
   d. values 是由 handleSubmit 提供的，包含所有已驗證的表單數據 */
   const handleStepOne = handleSubmit(async (values, { resetForm }): Promise<boolean> => {
-    const fields = ['signupEmail', 'signupPassword', 'confirmPassword']
-    await Promise.all(fields.map((field) => useValidateField(field)))
     const isStepOneValid = await validate()
     if (isStepOneValid.valid) {
       userStore.savedEmail = values.signupEmail.trim()

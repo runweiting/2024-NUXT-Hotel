@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useSignupStepOneForm } from '~/composables/useSignupStepOneForm'
-import { useUserStore } from '~/stores/useUserStore'
-
 const { signupEmail, signupPassword, confirmPassword, stepOneErrors, handleStepOne } =
   useSignupStepOneForm()
 const userStore = useUserStore()

@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { useSignupStepTwoForm } from '~/composables/useSignupStepTwoForm'
-import { useUserStore } from '~/stores/useUserStore'
-
 const { signupName, signupPhone, birthday, zipcode, city, county, detail, errors, handleSignup } =
   useSignupStepTwoForm()
 const userStore = useUserStore()
 const emit = defineEmits(['submit'])
 
 const onSubmit = async () => {
-  await handleSignup()
-  emit('submit')
+  const result = await handleSignup()
+  if (result) emit('submit')
 }
 </script>
 

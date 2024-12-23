@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useUpdateProfileForm } from '~/composables/useUpdateProfileForm'
-
 const userStore = useUserStore()
 const isEditProfile = ref<boolean>(false)
 const { warningToast } = useSweetAlert()

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useForgetVerifyEmailForm } from '~/composables/useForgetVerifyEmailForm'
-
 const { verifyEmail, errors, handleVerifyEmail } = useForgetVerifyEmailForm()
 const userStore = useUserStore()
 const emit = defineEmits<{
