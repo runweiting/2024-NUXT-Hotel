@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const userStore = useUserStore()
 const isEditPassword = ref<boolean>(false)
-const fakeOldPassword = '********'
+const fakeOldPassword = ref<string>('********')
 
 const closeEditPassword = () => (isEditPassword.value = !isEditPassword.value)
 

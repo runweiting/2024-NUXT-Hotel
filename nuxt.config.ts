@@ -43,7 +43,7 @@ export default defineNuxtConfig({
   ],
   // 8. 應用配置
   app: {
-    baseURL: process.env.NUXT_APP_BASE_URL,
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     pageTransition: { name: 'page', mode: 'out-in' },
     // 全站基礎設定
     head: {
@@ -141,7 +141,10 @@ export default defineNuxtConfig({
     }
   },
   nitro: {
-    preset: 'node-server'
+    preset: 'node-server',
+    prerender: {
+      routes: ['/']
+    }
   },
   runtimeConfig: {
     jwtSecret: process.env.JWT_SECRET || 'DEFAULT_JWT_SECRET',
