@@ -3,6 +3,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 
 export const useSignupStepOneForm = () => {
   const userStore = useUserStore()
+  const { warningToast } = useSweetAlert()
 
   // 1. z 定義 zod scheme 表單驗證規則 for stepOne
   const stepOneSchema = z
@@ -39,10 +40,27 @@ export const useSignupStepOneForm = () => {
   c. 處理提交邏輯：如驗證通過，才會將表單值作為參數傳遞給提交處理器
   d. values 是由 handleSubmit 提供的，包含所有已驗證的表單數據 */
   const handleStepOne = handleSubmit(async (values, { resetForm }): Promise<boolean> => {
+    // 1. 定義需要驗證的欄位
+    const fields = ['signupEmail', 'signupPassword', 'confirmPassword']
+    // 2. 對每個欄位執行個別驗證
+    await Promise.all(fields.map((field) => useValidateField(field)))
+    // 3. 執行整個表單的驗證
     const isStepOneValid = await validate()
     if (isStepOneValid.valid) {
-      userStore.savedEmail = values.signupEmail.trim()
-      userStore.savedPassword = values.signupPassword.trim()
+      try {
+        // 先驗證 email 是否已註冊
+        const isEmailExists = await userStore.verifyEmail({ email: values.signupEmail.trim() })
+        if (!isEmailExists) {
+          userStore.savedEmail = values.signupEmail.trim()
+          userStore.savedPassword = values.signupPassword.trim()
+          resetForm()
+        } else {
+          warningToast('此信箱已註冊，請登入')
+          navigateTo('/account/login')
+        }
+      } catch (err) {
+        console.error('Error in handleLogin:', err)
+      }
     }
     return isStepOneValid.valid
   })

@@ -74,7 +74,7 @@ const openModal = () => {
 
 const handleBooking = () => {
   if (!checkoutState.value) {
-    checkoutErrorMsg.value = '入住退房日期為必填'
+    checkoutErrorMsg.value = '日期為必填'
     return
   }
   navigateTo(`/rooms/${route.params.roomId}/confirmation`)

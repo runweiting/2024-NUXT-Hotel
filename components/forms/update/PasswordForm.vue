@@ -6,15 +6,17 @@ const emit = defineEmits<{
   (e: 'toggle-edit-password'): void
 }>()
 
-const handleSubmit = async () => {
-  await handlePassword()
-  emit('toggle-edit-password')
+const onSubmit = async () => {
+  const isValid = await handlePassword()
+  if (isValid) {
+    emit('toggle-edit-password')
+  }
 }
 </script>
 
 <template>
   <div>
-    <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
+    <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
       <fieldset>
         <legend id="oldPasswordLegend" class="flex items-start">
           舊密碼

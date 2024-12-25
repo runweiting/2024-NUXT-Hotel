@@ -16,8 +16,8 @@ const prevStep = () => {
     currentStep.value--
   }
 }
-const changeStep = (result: boolean) => {
-  if (result) {
+const changeStep = (isStepOneValid: boolean) => {
+  if (isStepOneValid) {
     nextStep()
   }
 }
@@ -122,6 +122,9 @@ useHeadSafe({
                   </span>
                   ，<br />請查看您的電子信箱，謝謝您。
                 </p>
+                <NuxtLink :to="`/user/${userStore.userId}/profile`" class="btn w-full"
+                  >前往我的帳戶</NuxtLink
+                >
               </div>
             </div>
             <div v-else class="flex flex-col gap-4">

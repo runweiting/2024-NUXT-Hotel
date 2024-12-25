@@ -6,8 +6,10 @@ const emit = defineEmits<{
   (e: 'toggle-login'): void
 }>()
 const handleSubmit = async () => {
-  await handleForgetPassword()
-  emit('toggle-login')
+  const isValid = await handleForgetPassword()
+  if (isValid) {
+    emit('toggle-login')
+  }
 }
 </script>
 

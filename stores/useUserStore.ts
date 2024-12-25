@@ -127,32 +127,47 @@ export const useUserStore = defineStore('user', () => {
     return false
   }
 
-  const verifyEmail = async (payload: UserVerifyEmail): Promise<void> => {
+  const verifyEmail = async (payload: UserVerifyEmail): Promise<boolean> => {
     userState.isLoading = true
     try {
       const res = await $apiClient.post<ApiDataResponse<VerifyEmailResponse>>(
         '/api/v1/verify/email',
         payload
       )
-      if (res.data.result.isEmailExists) {
-        await generateEmailCode(payload)
-        successToast('請前往信箱領取驗證碼')
+      const isEmailExists = res.data.result.isEmailExists
+      // false email 未註冊
+      // true email 有註冊
+      if (!isEmailExists) {
+        return false
       } else {
-        warningToast('此信箱尚未註冊，請立即註冊')
-        navigateTo('/account/signup')
+        successToast('此信箱已註冊')
+        return true
       }
     } catch (err: any) {
       userState.error = err.response?.data?.message
+      return false
     } finally {
       userState.isLoading = false
     }
   }
 
-  const generateEmailCode = async (payload: UserVerifyEmail): Promise<void> => {
+  const generateEmailCode = async (payload: UserVerifyEmail): Promise<boolean> => {
     try {
-      await $apiClient.post<ApiStatusResponse>('/api/v1/verify/generateEmailCode', payload)
+      const isValid = await verifyEmail(payload)
+      // false email 未註冊，前往註冊
+      // true email 有註冊，寄送驗證碼
+      if (!isValid) {
+        warningToast('此信箱未註冊，請註冊')
+        navigateTo('/account/signup')
+        return false
+      } else {
+        await $apiClient.post<ApiStatusResponse>('/api/v1/verify/generateEmailCode', payload)
+        successToast('請前往信箱，領取驗證碼')
+        return true
+      }
     } catch (err: any) {
       userState.error = err.response?.data?.message
+      return false
     }
   }
 

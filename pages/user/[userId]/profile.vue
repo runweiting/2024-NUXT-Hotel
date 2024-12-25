@@ -22,25 +22,21 @@ useHeadSafe({
             <span class="font-bold">{{ userStore.userInfo?.email }}</span>
           </div>
           <!-- Fake Password Display/Edit -->
-          <form v-if="!isEditPassword" class="flex items-center justify-between">
-            <fieldset>
-              <legend id="fakeOldPasswordLegend" class="flex items-start">密碼</legend>
-              <FormsInputField
-                id="fakeOldPassword"
+          <div v-if="!isEditPassword" class="flex items-center justify-between">
+            <div>
+              <label class="mb-2">密碼</label>
+              <input
                 v-model="fakeOldPassword"
-                type="password"
-                :is-edit-mode="isEditPassword"
-                aria-describedby="fakeOldPasswordLegend"
-                autocomplete="off"
+                class="pointer-events-none mt-1 block w-full cursor-default select-none rounded-md border-0 shadow-sm shadow-transparent placeholder:text-gray-400"
               />
-            </fieldset>
+            </div>
             <button
               class="self-end font-bold text-primary-300 underline underline-offset-1"
               @click="isEditPassword = true"
             >
               重設
             </button>
-          </form>
+          </div>
 
           <!-- Password Edit Form -->
           <FormsUpdatePasswordForm

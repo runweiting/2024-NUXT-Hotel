@@ -5,8 +5,10 @@ const emit = defineEmits<{
   (e: 'toggle-change-password'): void
 }>()
 const handleSubmit = async () => {
-  await handleVerifyEmail()
-  emit('toggle-change-password')
+  const isEmailExists = await handleVerifyEmail()
+  if (isEmailExists) {
+    emit('toggle-change-password')
+  }
 }
 </script>
 

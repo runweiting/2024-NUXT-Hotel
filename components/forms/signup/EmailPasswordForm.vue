@@ -2,11 +2,15 @@
 const { signupEmail, signupPassword, confirmPassword, stepOneErrors, handleStepOne } =
   useSignupStepOneForm()
 const userStore = useUserStore()
-const emit = defineEmits(['next'])
+const emit = defineEmits<{
+  (e: 'next', isEmailExists: boolean): void
+}>()
 
 const onSubmit = async () => {
-  const result = await handleStepOne()
-  emit('next', result)
+  const isStepOneValid = await handleStepOne()
+  if (isStepOneValid) {
+    emit('next', isStepOneValid)
+  }
 }
 </script>
 

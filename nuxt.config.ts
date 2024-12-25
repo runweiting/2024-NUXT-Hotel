@@ -34,7 +34,12 @@ export default defineNuxtConfig({
     '@samk-dev/nuxt-vcalendar',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
-    ['@vee-validate/nuxt', { autoImports: true }]
+    [
+      '@vee-validate/nuxt',
+      {
+        autoImports: true
+      }
+    ]
   ],
   // 8. 應用配置
   app: {

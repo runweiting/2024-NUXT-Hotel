@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const userStore = useUserStore()
 // 使用單一變數管理當前顯示的表單
 const currentForm = ref<'login' | 'forgetPassword' | 'changePassword'>('login')
 
