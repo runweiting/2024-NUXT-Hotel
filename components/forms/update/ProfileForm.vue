@@ -113,7 +113,7 @@ const handleSubmit = async () => {
             aria-describedby="putCityLegend"
             autocomplete="off"
             :disabled="userStore.isLoading"
-            readonly
+            :readonly="!isEditProfile"
           />
         </fieldset>
         <fieldset>
@@ -130,7 +130,7 @@ const handleSubmit = async () => {
             aria-describedby="putCountyLegend"
             autocomplete="off"
             :disabled="userStore.isLoading"
-            readonly
+            :readonly="!isEditProfile"
           />
         </fieldset>
       </div>

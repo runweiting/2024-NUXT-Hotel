@@ -5,6 +5,12 @@ const fakeOldPassword = ref<string>('********')
 
 const closeEditPassword = () => (isEditPassword.value = !isEditPassword.value)
 
+onMounted(async () => {
+  if (!userStore.userInfo) {
+    await userStore.getProfile()
+  }
+})
+
 useHeadSafe({
   title: '個人資料'
 })

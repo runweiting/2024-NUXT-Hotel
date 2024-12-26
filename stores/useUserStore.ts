@@ -199,19 +199,13 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const getProfile = async (): Promise<BaseUserInfo | null> => {
+  const getProfile = async (): Promise<void> => {
     userState.isLoading = true
     try {
       const res = await $apiClient.get<ApiDataResponse<BaseUserInfo>>('/api/v1/user')
-      if (res.data.status) {
-        // 完全替換 userInfo，並確保其響應式
-        userState.userInfo = reactive({ ...res.data.result })
-        return res.data.result
-      }
-      return null
+      userState.userInfo = res.data.result
     } catch (err: any) {
       userState.error = err.response?.data?.message
-      return null
     } finally {
       userState.isLoading = false
     }

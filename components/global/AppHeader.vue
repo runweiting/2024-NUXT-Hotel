@@ -85,43 +85,43 @@ const navigateAndCloseMenu = (to: string) => {
         >
           <ul class="flex flex-col items-center gap-3 md:flex-row lg:gap-6">
             <li>
-              <div
+              <NuxtLink
                 class="block cursor-pointer px-4 py-4 font-bold text-white transition-colors hover:text-primary-100 md:px-2"
                 @click="navigateAndCloseMenu('/rooms')"
               >
                 客房旅宿
-              </div>
+              </NuxtLink>
             </li>
 
             <!-- Desktop User Menu -->
             <li class="hidden md:block">
-              <div
+              <NuxtLink
                 v-if="!userStore.isLogin"
                 class="flex cursor-pointer items-center gap-2 p-4 font-bold text-white transition-colors group-hover:text-primary-300"
                 @click="navigateAndCloseMenu('/account/login')"
               >
                 <Icon name="mdi:account-circle-outline" class="text-xl" />
                 會員登入
-              </div>
+              </NuxtLink>
               <div v-else class="group relative">
-                <div
+                <NuxtLink
                   class="flex cursor-pointer items-center gap-2 p-4 font-bold text-white transition-colors group-hover:text-primary-300 md:px-2"
                   @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}`)"
                 >
                   <Icon name="mdi:account-circle-outline" class="text-xl" />
                   {{ userStore.userInfo?.name }}
-                </div>
+                </NuxtLink>
                 <div
                   class="absolute right-0 hidden w-[150px] overflow-hidden rounded-2xl bg-white text-black shadow-lg group-hover:block"
                 >
                   <div class="flex flex-col divide-y">
                     <div class="group/menu-item">
-                      <div
+                      <NuxtLink
                         class="cursor-pointer p-4 px-6 group-hover/menu-item:underline group-hover/menu-item:decoration-primary-500 group-hover/menu-item:decoration-2 group-hover/menu-item:underline-offset-4"
                         @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}/order`)"
                       >
                         我的帳戶
-                      </div>
+                      </NuxtLink>
                     </div>
                     <div class="group/menu-item">
                       <button
@@ -138,41 +138,41 @@ const navigateAndCloseMenu = (to: string) => {
 
             <!-- Mobile Login Link -->
             <li class="md:hidden">
-              <div
+              <NuxtLink
                 v-if="!userStore.isLogin"
                 class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
                 @click="navigateAndCloseMenu('/account/login')"
               >
                 會員登入
-              </div>
-              <div
+              </NuxtLink>
+              <NuxtLink
                 v-else
                 class="block px-4 py-4 font-bold text-white transition-colors hover:text-primary-100"
                 @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}/order`)"
               >
                 我的帳戶
-              </div>
+              </NuxtLink>
             </li>
 
             <!-- Book Now Button -->
             <li>
-              <div
+              <NuxtLink
                 class="inline-block rounded-lg bg-primary-300 px-8 py-4 font-bold text-white transition-colors hover:bg-primary-700 md:px-4"
                 @click="navigateAndCloseMenu('/rooms')"
               >
                 立即訂房
-              </div>
+              </NuxtLink>
             </li>
 
             <!-- Admin Page Button -->
             <li>
-              <div
+              <NuxtLink
                 v-if="userStore.isAdmin"
                 class="inline-block rounded-lg bg-white px-8 py-4 font-bold transition-colors hover:bg-gray-500 hover:text-white md:px-4"
                 @click="navigateAndCloseMenu('/admin')"
               >
                 後台管理
-              </div>
+              </NuxtLink>
             </li>
           </ul>
         </div>

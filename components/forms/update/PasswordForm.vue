@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const { oldPassword, newPassword, confirmPassword, errors, handlePassword } =
-  useUpdatePasswordForm()
 const userStore = useUserStore()
 const emit = defineEmits<{
   (e: 'toggle-edit-password'): void
 }>()
+const { oldPassword, newPassword, confirmPassword, errors, handlePassword } =
+  useUpdatePasswordForm()
 
 const onSubmit = async () => {
   const isValid = await handlePassword()

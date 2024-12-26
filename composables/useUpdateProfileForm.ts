@@ -8,7 +8,10 @@ const allZipcodes = new Set(Object.values(zipcodeData).flatMap((areas) => Object
 
 export const useUpdateProfileForm = () => {
   const userStore = useUserStore()
-  const userInfo = userStore.userInfo
+
+  // *頁面重新整理後，畫面的資料會消失
+  // 使用 computed 來響應式獲取 userInfo
+  const userInfo = computed(() => userStore.userInfo)
 
   // 1. z 定義 zod scheme 表單驗證規則 for stepTwo
   const schema = z.object({
@@ -50,23 +53,43 @@ export const useUpdateProfileForm = () => {
       })
   })
 
-  // 2. useForm 轉換 schema 為 vee-validate schema、設置初始值
+  // 2. useForm 轉換 schema 為 vee-validate schema
   const { handleSubmit, errors, setValues } = useForm({
     validationSchema: toTypedSchema(schema),
+    // 設置初始值
     initialValues: {
-      putName: userInfo?.name || '',
-      putPhone: userInfo?.phone || '',
-      putBirthday: userInfo?.birthday
-        ? new Date(userInfo.birthday).toISOString().split('T')[0]
-        : '',
-      putZipcode: userInfo?.address?.zipcode.toString() || '',
-      putCity: userInfo?.address.city || '',
-      putCounty: userInfo?.address.county || '',
-      putDetail: userInfo?.address?.detail || ''
+      putName: '',
+      putPhone: '',
+      putBirthday: '',
+      putZipcode: '',
+      putCity: '',
+      putCounty: '',
+      putDetail: ''
     }
   })
 
-  // 3. useField 定義表單欄位並連結 scheme 內相應屬性
+  // 3. 監聽 userInfo 變化來更新表單值
+  watch(
+    userInfo,
+    (newUserInfo) => {
+      if (newUserInfo) {
+        setValues({
+          putName: newUserInfo?.name || '',
+          putPhone: newUserInfo?.phone || '',
+          putBirthday: newUserInfo?.birthday
+            ? new Date(newUserInfo.birthday).toISOString().split('T')[0]
+            : '',
+          putZipcode: newUserInfo?.address?.zipcode.toString() || '',
+          putCity: newUserInfo?.address.city || '',
+          putCounty: newUserInfo?.address.county || '',
+          putDetail: newUserInfo?.address?.detail || ''
+        })
+      }
+    },
+    { immediate: true }
+  )
+
+  // 4. useField 定義表單欄位並連結 scheme 內相應屬性
   const putNameField = useField<string>('putName')
   const putPhoneField = useField<string>('putPhone')
   const putBirthdayField = useField<string>('putBirthday')
@@ -75,7 +98,7 @@ export const useUpdateProfileForm = () => {
   const putCountyField = useField<string>('putCounty')
   const putDetailField = useField<string>('putDetail')
 
-  // 4. 監聽 zipcodeField 自動填入 cityAreaField
+  // 5. 監聽 zipcodeField 自動填入 cityAreaField
   /* 為什麼用 for，不用 forEach？
   for...of 可直接 return 提前結束迭代、forEach 無法直接 return 結束整個迭代 */
   watch(
@@ -101,7 +124,14 @@ export const useUpdateProfileForm = () => {
     }
   )
 
-  /* 5. handleSubmit 的作用
+  // 6. 在 setup 階段確保資料已載入
+  onMounted(async () => {
+    if (!userInfo.value) {
+      await userStore.getProfile()
+    }
+  })
+
+  /* 7. handleSubmit 的作用
   a. 執行表單驗證：在提交表單前，確保所有的欄位都通過驗證
   b. 收集表單數據：將所有欄位的值收集起來，組成一個 values 對象
   c. 處理提交邏輯：如驗證通過，才會將表單值作為參數傳遞給提交處理器
@@ -109,7 +139,7 @@ export const useUpdateProfileForm = () => {
   const handleUpdateProfile = handleSubmit(async (values, { resetForm }): Promise<void> => {
     try {
       const form: UserPut = {
-        userId: userInfo?.id as string,
+        userId: userInfo.value?.id as string,
         name: values.putName.trim(),
         phone: values.putPhone.trim(),
         birthday: values.putBirthday,
@@ -122,22 +152,11 @@ export const useUpdateProfileForm = () => {
         oldPassword: userStore.newPassword as string,
         newPassword: userStore.oldPassword as string
       }
+      // 更新用戶資料
       await userStore.updateProfile(form)
+      // 重新獲取最新的用戶資料
+      await userStore.getProfile()
       resetForm()
-      // 很妙的是，store 裡的資料已更新，但是 composables 裡的資料還是舊的 userInfo，所以這樣改
-      const newUserInfo = await userStore.getProfile()
-      // 重新取得並設置表單值
-      setValues({
-        putName: newUserInfo?.name || '',
-        putPhone: newUserInfo?.phone || '',
-        putBirthday: newUserInfo?.birthday
-          ? new Date(newUserInfo?.birthday).toISOString().split('T')[0]
-          : '',
-        putZipcode: newUserInfo?.address.zipcode.toString() || '',
-        putCity: newUserInfo?.address.city || '',
-        putCounty: newUserInfo?.address.county || '',
-        putDetail: newUserInfo?.address.detail || ''
-      })
     } catch (err) {
       console.error('Error in handleUpdateProfile:', err)
     }
