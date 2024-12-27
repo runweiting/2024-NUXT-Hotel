@@ -1,22 +1,18 @@
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import type { UserForgot } from '~/types/User'
+import { emailSchema, passwordSchema } from '~/schemas/validationRules'
 
 export const useForgetPasswordForm = () => {
   const userStore = useUserStore()
 
   // 1. z 定義 zod scheme 表單驗證規則
   const schema = z.object({
-    signupEmail: z.string({ message: 'Email為必填' }).email({ message: '請輸入有效的 Email 格式' }),
+    signupEmail: emailSchema,
     verificationCode: z
       .string({ message: '驗證碼為必填' })
       .regex(/^[A-Za-z0-9]{6}$/, { message: '驗證碼必須是 6 個字元的大小寫字母與數字組合' }),
-    newPassword: z
-      .string({ message: '密碼為必填' })
-      .min(8, { message: '密碼需至少 8 碼' })
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
-        message: '密碼必須包含大小寫英文字母和數字'
-      })
+    newPassword: passwordSchema
   })
 
   // 2. useForm 轉換 schema 為 vee-validate schema

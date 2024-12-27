@@ -8,7 +8,7 @@ const transparentRoutes = ['index', 'rooms']
 const route = useRoute()
 const isTransparentRoute = computed(() => transparentRoutes.includes(route.name as string))
 
-// 捲動狀態
+// 定義狀態
 const isScrolled = ref<boolean>(false)
 const isMenuOpen = ref<boolean>(false)
 
@@ -84,6 +84,7 @@ const navigateAndCloseMenu = (to: string) => {
           ]"
         >
           <ul class="flex flex-col items-center gap-3 md:flex-row lg:gap-6">
+            <!-- 共用 -->
             <li>
               <NuxtLink
                 class="block cursor-pointer px-4 py-4 font-bold text-white transition-colors hover:text-primary-100 md:px-2"
@@ -93,7 +94,7 @@ const navigateAndCloseMenu = (to: string) => {
               </NuxtLink>
             </li>
 
-            <!-- Desktop User Menu -->
+            <!-- Desktop Menu -->
             <li class="hidden md:block">
               <NuxtLink
                 v-if="!userStore.isLogin"
@@ -117,7 +118,7 @@ const navigateAndCloseMenu = (to: string) => {
                   <div class="flex flex-col divide-y">
                     <div class="group/menu-item">
                       <NuxtLink
-                        class="cursor-pointer p-4 px-6 group-hover/menu-item:underline group-hover/menu-item:decoration-primary-500 group-hover/menu-item:decoration-2 group-hover/menu-item:underline-offset-4"
+                        class="block cursor-pointer p-4 px-6 group-hover/menu-item:underline group-hover/menu-item:decoration-primary-500 group-hover/menu-item:decoration-2 group-hover/menu-item:underline-offset-4"
                         @click="navigateAndCloseMenu(`/user/${userStore.userInfo?.id}/order`)"
                       >
                         我的帳戶
@@ -136,7 +137,7 @@ const navigateAndCloseMenu = (to: string) => {
               </div>
             </li>
 
-            <!-- Mobile Login Link -->
+            <!-- Mobile Menu -->
             <li class="md:hidden">
               <NuxtLink
                 v-if="!userStore.isLogin"
@@ -154,7 +155,7 @@ const navigateAndCloseMenu = (to: string) => {
               </NuxtLink>
             </li>
 
-            <!-- Book Now Button -->
+            <!-- 共用 -->
             <li>
               <NuxtLink
                 class="inline-block rounded-lg bg-primary-300 px-8 py-4 font-bold text-white transition-colors hover:bg-primary-700 md:px-4"

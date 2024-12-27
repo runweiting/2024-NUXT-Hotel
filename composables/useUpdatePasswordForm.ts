@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import type { UserPut } from '~/types/User'
+import { passwordSchema } from '~/schemas/validationRules'
 
 export const useUpdatePasswordForm = () => {
   const userStore = useUserStore()
@@ -8,18 +9,8 @@ export const useUpdatePasswordForm = () => {
   // 1. z 定義 zod scheme 表單驗證規則 for stepOne
   const schema = z
     .object({
-      oldPassword: z
-        .string({ message: '舊密碼為必填' })
-        .min(8, { message: '密碼需至少 8 碼' })
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
-          message: '密碼必須包含大小寫英文字母和數字'
-        }),
-      newPassword: z
-        .string({ message: '新密碼為必填' })
-        .min(8, { message: '密碼需至少 8 碼' })
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
-          message: '密碼必須包含大小寫英文字母和數字'
-        }),
+      oldPassword: passwordSchema,
+      newPassword: passwordSchema,
       confirmPassword: z.string({ message: '確認新密碼為必填' })
     })
     .refine((data) => data.newPassword === data.confirmPassword, {

@@ -1,13 +1,14 @@
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import type { UserVerifyEmail } from '~/types/User'
+import { emailSchema } from '~/schemas/validationRules'
 
 export const useForgetVerifyEmailForm = () => {
   const userStore = useUserStore()
 
   // 1. z 定義 zod scheme 表單驗證規則
   const schema = z.object({
-    verifyEmail: z.string({ message: 'Email為必填' }).email({ message: '請輸入有效的 Email 格式' })
+    verifyEmail: emailSchema
   })
 
   // 2. useForm 轉換 schema 為 vee-validate schema

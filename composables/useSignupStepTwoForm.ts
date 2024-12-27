@@ -2,6 +2,13 @@ import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import type { UserSignup } from '~/types/User'
 import zipcodeData from '~/assets/tw-zipcode.json'
+import {
+  nameSchema,
+  phoneSchema,
+  birthdaySchema,
+  zipcodeSchema,
+  detailSchema
+} from '~/schemas/validationRules'
 
 // 預先處理成 Set 提高查詢效能
 const allZipcodes = new Set(Object.values(zipcodeData).flatMap((areas) => Object.values(areas)))
@@ -11,42 +18,13 @@ export const useSignupStepTwoForm = () => {
 
   // 1. z 定義 zod scheme 表單驗證規則 for stepTwo
   const stepTwoSchema = z.object({
-    signupName: z.string({ message: '姓名為必填' }).min(3, { message: '姓名不可少於 3 個字元' }),
-    signupPhone: z.string({ message: '手機為必填' }).regex(/^(09\d{8}|0\d{7,9})$/, {
-      message: '請輸入正確的手機或市內電話號碼'
-    }),
-    birthday: z
-      .string({ message: '生日為必填' })
-      .regex(/^\d{4}-\d{2}-\d{2}$/, {
-        message: '生日格式應為 yyyy-mm-dd'
-      })
-      // 驗證日期有效性
-      .refine(
-        (val) => {
-          const date = new Date(val)
-          return date instanceof Date && !isNaN(date.getTime())
-        },
-        { message: '請輸入有效的日期' }
-      ),
-    zipcode: z
-      .string({ message: '郵遞區號為必填' })
-      .regex(/^\d{3}$/, { message: '郵遞區號格式錯誤' })
-      // 驗證郵遞區號有效性
-      .refine(
-        (val) => {
-          return allZipcodes.has(val)
-        },
-        { message: '請輸入正確的郵遞區號' }
-      ),
+    signupName: nameSchema,
+    signupPhone: phoneSchema,
+    birthday: birthdaySchema,
+    zipcode: zipcodeSchema,
     city: z.string().optional(), // 可選欄位
     county: z.string().optional(), // 可選欄位
-    detail: z
-      .string({ message: '地址為必填' })
-      .min(5, { message: '地址至少需要 5 個字元' })
-      .max(100, { message: '地址不可超過 100 個字元' })
-      .regex(/^[a-zA-Z0-9\u4e00-\u9fa5]+[巷弄號樓室]*[a-zA-Z0-9\u4e00-\u9fa5]*$/, {
-        message: '請輸入正確的地址格式'
-      })
+    detail: detailSchema
   })
 
   // 2. useForm 轉換 schema 為 vee-validate schema

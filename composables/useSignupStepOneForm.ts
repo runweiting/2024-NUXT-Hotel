@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
+import { emailSchema, passwordSchema } from '~/schemas/validationRules'
 
 export const useSignupStepOneForm = () => {
   const userStore = useUserStore()
@@ -8,15 +9,8 @@ export const useSignupStepOneForm = () => {
   // 1. z 定義 zod scheme 表單驗證規則 for stepOne
   const stepOneSchema = z
     .object({
-      signupEmail: z
-        .string({ message: 'Email為必填' })
-        .email({ message: '請輸入有效的 Email 格式' }),
-      signupPassword: z
-        .string({ message: '密碼為必填' })
-        .min(8, { message: '密碼需至少 8 碼' })
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
-          message: '密碼必須包含大小寫英文字母和數字'
-        }),
+      signupEmail: emailSchema,
+      signupPassword: passwordSchema,
       confirmPassword: z.string({ message: '確認密碼為必填' })
     })
     .refine((data) => data.signupPassword === data.confirmPassword, {
