@@ -39,7 +39,8 @@ export default defineNuxtConfig({
       {
         autoImports: true
       }
-    ]
+    ],
+    '@nuxt/test-utils/module'
   ],
   // 8. 應用配置
   app: {
